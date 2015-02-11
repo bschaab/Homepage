@@ -10,3 +10,11 @@ body.loginBody {
 	border-radius: 20px;
 	background-color: rgba(0,0,0,0.1);
 }
+
+.alertBox {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 20px;
+	text-align: center;
+	color: #565656;
+}

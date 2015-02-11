@@ -18,6 +18,12 @@
 			<div class="col-xs-1"></div>
 			<div class="col-xs-10">
 				
+				<div class="row">
+					<div class="col-xs-12">
+						<p class="bg-danger alertBox">Login Failed. Please try again.</p>
+					</div>
+				</div>
+				
 				<h1>homepage</h1>
 				
 				<div class="row">
