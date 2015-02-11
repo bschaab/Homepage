@@ -32,9 +32,11 @@
 						    	<label class="sr-only" for="passwordLogInInput">Password</label>
 								<input type="password" class="form-control" id="passwordLogInInput" placeholder="Password" name="password">
 							</div>
+							
 							<div class="checkbox">
 								<label><input type="checkbox" name="remember"> Remember me</label>
 							</div>
+
 							<button type="submit" class="btn btn-default">Sign in</button>
 						</form>
 						
