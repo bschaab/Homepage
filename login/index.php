@@ -21,6 +21,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<p class="bg-danger alertBox">Login Failed. Please try again.</p>
+						<p class="bg-success alertBox">Account Created. Please check your email for your password.</p>
 					</div>
 				</div>
 				
@@ -66,10 +67,6 @@
 							<div class="form-group">
 						    	<label class="sr-only" for="emailSignUpInput">Email</label>
 								<input type="text" class="form-control" id="emailSignUpInput" placeholder="Email" name="email">
-							</div>
-							<div class="form-group">
-						    	<label class="sr-only" for="passwordSignUpInput">Password</label>
-								<input type="text" class="form-control" id="passwordSignUpInput" placeholder="Password" name="password">
 							</div>
 							<button type="submit" class="btn btn-primary">Sign up</button>
 						</form>
