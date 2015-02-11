@@ -1,3 +1,12 @@
 body.loginBody {
-	
+	background-image: url('/img/fabric.png');
+	background-repeat: repeat;
+}
+
+.signUpBox {
+	margin-top: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 20px;
+	background-color: rgba(0,0,0,0.1);
 }
