@@ -7,7 +7,7 @@
 	}
 	
 	// 2. Select database to use
-	$db_select = mysql_select_db("homepage_db", $connection);
+	$db_select = mysql_select_db("homepageDB", $connection);
 	if (!$db_select) {
 		die("Database selection failed:" . mysql_error());
 	}

@@ -1,4 +1,19 @@
-<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/first.php"); ?>
+<?php 
+	
+	//keep sessions alive for 2 weeks
+	ini_set('session.gc_maxlifetime', 3600 * 24 * 7 * 2);
+	ini_set('session.cookie_lifetime', 3600 * 24 * 7 * 2);
+	session_start();
+	
+	date_default_timezone_set('America/Chicago');
+	$noCache = time(); 
+	
+	//check that we are not logged in
+	
+	
+	$alert = $_GET['alert'];
+	
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,8 +35,8 @@
 				
 				<div class="row">
 					<div class="col-xs-12">
-						<p class="bg-danger alertBox">Login Failed. Please try again.</p>
-						<p class="bg-success alertBox">Account Created. Please check your email for your password.</p>
+						<?php if ($alert == "fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
+						<?php if ($alert == "success"): ?><p class="bg-success alertBox">Account Created. Please check your email for your password.</p><?php endif;?>
 					</div>
 				</div>
 				
@@ -38,10 +53,6 @@
 							<div class="form-group">
 						    	<label class="sr-only" for="passwordLogInInput">Password</label>
 								<input type="password" class="form-control" id="passwordLogInInput" placeholder="Password" name="password">
-							</div>
-							
-							<div class="checkbox">
-								<label><input type="checkbox" name="remember"> Remember me</label>
 							</div>
 
 							<button type="submit" class="btn btn-default">Sign in</button>
