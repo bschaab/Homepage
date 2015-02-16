@@ -10,7 +10,7 @@
 	
 	
 	//open database connection
-	require($_SERVER['DOCUMENT_ROOT'] . "/alpha/php/db/open.php");
+	require($_SERVER['DOCUMENT_ROOT'] . "/php/db/open.php");
 	
 	
 	//log in handler
@@ -26,24 +26,21 @@
 		$loginResult = attemptLogin($email, $password, $connection);
 		
 		if ($loginResult != false) {
-			$_SESSION['myMemberID'] = $loginResult;
+			$_SESSION['userID'] = $loginResult;
 		}
 		
 	}
 	
 	//close database connection
-	require($_SERVER['DOCUMENT_ROOT'] . "/alpha/php/db/close.php");
+	require($_SERVER['DOCUMENT_ROOT'] . "/php/db/close.php");
 	
 	
 	//redirect to destination
-	if (!isset($_SESSION['myMemberID'])) {
-		$alert_title = urlencode("Login Failed");
-		$alert_message = urlencode("Email or password was incorrect. Please try again.");
-		$alert_color = urlencode("FF2C33"); //red alert
-		$redirect_url = "http://tremorsclan.com/alpha/login/" . $return . "?alert=$alert_title&mess=$alert_message&color=$alert_color";
+	if (!isset($_SESSION['userID'])) {
+		$redirect_url = "/login/?alert=fail";
 	}
 	else {
-		$redirect_url = "http://tremorsclan.com/alpha/";
+		$redirect_url = "/";
 	}
 	
 	header('Location: ' .  $redirect_url);
@@ -75,7 +72,7 @@
 			//rehash the password if it needs rehashing
 			if (password_needs_rehash($hashed_password, PASSWORD_DEFAULT)) {
 				$rehashed_password = password_hash($password, PASSWORD_DEFAULT);
-				$query = "UPDATE members SET password = '$hashed_password' WHERE lower(email)='$email'";
+				$query = "UPDATE users SET password = '$hashed_password' WHERE lower(email)='$email'";
 			}
 			
 			

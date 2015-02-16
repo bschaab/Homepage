@@ -1,6 +1,6 @@
 <?php 
 	
-	$redirect_url = "/login";
+	$redirect_url = "/dash";
 	header('Location: ' .  $redirect_url);
 	exit;
 	

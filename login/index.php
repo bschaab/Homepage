@@ -45,7 +45,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						
-						<form class="form-inline">
+						<form class="form-inline" method="post" action="/php/scripts/login.php">
 							<div class="form-group">
 						    	<label class="sr-only" for="emailLogInInput">Email</label>
 								<input type="email" class="form-control" id="emailLogInInput" placeholder="Email" name="email">
@@ -60,6 +60,8 @@
 						
 					</div>
 				</div>
+				
+				<button type="button" class="btn btn-link" id="sampleUserButton">Sample User</button>
 				
 				
 				<div class="row">
@@ -93,5 +95,13 @@
 		
 		
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/footer.php"); ?>
+		
+		<!--js-->
+		<script>
+			$("#sampleUserButton").click(function () {
+				$("#emailLogInInput").val("sample@email.com");
+				$("#passwordLogInInput").val("password");
+			})
+		</script>
 	</body>
 </html>

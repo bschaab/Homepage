@@ -8,18 +8,20 @@
 		die("Database connected failed:" . mysql_error());
 	}
 	
+	//drop old database if exists
 	$query = "DROP DATABASE homepageDB";
-	if (!mysql_query($query, $connection)) {
-		die("Database query failed:" . mysql_error());
-	}
+	mysql_query($query, $connection);
 	
+	//create new database
 	$query = "CREATE DATABASE homepageDB";
 	if (!mysql_query($query, $connection)) {
 		die("Database query failed:" . mysql_error());
 	}
 	
+	//select our new database
 	mysql_select_db("homepageDB", $connection);
 	
+	//create the users table
 	$query = "CREATE TABLE users (
 				id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
 				lastName varchar(255),
@@ -28,6 +30,15 @@
 				password varchar(512),
 				PRIMARY KEY (id)
 				);";
+	if (!mysql_query($query, $connection)) {
+		die("Database query failed:" . mysql_error());
+	}
+	
+	//create a sample user
+	$password = password_hash("password", PASSWORD_DEFAULT);
+	$query = "INSERT INTO users
+				(lastName, firstName, email, password) VALUES
+				('User', 'Sample', 'sample@email.com', '$password');";
 	if (!mysql_query($query, $connection)) {
 		die("Database query failed:" . mysql_error());
 	}
