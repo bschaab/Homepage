@@ -29,7 +29,8 @@ html, body {
 	width: 20%;
 	margin: 0;
 
-	padding-top: 1.3em;
+	padding-top: .7em;
+	padding-left: .5em;
 }
 
 #top-bar #quickbar ul {
@@ -40,6 +41,12 @@ html, body {
 
 #top-bar #quickbar ul li {
 	display: inline-block;
+	margin: .1em;
+}
+
+#top-bar #quickbar img {
+	width: 2.5em;
+	height: 2.5em;
 }
 
 #top-bar #black-bar-wrapper {
@@ -51,6 +58,8 @@ html, body {
 #top-bar #user-settings {
 	float: right;
 	display: inline;
+	line-height: 4em;
+	margin-right: .5em;
 }
 
 #top-bar #user-settings #pref-btn {

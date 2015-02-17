@@ -3,7 +3,7 @@
  * Also holds the config and routes for the website
  */
 
-var homepageApp = angular.module("homepageApp", ["ngRoute", "homepageFeed", "homepageSearch"]);
+var homepageApp = angular.module("homepageApp", ["ngRoute", "homepageFeed", "homepageSearch", "homepageQuickbar"]);
 
 homepageApp.config(["$routeProvider",
 	function($routeProvider) {
