@@ -1,0 +1,91 @@
+/* Reset */
+html, body {
+	margin: 0;
+}
+
+/* Top bar */
+
+#top-bar {
+	height: 4em;
+	color: #fff;
+	background-color: rgba(0, 0, 0, .3);
+}
+
+#top-bar .top-bar-item {
+	vertical-align: middle;
+	text-align: middle;
+	height: 100%;
+}
+
+#top-bar #logo {
+	/* SET BACKGROUND URL TO LOGO */
+	display: inline-block;
+	width: 10%;
+}
+
+#top-bar #quickbar {
+	background-color: rgba(0, 0, 0, .3);
+	display: inline-block;
+	width: 20%;
+	margin: 0;
+
+	padding-top: 1.3em;
+}
+
+#top-bar #quickbar ul {
+	list-style-type: none;
+	display: inline-block;
+	padding: 0;
+}
+
+#top-bar #quickbar ul li {
+	display: inline-block;
+}
+
+#top-bar #black-bar-wrapper {
+	background-color: rgba(0, 0, 0, .5);
+	width: 70%;
+	display: inline-block;
+}
+
+#top-bar #user-settings {
+	float: right;
+	display: inline;
+}
+
+#top-bar #user-settings #pref-btn {
+	content : "PRF";
+	/* REPLACE THIS WITH BACKGROUND IMAGE LATER */
+}
+
+#top-bar #user-settings #power-btn {
+	content : "PWR";
+	/* REPLACE THIS WITH BACKGROUND IMAGE LATER */
+}
+
+/* Categories */
+#categories {
+	float: right;
+}
+
+
+/* Bottom bar */
+#bottom-bar {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+#bottom-bar .widget {
+	background-color: rgba(100, 100, 100, .5);
+}
+
+#bottom-bar #info {
+	float: right;
+	background-color: rgba(0, 0, 0, .9);
+	height: 6em;
+	width: 20%;
+}
+
+
+
