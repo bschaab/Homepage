@@ -1,12 +1,9 @@
 <?php 
 	
 	error_reporting(1);
-
-	$mysql_user = getenv("HOMEPAGE_MYSQL_USER");
-	$mysql_pass = getenv("HOMEPAGE_MYSQL_PASS");
 	
 	//open database connection
-	$connection = mysql_connect("localhost",$mysql_user,$mysql_pass);
+	$connection = mysql_connect("localhost","root", "root");
 	if (!$connection) {
 		die("Database connected failed:" . mysql_error());
 	}
