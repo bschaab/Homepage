@@ -1,17 +1,21 @@
-[
-	{
-		"iconUrl" : "http://i.imgur.com/QmZlg5z.jpg",
-		"title" : "Cool Cat 1",
-		"url" : "http://i.imgur.com/QmZlg5z.jpg"
-	},
-	{
-		"iconUrl" : "http://imgur.com/PgH4QC5.jpg",
-		"title" : "Cool Cat 2",
-		"url" : "http://imgur.com/PgH4QC5"
-	},
-	{
-		"iconUrl" : "http://i.imgur.com/nbn0zwo.jpg",
-		"title" : "Cool Cat 3",
-		"url" : "http://i.imgur.com/nbn0zwo"
-	}
-]
+{
+	"firstName" : "Bill",
+	"lastName" : "L",
+	"quickBar" : [
+		{
+			"iconUrl" : "http://i.imgur.com/QmZlg5z.jpg",
+			"title" : "Cool Cat 1",
+			"url" : "http://i.imgur.com/QmZlg5z.jpg"
+		},
+		{
+			"iconUrl" : "http://imgur.com/PgH4QC5.jpg",
+			"title" : "Cool Cat 2",
+			"url" : "http://imgur.com/PgH4QC5"
+		},
+		{
+			"iconUrl" : "http://i.imgur.com/nbn0zwo.jpg",
+			"title" : "Cool Cat 3",
+			"url" : "http://i.imgur.com/nbn0zwo"
+		}
+	]
+}
