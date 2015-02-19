@@ -36,6 +36,8 @@
 		} 
 	}
 
+
+
 })();
 
 
@@ -56,6 +58,71 @@
 		}
 
 	}
+
+	function changeSize(input){
+		var calc = document.getElementById('calculator');
+		var keys = document.querySelectorAll('#calculator span');
+		var myScreen = document.querySelector('.screen');
+		var settingsSize = document.getElementById('settings-panel');
+		if(input == "large"){
+			myScreen.style.width = 362;
+			myScreen.style.height = 60;
+			myScreen.style.marginRight = 0;
+			myScreen.style.fontSize = 24;
+			calc.style.width = 525;
+			for(var i = 0; i < keys.length; i++) {
+				keys[i].style.width = 116;
+				keys[i].style.height = 56;
+				keys[i].style.fontSize = 20;
+				//keys[i].style.lineHeight = 45;
+			}
+			alert("large");
+		}
+		else if(input == "medium"){
+			calc.style.width = 325;
+			myScreen.style.height = 40;
+			myScreen.style.width = 212;
+			myScreen.style.marginRight = 0;
+			myScreen.style.fontSize = 16;
+			for(var i = 0; i < keys.length; i++) {
+				keys[i].style.width = 66;
+				keys[i].style.height = 36;
+				keys[i].style.fontSize = 12;
+				//keys[i].style.lineHeight = 45;
+			}
+
+			alert("medium");
+
+		}
+		else{
+			settingsSize.style.fontSize = 5;
+			calc.style.width = 190;
+			myScreen.style.height = 20;
+			myScreen.style.width =100;
+			myScreen.style.fontSize = 8;
+			myScreen.style.marginRight = 10;
+			myScreen.style.lineHeight = 3;
+			for(var i = 0 ; i <keys.length;i++){
+				keys[i].style.width = 30;
+				keys[i].style.height = 16;
+				keys[i].style.fontSize = 8;
+				keys[i].style.lineHeight = 2;
+			}
+
+
+			alert("small");
+
+		}
+
+		clearScreen();
+
+	}
+
+	function clearScreen(){
+		var screenValue = document.querySelector('.screen');
+		screenValue.innerHTML = "";
+	}
+
 
 	//evaluate the given string and return the value 
 	function evaluateString(input)
@@ -113,3 +180,6 @@
 		result += '.'
 		return result;
 	}
+
+
+

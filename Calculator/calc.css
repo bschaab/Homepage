@@ -18,6 +18,14 @@
 	visibility: hidden;
 }
 
+#Settings-Button{
+
+}
+#Calculator-Button{
+	visibility:hidden;
+}
+
+
 .settings-font {
 	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
 	color: #000000;
@@ -50,6 +58,11 @@
     background: linear-gradient(#b1b1b1, #939393);
 }
 
+.Settings-Title{
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em;
+}
 
 .option-font {
 	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
@@ -92,9 +105,18 @@
 }
 
 
+
 /* Using box shadows to create 3D effects */
 #calculator {
+	/*
+	small
+	width:190px;
+	medium
 	width: 325px;
+	large
+	width : 525px;	
+	*/
+	width : 525px;	
 	height: auto;
 	
 	margin: 100px auto;
@@ -112,8 +134,33 @@
 
 /* Inset shadow on the screen to create indent */
 .top .screen {
-	height: 40px;
+	
+/*
+	class = screen
+	small-----------
+	width : 100px;
+	height : 20px;
+	font-size: 12px;
+	line-height: 22px;
+	margin-right: 10px;
+	medium------------
 	width: 212px;
+	height: 40px;
+	font-size: 17px;
+	line-height: 40px;
+	margin-right : auto;
+	large--------------
+	width : 362px;
+	height : 60px;
+	font-size : 22px;
+	line-height: 40px;
+	margin-right :auto;
+	*/
+	width : 362px;
+	height : 60px;
+	font-size : 22px;
+	line-height: 40px;
+	margin-right :auto;
 	
 	float: right;
 	
@@ -124,13 +171,13 @@
 	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
 	
 	/* Typography */
-	font-size: 17px;
-	line-height: 40px;
 	color: white;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 	text-align: right;
 	letter-spacing: 1px;
 }
+
+
 
 /* Clear floats */
 .keys, .top {overflow: hidden;}
@@ -143,9 +190,36 @@
 	
 	cursor: pointer;
 	
+	/*
+	keys span
+	small
+	width : 30px;
+	height: 16px;
+	font-size: 8px;
+	line-height: 20px;
+
+
+	font-size : 20px;
+	medium
 	width: 66px;
-	height: 36px;
-	
+    height : 36px;
+    font-size : 12px;
+	line-height: 36px;
+
+	large
+	width : 116px;
+	height: 56px;
+	font-size : 20px;
+	line-height: 45px;
+
+    */
+	width : 116px;
+	height: 56px;
+	font-size : 20px;
+	line-height: 45px;
+
+
+
 	background: white;
 	border-radius: 500px;
 	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
@@ -153,7 +227,6 @@
 	margin: 0 7px 11px 0;
 	
 	color: #888;
-	line-height: 36px;
 	text-align: center;
 	
 	/* prevent selection of text inside keys */

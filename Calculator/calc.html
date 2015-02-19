@@ -2,9 +2,13 @@
 	<div id="calculator">
 	
 
-	
+			<div id = "Settings-Button">	
   				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
-  	
+  			</div>
+  			<div id = "Calculator-Button">
+  				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
+  			</div>
+
 		<!-- Screen and clear key -->
 
 		<div id="full-panel">
@@ -50,20 +54,22 @@
 			
 		
   			<div class="row">
-  				<div class="top-layout col-lg-12"><p class = "option-font">Settings</p></div>
+  				<div class="top-layout col-lg-12"><p class = "Settings-Title">Settings</p></div>
   				<div class="settings-layout  col-lg-12">
-  				Change Color
+  				Change Color					
   					<a onClick="document.getElementById('colorPicker').color.showPicker()">
 					<span id = "calculator-preview" class = "glyphicon glyphicon-modal-window"></span></a>
   				</div>
   				
   				<div class="settings-layout col-lg-12">
   					Change Size
-  				
+  					<a href = "" onClick="changeSize('small')"> <span> small</span></a>
+  					<a href = "" onClick="changeSize('medium')"> <span> medium</span></a>
+  					<a href = "" onClick="changeSize('large')"> <span> large</span></a>
+
   				</div>
   				
-  				<div class="settings-layout col-lg-12">3
-
+  				<div class="settings-layout col-lg-12">	  				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
 
 
   				</div>
@@ -102,4 +108,3 @@
 <link rel="stylesheet" type="text/css" href="calc.css">
 <script src="calc.js" type ="text/javascript"></script>
 <script type="text/javascript" src="jscolor/jscolor.js"></script>
-
