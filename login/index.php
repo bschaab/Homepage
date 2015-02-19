@@ -9,7 +9,10 @@
 	$noCache = time(); 
 	
 	//check that we are not logged in
-	
+	if (isset($_SESSION['userID'])) {
+		header('Location: /');
+		exit;
+	}
 	
 	$alert = $_GET['alert'];
 	
@@ -18,7 +21,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>homepage</title>
+		<title>homepage | Login</title>
 		
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/head.php"); ?>
 		
@@ -62,6 +65,7 @@
 				</div>
 				
 				<button type="button" class="btn btn-link" id="sampleUserButton">Sample User</button>
+				<button type="button" class="btn btn-link" id="setupDatabaseButton">Setup Database</button>
 				
 				
 				<div class="row">
@@ -101,7 +105,11 @@
 			$("#sampleUserButton").click(function () {
 				$("#emailLogInInput").val("sample@email.com");
 				$("#passwordLogInInput").val("password");
-			})
+			});
+			
+			$("#setupDatabaseButton").click(function () {
+				$.ajax("/php/db/setup.php");
+			});
 		</script>
 	</body>
 </html>
