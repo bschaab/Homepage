@@ -68,9 +68,9 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-					<div id="widget-1" class="widget"></div>
-					<div id="widget-2" class="widget"></div>
-					<div id="widget-3" class="widget"></div>
+					<div id="widget-0" class="widget" ng-include="widgetsUrl[0]"></div>
+					<div id="widget-1" class="widget" ng-include="widgetsUrl[1]"></div>
+					<div id="widget-2" class="widget" ng-include="widgetsUrl[2]"></div>
 				</div>
 
 				<div id="info" class="bottom-bar-item">

@@ -1,7 +1,7 @@
 {
 	"firstName" : "Bill",
 	"lastName" : "L",
-	"quickBar" : [
+	"quickbarItems" : [
 		{
 			"iconUrl" : "http://i.imgur.com/QmZlg5z.jpg",
 			"title" : "Cool Cat 1",
@@ -17,5 +17,10 @@
 			"title" : "Cool Cat 3",
 			"url" : "http://i.imgur.com/nbn0zwo"
 		}
+	],
+	"widgets" : [
+		"testWidget",
+		"testWidget",
+		"testWidget"
 	]
 }

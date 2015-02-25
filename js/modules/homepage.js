@@ -11,6 +11,13 @@ homepageApp.controller("homepageController", ["$scope", "userService",
 	function($scope, userService) {
 		userService(function(data) {
 			$scope.hpUser = data;
+		
+			// Build widget template URLs
+			$scope.widgetsUrl = [];
+			for(var i = 0; i < 3; i++) {
+				$scope.widgetsUrl[i] = "/dash/parts/widget-" + data.widgets[i] + ".html";
+			}
+
 		});
 	}]
 );
@@ -28,6 +35,20 @@ homepageApp.factory("userService", ["$http",
 		}
 	}]
 );
+
+/* Widget directive */
+homepageApp.directive("homepageWidget", function() {
+	return {
+		//templateUrl : function(elem, attr) {
+			
+		//},
+		link : function(scope, element, attrs) {
+			console.log(element);
+			scope.widgetUrl = "parts/search.html";
+			element.attr("ng-include", "widgetUrl");
+		}
+	}
+});
 
 
 /* Routes */
