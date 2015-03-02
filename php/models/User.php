@@ -59,10 +59,8 @@
 	
 			$query = "SELECT * FROM users WHERE id = $id";
 	
-	        if (!$dbCom->runQuery()) { return false; }
-	        if (!$result = $dbCom->getQueryResult($query)) {
-		        return false;
-	        }
+	        if (!$dbCom->runQuery($query)) { return false; }
+	        if (!$result = $dbCom->getQueryResult()) { return false; }
 	        $this->firstName = $result['firstName'];
 	        $this->lastName = $result['lastName'];
 	        $this->email = $result['email'];
@@ -73,7 +71,6 @@
 		
 		function saveUser() {
 			$dbCom = new DatabaseCommunicator();
-			
 			
 			$firstName = $this->firstName;
 			$lastName = $this->lastName;
@@ -86,6 +83,43 @@
 	
 	        if (!$dbCom->runQuery($query)) { return false; }
 	        return true;
+		}
+		
+		
+		// verifies a user by their email and password
+		// returns their id or false
+		function verifyUser($rawPassword) {
+			
+			$dbCom = new DatabaseCommunicator();
+			
+			$email = strtolower($this->email);
+			$query = "SELECT * FROM users WHERE lower(email)='$email' LIMIT 1";
+			if (!$dbCom->runQuery($query)) { return false; }
+	        if (!$result = $dbCom->getQueryResult()) { return false; }
+			
+			//if no rows returned, return false
+			$numOfRows = $dbCom->getNumOfQueryResults();
+			if ($numOfRows == 0) {
+				return false;
+			}
+			
+			//if password matches, return the id
+			$hashedPassword = $result['password'];
+			if (password_verify($rawPassword, $hashedPassword)) {
+				
+				//rehash the password if it needs rehashing
+				if (password_needs_rehash($hashedPassword, PASSWORD_DEFAULT)) {
+					$hashedPassword = password_hash($rawPassword, PASSWORD_DEFAULT);
+					$query = "UPDATE users SET password = '$hashedPassword' WHERE lower(email)='$email'";
+					if (!$dbCom->runQuery($query)) { return false; }
+				}
+				
+				
+				return htmlentities($result['id']);
+			}
+			
+			return false;
+			
 		}
 		
 	

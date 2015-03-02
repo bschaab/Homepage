@@ -48,7 +48,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						
-						<form class="form-inline" method="post" action="/php/scripts/login.php">
+						<form class="form-inline" method="post" action="/php/controllers/loginUser.php">
 							<div class="form-group">
 						    	<label class="sr-only" for="emailLogInInput">Email</label>
 								<input type="email" class="form-control" id="emailLogInInput" placeholder="Email" name="email">

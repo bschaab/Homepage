@@ -123,17 +123,14 @@
 		}
 		
 		public function getQueryResult() {
-			if ($this->result === false) {
-				return null;
-			}
+			if (!$this->result) { return null; }
 			return mysql_fetch_array($this->result);
 		}
 		
-		
-		public function getConnection() {
-			return $this->connection;
+		public function getNumOfQueryResults() {
+			if (!$this->result) { return null; }
+			return mysql_num_rows($this->result);
 		}
-		
 		
 	
 	}

@@ -26,7 +26,7 @@
 
 		<a href="#/dash/">Main</a>
 		<a href="#/dash/search">Search</a>
-		<a href="/php/scripts/logout.php">Log Out</a>
+		<a href="/php/controllers/logoutUser.php">Log Out</a>
 		<span>This here for debug</span>
 		<div id="homepage-wrapper">
 			<div id="top-bar">
