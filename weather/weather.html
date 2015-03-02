@@ -3,12 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="weather.js"></script>
-    <script type="text/javascript" src="simpleWeather.js"></script>
-    <link href="weather.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/weather/weather.js"></script>
+    <script type="text/javascript" src="../js/weather/simpleWeather.js"></script>
+    <link href="../css/weather.css" rel="stylesheet">
     <title></title>
 </head>
-<body>
+<script>
+function startTime() {
+var today=new Date();
+var h=today.getHours();
+var m=today.getMinutes();
+var s=today.getSeconds();
+m = checkTime(m);
+s = checkTime(s);
+document.getElementById('time').innerHTML = h%12+":"+m;
+var t = setTimeout(function(){startTime()},500);
+}
+
+function checkTime(i) {
+if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+return i;
+}
+</script>
+
+<body onload="startTime()">
     <div id="weather"></div>
 </body>
 </html>
