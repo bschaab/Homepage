@@ -9,22 +9,30 @@
 		
 		protected $user = 'root';
 		protected $password = 'root';
-		protected $name = 'homepageDB';
-		protected $host = 'localhost';
+		protected $name = 'homepage_db';
+		protected $host = "127.0.0.1";
 		protected $port = 8889;
 		protected $connection = null;
 		
+		protected $result = null; //query result holder
 	
 		function __construct() {
 			
 			//open database connection
-			open();
+			$this->open();
 			
 			//if selection fails, setup the database
-			if (!select()) {
-				if (!setup()) {
+			if (!$this->select()) {
+				if (!$this->setup()) {
 					die("Database setup failed:" . mysql_error());
 				}
+			}
+			
+			//check that database was setup
+			$result = mysql_query("SELECT * FROM users", $this->connection);
+			$row = mysql_fetch_array($result);
+			if ($row['id'] != 1) {
+				die("Database setup check failed:" . mysql_error());
 			}
 			
 			
@@ -32,33 +40,28 @@
 		
 		
 		function __destruct() {
-			close(); //close database connection
+			$this->close(); //close database connection
 		}
 		
 		
 		//open database connection
 		protected function open() {
-			$connection = mysql_connect($host, $user, $password);
-			if (!$connection) {
-				die("Database connected failed:" . mysql_error());
+			$this->connection = mysql_connect($this->host, $this->user);
+			if (!$this->connection) {
+				die("Database connection failed:" . mysql_error());
 			}
-			$this->connection = $connection;
 		}
 		
 		
 		//close database connection
 		protected function close() { 
-			$connection = mysql_connect($host, $user, $password);
-			if (!$connection) {
-				die("Database connected failed:" . mysql_error());
-			}
-			$this->connection = $connection;
+			mysql_close($this->connection);
 		}
 		
 		
 		//select the database
 		protected function select() {
-			if (!mysql_select_db($name, $connection)) {
+			if (!mysql_select_db($this->name, $this->connection)) {
 				return false;
 			}
 			return true;
@@ -68,18 +71,20 @@
 		//setup the database
 		protected function setup() {
 			
+			$name = $this->name;
+			
 			//drop old database if exists
-			$query = "DROP DATABASE $dbName";
-			query($query);
+			$query = "DROP DATABASE $name";
+			$this->runQuery($query);
 			
 			//create new database
-			$query = "CREATE DATABASE $dbName";
-			if (!query($query)) {
+			$query = "CREATE DATABASE $name";
+			if (!$this->runQuery($query)) {
 				return false;
 			}
 			
 			//select our new database
-			if (!select()) { return false; }
+			if (!$this->select()) { return false; }
 			
 			//create the users table
 			$query = "CREATE TABLE users (
@@ -90,7 +95,7 @@
 						password varchar(512),
 						PRIMARY KEY (id)
 						);";
-			if (!query($query)) {
+			if (!$this->runQuery($query)) {
 				return false;
 			}
 			
@@ -99,7 +104,7 @@
 			$query = "INSERT INTO users
 						(lastName, firstName, email, password) VALUES
 						('User', 'Sample', 'sample@email.com', '$password');";
-			if (!query($query)) {
+			if (!$this->runQuery($query)) {
 				return false;
 			}
 			
@@ -110,11 +115,23 @@
 		
 		
 		//query the database
-		public function query($query) {
-			if (!mysql_query($query, $connection)) {
+		public function runQuery($query) {
+			if (!($this->result = mysql_query($query, $this->connection))) {
 				return false;
 			}
 			return true;
+		}
+		
+		public function getQueryResult() {
+			if ($this->result === false) {
+				return null;
+			}
+			return mysql_fetch_array($this->result);
+		}
+		
+		
+		public function getConnection() {
+			return $this->connection;
 		}
 		
 		
