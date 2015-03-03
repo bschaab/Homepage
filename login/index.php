@@ -113,7 +113,7 @@
 			});
 			
 			$("#setupDatabaseButton").click(function () {
-				$.ajax("/php/db/setup.php");
+				$.ajax("/php/controllers/setupDatabase.php");
 			});
 		</script>
 	</body>
