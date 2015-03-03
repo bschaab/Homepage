@@ -9,11 +9,6 @@
   DO NOT hotlink the assets/font included in this demo. If you wish to use the same font icon then download it to your local assets at the link above. If you use the links below odds are at some point they will be removed and your version will break.
 */
 
-body {
-    padding: 45px 25px;
-    font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    background: #333333;
-}
 
 @font-face {
     font-family: 'weather';
@@ -27,8 +22,8 @@ body {
 }
 
 #weather {
-    width: 500px;
-    margin: 0px auto;
+    font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background: #333333;
     text-align: center;
     text-transform: uppercase;
 }
@@ -36,7 +31,7 @@ body {
 i {
     color: #999999;
     font-family: weather;
-    font-size: 150px;
+    font-size: 150%;
     font-weight: normal;
     font-style: normal;
     line-height: 1.0;
@@ -92,9 +87,9 @@ i {
 .icon-47:before { content: "S"; }
 
 #weather h2 {
-    margin: 0 0 8px;
+    margin: 0 0 2%;
     color: #999999;
-    font-size: 100px;
+    font-size: 600%;
     font-weight: 300;
     text-align: center;
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
@@ -108,18 +103,29 @@ i {
 
 #weather hi {
     color: #ff3300;
-    padding-right: 40%;
+    font-size: 175%;
+    padding-right: 5%;
+    display: inline-block;
 }
 
 #weather lo {
     color: #3366ff;
+    font-size: 175%;
+    padding-right: 10%;
+    display: inline-block;
 }
 
-#weather li {
+#weather city {
+      color: #999999;
+      font-size: 150%;
+      display: inline-block;
+      border-radius: 2%;
+      padding-right: 10%;
+}
+
+#weather time {
     color: #999999;
-    font-size: 150%;
-    padding: 20px;
+    font-size: 300%;
     display: inline-block;
-    border-radius: 5px;
-    padding-right: 10%;
+    border-radius: 2%;
 }

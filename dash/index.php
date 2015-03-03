@@ -16,11 +16,14 @@
 		<script src="/js/modules/feed.js"></script>
 		<script src="/js/modules/search.js"></script>
 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <link href="../css/weather.css" rel="stylesheet">
+
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/head.php"); ?>
 
 		<link rel="stylesheet" href="/css/homepage.css" type="text/css">
 	</head>
-	<body>
+	<body onload="startTime()">
 	
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/header.php"); ?>
 
@@ -74,12 +77,7 @@
 				</div>
 
 				<div id="info" class="bottom-bar-item">
-					<div id="info-weather">
-						<span>It's snowing</span>
-					</div>
-					<div id="location-info">
-						<span>Champaign, IL</span>
-						<span>13:00</span>
+					<div id="weather">
 					</div>
 				</div>
 			</div>
@@ -88,4 +86,7 @@
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/footer.php"); ?>
 		
 	</body>
+    <script type="text/javascript" src="/js/weather/weather.js"></script>
+    <script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
+    <script type="text/javascript" src="/js/weather/currentTime.js"></script>
 </html>
