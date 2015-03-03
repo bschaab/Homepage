@@ -14,6 +14,7 @@
 	    public function testCreateDBCom()
 	    {
 	        $dbCom = new DatabaseCommunicator();
+	        $dbCom->clean();
 	
 	        $dbCom->runQuery("SELECT * FROM users WHERE id = 1");
 	        $result = $dbCom->getQueryResult();
@@ -27,6 +28,8 @@
 	    public function testRunDBComQuery() {
 		    
 		    $dbCom = new DatabaseCommunicator();
+		    $dbCom->clean();
+		    
 		    $query = "INSERT INTO users
 						(lastName, firstName, email, password) VALUES
 						('User2', 'Sample2', 'sample2@email.com', '');";
@@ -71,6 +74,7 @@
 			$user->saveUser();
 			
 			$dbCom = new DatabaseCommunicator();
+			
 			$dbCom->runQuery("SELECT * FROM users WHERE email = 'testBuddy@email.com'");
 			$result = $dbCom->getQueryResult();
 

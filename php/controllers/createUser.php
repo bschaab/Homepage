@@ -10,7 +10,7 @@
 	
 	if ($_POST['firstName'] == "" || $_POST['lastName'] == "" || $_POST['email'] == "" || $_POST['password'] == "") {
 		    
-		$redirect_url = "/login/?alert=missing";
+		$redirect_url = "/login/?alert=create-missing";
 		header('Location: ' .  $redirect_url);
 		exit;
 		    

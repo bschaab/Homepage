@@ -38,9 +38,11 @@
 				
 				<div class="row">
 					<div class="col-xs-12">
-						<?php if ($alert == "missing"): ?><p class="bg-danger alertBox">You are missing fields. Please try again.</p><?php endif; ?>
-						<?php if ($alert == "fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
-						<?php if ($alert == "success"): ?><p class="bg-success alertBox">Account Created. Please check your email for your password.</p><?php endif;?>
+						<?php if ($alert == "dbsetup-success"): ?><p class="bg-success alertBox">Database Setup Successfully</p><?php endif;?>
+						<?php if ($alert == "dbsetup-fail"): ?><p class="bg-danger alertBox">Database Setup Failed. Please try again.</p><?php endif; ?>
+						<?php if ($alert == "create-missing"): ?><p class="bg-danger alertBox">You are missing fields. Please try again.</p><?php endif; ?>
+						<?php if ($alert == "login-fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
+						<?php if ($alert == "logout-success"): ?><p class="bg-success alertBox">Logout Successful</p><?php endif;?>
 					</div>
 				</div>
 				
@@ -66,7 +68,7 @@
 				</div>
 				
 				<button type="button" class="btn btn-link" id="sampleUserButton">Sample User</button>
-				<button type="button" class="btn btn-link" id="setupDatabaseButton">Setup Database</button>
+				<a href="/php/controllers/setupDatabase.php"><button type="button" class="btn btn-link" id="setupDatabaseButton">Setup Database</button></a>
 				
 				
 				<div class="row">
@@ -110,10 +112,6 @@
 			$("#sampleUserButton").click(function () {
 				$("#emailLogInInput").val("sample@email.com");
 				$("#passwordLogInInput").val("password");
-			});
-			
-			$("#setupDatabaseButton").click(function () {
-				$.ajax("/php/controllers/setupDatabase.php");
 			});
 		</script>
 	</body>

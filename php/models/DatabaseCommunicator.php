@@ -1,6 +1,5 @@
 <?php
 	
-	
 	/**
 	* This class allows for communication with the database
 	*/
@@ -8,10 +7,8 @@
 		
 		
 		protected $user = 'root';
-		protected $password = 'root';
 		protected $name = 'homepageDB';
 		protected $host = "127.0.0.1";
-		protected $port = 8889;
 		protected $connection = null;
 		
 		protected $result = null; //query result holder
@@ -27,14 +24,6 @@
 					die("Database setup failed:" . mysql_error());
 				}
 			}
-			
-			//check that database was setup
-			$result = mysql_query("SELECT * FROM users", $this->connection);
-			$row = mysql_fetch_array($result);
-			if ($row['id'] != 1) {
-				die("Database setup check failed:" . mysql_error());
-			}
-			
 			
 		}
 		
@@ -130,6 +119,18 @@
 		public function getNumOfQueryResults() {
 			if (!$this->result) { return null; }
 			return mysql_num_rows($this->result);
+		}
+		
+		
+		//clean the database
+		public function clean() {
+			if (!$this->setup()) {
+				return false;
+			}
+			if (!$this->select()) {
+				return false;
+			}
+			return true;
 		}
 		
 	

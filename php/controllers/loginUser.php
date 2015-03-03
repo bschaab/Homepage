@@ -31,7 +31,7 @@
 	
 	//redirect to destination
 	if (!$session->getSessionVariable('userID')) {
-		$redirect_url = "/login/?alert=fail";
+		$redirect_url = "/login/?alert=login-fail";
 	}
 	else {
 		$redirect_url = "/";
