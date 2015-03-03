@@ -9,7 +9,7 @@
 		
 		protected $user = 'root';
 		protected $password = 'root';
-		protected $name = 'homepage_db';
+		protected $name = 'homepageDB';
 		protected $host = "127.0.0.1";
 		protected $port = 8889;
 		protected $connection = null;

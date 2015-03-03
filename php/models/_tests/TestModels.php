@@ -73,7 +73,7 @@
 			$dbCom = new DatabaseCommunicator();
 			$dbCom->runQuery("SELECT * FROM users WHERE email = 'testBuddy@email.com'");
 			$result = $dbCom->getQueryResult();
-			
+
 			$this->assertEquals($user->getFirstName(), $result['firstName']);
 			$this->assertEquals($user->getLastName(), $result['lastName']);
 			$this->assertTrue($result['password'] != "");

@@ -38,6 +38,7 @@
 				
 				<div class="row">
 					<div class="col-xs-12">
+						<?php if ($alert == "missing"): ?><p class="bg-danger alertBox">You are missing fields. Please try again.</p><?php endif; ?>
 						<?php if ($alert == "fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
 						<?php if ($alert == "success"): ?><p class="bg-success alertBox">Account Created. Please check your email for your password.</p><?php endif;?>
 					</div>
@@ -72,7 +73,7 @@
 					<div class="col-sm-4 col-xs-1"></div>
 					<div class="col-sm-4 col-xs-10 text-center signUpBox">
 						
-						<form>
+						<form method="post" action="/php/controllers/createUser.php">
 							<div class="form-group">
 						    	<label class="sr-only" for="firstNameSignUpInput">First Name</label>
 								<input type="text" class="form-control" id="firstNameSignUpInput" placeholder="First Name" name="firstName">
@@ -84,6 +85,10 @@
 							<div class="form-group">
 						    	<label class="sr-only" for="emailSignUpInput">Email</label>
 								<input type="text" class="form-control" id="emailSignUpInput" placeholder="Email" name="email">
+							</div>
+							<div class="form-group">
+						    	<label class="sr-only" for="passwordSignUpInput">Password</label>
+								<input type="password" class="form-control" id="passwordSignUpInput" placeholder="Password" name="password">
 							</div>
 							<button type="submit" class="btn btn-primary">Sign up</button>
 						</form>

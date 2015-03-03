@@ -7,6 +7,7 @@
 	*/
 	class User {
 		
+		protected $id;
 		protected $firstName;
 		protected $lastName;
 		protected $email;
@@ -17,7 +18,9 @@
 			
 		}
 		
-		
+		function getId() {
+			return $this->id;
+		}
 		
 		function getFirstName() {
 			return $this->firstName;
@@ -36,6 +39,9 @@
 		}
 		
 		
+		function setId($id) {
+			$this->id = $id;
+		}
 		
 		function setFirstName($firstName) {
 			$this->firstName = $firstName;
@@ -61,6 +67,7 @@
 	
 	        if (!$dbCom->runQuery($query)) { return false; }
 	        if (!$result = $dbCom->getQueryResult()) { return false; }
+	        $this->id = $result['id'];
 	        $this->firstName = $result['firstName'];
 	        $this->lastName = $result['lastName'];
 	        $this->email = $result['email'];
@@ -82,7 +89,12 @@
 						('$lastName', '$firstName', '$email', '$hashedPassword');";
 	
 	        if (!$dbCom->runQuery($query)) { return false; }
-	        return true;
+	        
+	        $query = "SELECT * FROM users WHERE id = $id";
+	        if (!$dbCom->runQuery($query)) { return false; }
+	        if (!$result = $dbCom->getQueryResult()) { return false; }
+	        return $result['id'];
+	        
 		}
 		
 		
