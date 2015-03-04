@@ -2,8 +2,6 @@
 (function(){
 	var keys = document.querySelectorAll('#calculator span');
 
-
-
 	// Add onclick event to all the keys and perform operations
 	for(var i = 0; i < keys.length; i++) {
 		keys[i].onclick = function(e) {
@@ -35,87 +33,123 @@
 			e.preventDefault();
 		} 
 	}
-
-
-
 })();
 
 
 	//this function is used to swap between the settings window
 	//and the calculator 
 	function swap(one, two) {
+
 		one = document.getElementById(one);
 		two = document.getElementById(two);
 
+		// Displaying the settings
 		if (one.style.display == 'block') {
-			one.style.display = 'none';
 			two.style.display = 'block';
-
+			one.style.display = 'none';
 		}
-		else {
+		else { // Displaying the calculator
+	
 			one.style.display = 'block';
 			two.style.display = 'none';
 		}
 
 	}
+	
+	function makeOptionGreen(input) {
+
+		var left = document.getElementById('size-left');
+		var mid  = document.getElementById('size-middle');
+		var right  = document.getElementById('size-right');
+
+		if (input == "small") {
+			left.style.background = '#72ec78';
+			mid.style.background = '#ffffff';
+			right.style.background = '#ffffff';
+		}
+		else if (input == "medium") {
+			left.style.background = '#ffffff';
+			mid.style.background = '#72ec78';
+			right.style.background = '#ffffff';
+		}
+		else if (input == "large") {
+			left.style.background = '#ffffff';
+			mid.style.background = '#ffffff';
+			right.style.background = '#72ec78';
+		}
+	}
+
 
 	function changeSize(input){
+
+		makeOptionGreen(input);
+
+
 		var calc = document.getElementById('calculator');
-		var keys = document.querySelectorAll('#calculator span');
+	
+		var keys = document.querySelectorAll(".keys")[0].children; // get all span elements within keys
+		var clear = document.querySelectorAll(".top")[0].children; // get all the "clear" button
+
+		var ops  = document.querySelectorAll('.op');
 		var myScreen = document.querySelector('.screen');
-		var settingsSize = document.getElementById('settings-panel');
-		if(input == "large"){
+		
+		if(input == "large")
+		{
 			myScreen.style.width = 362;
 			myScreen.style.height = 60;
 			myScreen.style.marginRight = 0;
 			myScreen.style.fontSize = 24;
 			calc.style.width = 525;
+			clear[0].style.width = 116;
+			clear[0].style.height = 56;
+			clear[0].style.fontSize = 20;
+
 			for(var i = 0; i < keys.length; i++) {
 				keys[i].style.width = 116;
 				keys[i].style.height = 56;
 				keys[i].style.fontSize = 20;
 				//keys[i].style.lineHeight = 45;
 			}
-			alert("large");
 		}
-		else if(input == "medium"){
+		else if(input == "medium")
+		{
 			calc.style.width = 325;
 			myScreen.style.height = 40;
 			myScreen.style.width = 212;
 			myScreen.style.marginRight = 0;
 			myScreen.style.fontSize = 16;
+			clear[0].style.width = 66;
+			clear[0].style.height = 36;
+			clear[0].style.fontSize = 12;
+
 			for(var i = 0; i < keys.length; i++) {
 				keys[i].style.width = 66;
 				keys[i].style.height = 36;
 				keys[i].style.fontSize = 12;
 				//keys[i].style.lineHeight = 45;
 			}
-
-			alert("medium");
-
 		}
-		else{
-			settingsSize.style.fontSize = 5;
+		else if (input == "small")
+		{
 			calc.style.width = 190;
 			myScreen.style.height = 20;
 			myScreen.style.width =100;
 			myScreen.style.fontSize = 8;
 			myScreen.style.marginRight = 10;
 			myScreen.style.lineHeight = 3;
+			clear[0].style.width = 30;
+			clear[0].style.height = 16;
+			clear[0].style.fontSize = 8;
+			clear[0].style.lineHeight = 2;
+
 			for(var i = 0 ; i <keys.length;i++){
 				keys[i].style.width = 30;
 				keys[i].style.height = 16;
 				keys[i].style.fontSize = 8;
 				keys[i].style.lineHeight = 2;
 			}
-
-
-			alert("small");
-
 		}
-
 		clearScreen();
-
 	}
 
 	function clearScreen(){
@@ -153,6 +187,10 @@
 		return false;
 	}
 
+	function changeCalculatorColor(color) {
+		var calculator = document.getElementById('calculator');
+		calculator.style.background = color; 
+	}
 
 	function validateOperator(input,operator){
 		var lastChar = input[input.length - 1];

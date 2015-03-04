@@ -1,17 +1,15 @@
-<div class = "well">
-	<div id="calculator">
-	
 
-			<div id = "Settings-Button">	
-  				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
+	<div id="calculator" style = "display: block">
+	
+		
+			<div id = "settings">	
+  				<a href = "" onClick ="swap('calculator', 'settings-panel')"><span id = "settings-button-calc" class = "glyphicon glyphicon-cog"></span></a>
   			</div>
-  			<div id = "Calculator-Button">
-  				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
-  			</div>
+  			
 
 		<!-- Screen and clear key -->
 
-		<div id="full-panel">
+		
 
 			<div class="top">
 				<span class="clear">C</span>
@@ -21,6 +19,8 @@
 
 			<div class="keys">
 				<!-- operators and other keys -->
+
+				<!--<div id="key">-->
 
 				<span>7</span>
 				<span>8</span>
@@ -39,58 +39,91 @@
 				<span class="eval">=</span>
 				<span class="operator">x</span>
 
+				
+
 			</div>
 
-		</div>
 
 
-
-
-		<input class="color {pickerClosable:true}" id = "colorPicker" onchange="document.getElementById('calculator-preview').style.color = '#'+this.color; 
+	<!-- 	<input class="color {pickerClosable:true}" id = "colorPicker" onchange="document.getElementById('calculator-preview').style.color = '#'+this.color; 
 																				document.getElementById('calculator').style.background = '#'+this.color;">
+ -->
+
+		</div>
 
 		<div id="settings-panel">
-	
-			
-		
   			<div class="row">
-  				<div class="top-layout col-lg-12"><p class = "Settings-Title">Settings</p></div>
-  				<div class="settings-layout  col-lg-12">
-  				Change Color					
-  					<a onClick="document.getElementById('colorPicker').color.showPicker()">
+
+  				<div class="top-layout col-lg-12"><p class = "settings-title">Settings</p>
+
+  				<div style = "cursor: pointer" onClick="swap('calculator', 'settings-panel')">
+  				<span id = "settings-button-settings" class="glyphicon glyphicon-cog"></span>
+  				</div>
+
+
+  				</div>
+  				<div class="settings-layout-color col-lg-12"> 				
+  				<!-- 	<a onClick="document.getElementById('colorPicker').color.showPicker()">
 					<span id = "calculator-preview" class = "glyphicon glyphicon-modal-window"></span></a>
+					 -->
+				<p class = "settings-tab-titles">Calculator Color</p>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#2b2b2b')">
+					<span class = "col-lg-12 pick-color-left" style = "background: #2b2b2b;"></span>
+				</div>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#fe01ef')">
+				<span class = "col-lg-12 pick-color-middle" style = "background: #fe01ef;"></span>
+				</div>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#966cfe')">
+				<span class = "col-lg-12 pick-color-middle" style = "background: #966cfe;"></span>
+				</div>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#6d91ff')">
+				<span class = "col-lg-12 pick-color-middle" style = "background: #6d91ff;"></span>
+				</div>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#6efe83')">
+				<span class = "col-lg-12 pick-color-middle" style = "background: #6efe83;"></span>
+				</div>
+
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#e9ff6c')">
+				<span class = "col-lg-12 pick-color-middle" style = "background: #e9ff6c;"></span>
+				</div>
+
+				<div style = "cursor: pointer" onClick = "changeCalculatorColor('#ff6c6c')">
+				<span class = "col-lg-12 pick-color-right" style = "background: #ff6c6c;"></span>
+				</div>
+	
   				</div>
-  				
-  				<div class="settings-layout col-lg-12">
-  					Change Size
-  					<a href = "" onClick="changeSize('small')"> <span> small</span></a>
-  					<a href = "" onClick="changeSize('medium')"> <span> medium</span></a>
-  					<a href = "" onClick="changeSize('large')"> <span> large</span></a>
 
+  				<hr id = "break">
+
+  				<div class="settings-layout-size col-lg-12">
+	  				<p class = "settings-tab-titles">Calculator Size</p>
+
+	  				<div style="cursor: pointer" onClick="changeSize('small')"> 
+	  				<span id = "size-left" class = "col-lg-12 pick-size-left">
+	  					<p class = "pick-size-font"> S </p>
+	  				</span>
+	  				</div>
+
+	  				<div style="cursor: pointer" onClick="changeSize('medium')"> 
+	  				<span id = "size-middle" class = "col-lg-12 pick-size-middle">
+	  					<p class = "pick-size-font"> M </p>
+	  				</span>
+	  				</div>
+
+	  				<div style="cursor: pointer" onClick="changeSize('large')"> 
+	  				<span id = "size-right" class = "col-lg-12 pick-size-right">
+	  					<p class = "pick-size-font"> L </p>
+	  				</span>
+	  				</div>
   				</div>
-  				
-  				<div class="settings-layout col-lg-12">	  				<a href = "" onClick ="swap('full-panel', 'settings-panel')"><span id = "settings" class="glyphicon glyphicon-cog"></span></a>
-
-
-  				</div>
-  			</div>
-
     	</div>
-
-
-
-		</div>
-
-		</div>
-
-
-
-
-	</div>
-</div>
-<div class = "col-md-6">
-</div>
-
+    </div>
 
 
 <!-- Latest compiled and minified CSS -->
