@@ -338,7 +338,7 @@
 	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
 	
 	margin: 0 7px 11px 0;
-	
+
 	color: #888;
 	text-align: center;
 	
@@ -355,6 +355,15 @@
 	background: #fdae4e;
 	margin-right: 0;
 
+}
+
+.keys span.operator2 {
+    background: #fdae4e;
+}
+
+.keys span.delete {
+    background: #008000;
+    margin-right: 0;
 }
 
 .keys span.eval {

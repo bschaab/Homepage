@@ -1,6 +1,7 @@
 //code isolation to avoid 
 (function(){
 	var keys = document.querySelectorAll('#calculator span');
+    var countParanthesis = 0;
 
 	// Add onclick event to all the keys and perform operations
 	for(var i = 0; i < keys.length; i++) {
@@ -8,23 +9,51 @@
 			// Get the input and button values
 			var screenValue = document.querySelector('.screen');
 			var buttonPressed = this.innerHTML;
-			
+            var lastChar = screenValue.innerHTML[tempLength - 1];
+
 			//erase everthing
 			if(buttonPressed == 'C') {
 				screenValue.innerHTML = ''; //clear value
 			}
 			// If eval key is pressed, calculate and display the result
-			else if(buttonPressed == '=' && screenValue.innerHTML != "") {
-				screenValue.innerHTML = evaluateString(screenValue.innerHTML);	
+			else if(buttonPressed == '=' ) {
+                screenValue.innerHTML = evaluateString(screenValue.innerHTML);
 			}
+            else if(buttonPressed == '(') {
+                countParanthesis += 1;
+                screenValue.innerHTML += buttonPressed;
+            }
+            else if(buttonPressed == ')'){
+                if(countParanthesis == 0){
+                    alert("no matching paranthesis (");
+                }
+                else{
+                    screenValue.innerHTML += buttonPressed;
+                    countParanthesis -=1;
+                }
+            }
 			//validate the operator operations(no two operators )
-			else if(isOperator(buttonPressed)){
-				screenValue.innerHTML = validateOperator(screenValue.innerHTML,buttonPressed);
-			}
+			else if(isOperator(buttonPressed)) {
+                screenValue.innerHTML = validateOperator(screenValue.innerHTML, buttonPressed);
+            }
 			//validate decimal
 			else if(buttonPressed == '.') {
 				screenValue.innerHTML = inputDecimal(screenValue.innerHTML);
 			}
+            else if(buttonPressed == 'del') {
+                var tempLength = screenValue.innerHTML.length;
+                    lastChar = screenValue.innerHTML[tempLength - 1];
+                if (isNumber(lastChar) || isOperator(lastChar) || lastChar == '.' || lastChar == '(' || lastChar == ')') {
+                    screenValue.innerHTML = screenValue.innerHTML.substring(0, tempLength - 1);
+                }
+                else {
+                    lastChar = screenValue.innerHTML[tempLength - 1];
+                    while (   ( !isNumber(lastChar) || !isOperator(lastChar) || screenValue.innerHTML.length > 0 ) ) {
+                        screenValue.innerHTML = screenValue.innerHTML.substring(0, screenValue.innerHTML.length - 1);
+                        lastChar = screenValue.innerHTML[screenValue.innerHTML.length - 1];
+                    }
+                }
+            }
 			else {
 				screenValue.innerHTML += buttonPressed;
 			}
@@ -111,8 +140,7 @@
 				//keys[i].style.lineHeight = 45;
 			}
 		}
-		else if(input == "medium")
-		{
+		else if(input == "medium"){
 			calc.style.width = 325;
 			myScreen.style.height = 40;
 			myScreen.style.width = 212;
@@ -159,11 +187,11 @@
 
 
 	//evaluate the given string and return the value 
-	function evaluateString(input)
-	{
+	function evaluateString(input) {
 		var equation = input;
 		var lastChar = equation[equation.length - 1];
 		equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+        //alert(equation.replace(/sin/g,'S'));
 		//change the last character if it is an operator
 		var operatorList = getOperatorList();
 		if(isOperator(lastChar) || lastChar == '.')
@@ -172,11 +200,33 @@
 		return result;
 	}
 
+
+    function pow(input,input2){
+
+
+
+
+
+    }
+
+
+
+
 	//gets the operator list
 	function getOperatorList(){
-		return ['+', '-', 'x', '/'];
+		return ['+', '-', 'x', '/','^'];
 	}
 
+
+    function isNumber(input){
+        var numberList = ['0','1','2','3','4','5','6','7','8','9'];
+        for(var i = 0; i < numberList.length; i++)
+        {
+            if(input == numberList[i])
+                return true;
+        }
+        return false;
+    }
 
 	function isOperator(input){
 		if(input.length > 1)
@@ -211,13 +261,12 @@
 
 	function inputDecimal(input){
 		result = input;
-		for(var i = 0; i < input.length; i++) {
-			if(input[i] == '.')
-				return result;
-		}
-		result += '.'
+        var lastChar = input[input.length - 1];
+        if(isNumber(lastChar) == true || lastChar == '' || lastChar == ' '){
+            result += '.';
+        }
+
 		return result;
 	}
-
 
 
