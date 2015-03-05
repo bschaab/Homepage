@@ -22,9 +22,23 @@
 	$user->setPassword($_POST['password']);
 	$id = $user->saveUser();
 	
+	if ($id < 1) {
+		
+		if ($id == -1) {
+			$redirect_url = "/dash/?alert=create-duplicate";
+			header('Location: ' .  $redirect_url);
+			exit;
+		}
+		else {
+			$redirect_url = "/dash/?alert=create-fail";
+			header('Location: ' .  $redirect_url);
+			exit;
+		}
+	}
+	
 	$session->setSessionVariable('userID', $id);
 	
-	$redirect_url = "/dash/";
+	$redirect_url = "/dash/?alert=create-success";
 	header('Location: ' .  $redirect_url);
 	exit;
 	

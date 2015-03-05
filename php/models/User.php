@@ -88,11 +88,11 @@
 						(lastName, firstName, email, password) VALUES
 						('$lastName', '$firstName', '$email', '$hashedPassword');";
 	
-	        if (!$dbCom->runQuery($query)) { return false; }
+	        if (!$dbCom->runQuery($query)) { return -1; }
 	        
-	        $query = "SELECT * FROM users WHERE id = $id";
-	        if (!$dbCom->runQuery($query)) { return false; }
-	        if (!$result = $dbCom->getQueryResult()) { return false; }
+	        $query = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
+	        if (!$dbCom->runQuery($query)) { return -2; }
+	        if (!$result = $dbCom->getQueryResult()) { return -3; }
 	        return $result['id'];
 	        
 		}
