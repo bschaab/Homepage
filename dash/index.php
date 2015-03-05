@@ -61,17 +61,51 @@
 			</form>
 		</div>
 		
+		<div id="signUpPanel" class="hoverPanel" ng-show="showSignUpPanel">
+			<form class="form" method="post" action="/php/controllers/createUser.php">
+				<h2>Join Homepage</h2>
+				<h6>experience the magic of homepage</h6>
+				<br/>
+				<div class="form-group">
+			    	<label class="sr-only" for="firstNameSignUpInput">First Name</label>
+					<input type="text" class="form-control" id="firstNameSignUpInput" placeholder="First Name" name="firstName">
+				</div>
+				<div class="form-group">
+			    	<label class="sr-only" for="lastNameSignUpInput">Last Name</label>
+					<input type="text" class="form-control" id="lastNameSignUpInput" placeholder="Last Name" name="lastName">
+				</div>
+				<div class="form-group">
+			    	<label class="sr-only" for="emailSignUpInput">Email</label>
+					<input type="text" class="form-control" id="emailSignUpInput" placeholder="Email" name="email">
+				</div>
+				<div class="form-group">
+			    	<label class="sr-only" for="passwordSignUpInput">Password</label>
+					<input type="password" class="form-control" id="passwordSignUpInput" placeholder="Password" name="password">
+				</div>
+				<button type="submit" class="btn btn-primary">Sign up</button>
+				<br/><br/>
+				<a href="/php/controllers/setupDatabase.php"><button type="button" class="btn btn-link" id="setupDatabaseButton">Setup Database</button></a>
+			</form>
+		</div>
+		
 		<!--END hovering panels-->
 		
 		
 		<!--BEGIN alert bar-->
 		<div id="alertBar" ng-class="{ 'alertBarClose': 1}">
 			<?php $alert = $_GET['alert']; ?>
-			<?php if ($alert == "dbsetup-success"): ?><p class="bg-success alertBox">Database Setup Successfully</p><?php endif;?>
-			<?php if ($alert == "dbsetup-fail"): ?><p class="bg-danger alertBox">Database Setup Failed. Please try again.</p><?php endif; ?>
+			
+			<?php if ($alert == "dbsetup-success"): ?><p class="bg-success alertBox">Database setup successfully</p><?php endif;?>
+			<?php if ($alert == "dbsetup-fail"): ?><p class="bg-danger alertBox">Database setup failed. Please try again.</p><?php endif; ?>
+			
+			<?php if ($alert == "create-duplicate"): ?><p class="bg-danger alertBox">This account already exists. Please log in to your existing account.</p><?php endif; ?>
 			<?php if ($alert == "create-missing"): ?><p class="bg-danger alertBox">You are missing fields. Please try again.</p><?php endif; ?>
-			<?php if ($alert == "login-fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
-			<?php if ($alert == "logout-success"): ?><p class="bg-success alertBox">Logout Successful</p><?php endif;?>
+			<?php if ($alert == "create-fail"): ?><p class="bg-danger alertBox">Account creation failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "create-success"): ?><p class="bg-success alertBox">Account Created Successfully</p><?php endif; ?>
+			
+			<?php if ($alert == "login-fail"): ?><p class="bg-danger alertBox">Login failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "logout-success"): ?><p class="bg-success alertBox">Logout successful</p><?php endif;?>
+			
 		</div>
 		
 		<!--END alert bar-->
