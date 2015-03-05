@@ -11,6 +11,7 @@
 ?>
 
 {
+	"loggedIn" : <?php if ($userID) echo true; else echo false; ?>,
 	"firstName" : "<?= $user->getFirstName() ?>",
 	"lastName" : "<?= $user->getLastName() ?>",
 	"quickbarItems" : [

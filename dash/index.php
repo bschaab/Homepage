@@ -3,7 +3,6 @@
 <?php 
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
-	
 ?>
 
 
@@ -34,10 +33,53 @@
 	<body onload="startTime()">
 	
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/header.php"); ?>
+		
+		
+		<!--BEGIN hovering panels-->
+		
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false"></div>
+		
+		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
+			<form class="form" method="post" action="/php/controllers/loginUser.php">
+				<h2>Log In</h2>
+				<h6>experience the magic of homepage</h6>
+				<br/>
+				<div class="form-group">
+			    	<label class="sr-only" for="emailLogInInput">Email</label>
+					<input type="email" class="form-control" id="emailLogInInput" placeholder="Email" name="email">
+				</div>
+				<div class="form-group">
+			    	<label class="sr-only" for="passwordLogInInput">Password</label>
+					<input type="password" class="form-control" id="passwordLogInInput" placeholder="Password" name="password">
+				</div>
+
+				<button type="submit" class="btn btn-default">Sign in</button>
+				<br/><br/>
+				<button type="button" class="btn btn-link" id="sampleUserButton">Sample User</button>
+				<a href="/php/controllers/setupDatabase.php"><button type="button" class="btn btn-link" id="setupDatabaseButton">Setup Database</button></a>
+			</form>
+		</div>
+		
+		<!--END hovering panels-->
+		
+		
+		<!--BEGIN alert bar-->
+		<div id="alertBar" ng-class="{ 'alertBarClose': 1}">
+			<?php $alert = $_GET['alert']; ?>
+			<?php if ($alert == "dbsetup-success"): ?><p class="bg-success alertBox">Database Setup Successfully</p><?php endif;?>
+			<?php if ($alert == "dbsetup-fail"): ?><p class="bg-danger alertBox">Database Setup Failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "create-missing"): ?><p class="bg-danger alertBox">You are missing fields. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "login-fail"): ?><p class="bg-danger alertBox">Login Failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "logout-success"): ?><p class="bg-success alertBox">Logout Successful</p><?php endif;?>
+		</div>
+		
+		<!--END alert bar-->
+		
+		
 
 		<a href="#/dash/">Main</a>
 		<a href="#/dash/search">Search</a>
-		<a href="/php/controllers/logoutUser.php">Log Out</a>
 		<span>This here for debug</span>
 		<div id="homepage-wrapper">
 			<div id="top-bar">
@@ -53,9 +95,19 @@
 				</div><!--
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
-						<span id="user-welcome">Welcome <a id="user-name">{{ hpUser.firstName }}</a></span>
-						<span id="pref-btn">PRF<!-- Replace me --></span>
-						<span id="power-btn">PRW<!-- Replace me --></span>
+						<span ng-show="hpUser.loggedIn">Welcome, <span class="textLink">{{ hpUser.firstName }}</span>
+						&nbsp; &nbsp;
+						<span id="pref-btn" class="iconLink"><a href=""><i class="fa fa-cog"></i></a></span>
+						&nbsp;
+						<span id="power-btn" class="iconLink"><a href="/php/controllers/logoutUser.php"><i class="fa fa-power-off"></i></a></span>
+						</span>
+						&nbsp;
+						<span ng-show="!hpUser.loggedIn">
+							<span ng-click="showLogInPanel = true" class="textLink">Log In</span>
+							&nbsp; | &nbsp;
+							<span ng-click="showSignUpPanel = true" class="textLink">Sign Up</span>
+							&nbsp;
+						</span>
 					</div>
 				</div>
 			</div>
@@ -93,7 +145,21 @@
 
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/footer.php"); ?>
 		
+		
+		
+		
+		<!--body js-->
+		<script>
+			$("#sampleUserButton").click(function () {
+				$("#emailLogInInput").val("sample@email.com");
+				$("#passwordLogInInput").val("password");
+			});
+		</script>
+		
 	</body>
+	
+		
+	<!--js-->
     <script type="text/javascript" src="/js/weather/weather.js"></script>
     <script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
     <script type="text/javascript" src="/js/weather/currentTime.js"></script>

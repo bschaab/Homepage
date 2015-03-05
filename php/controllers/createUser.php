@@ -10,7 +10,7 @@
 	
 	if ($_POST['firstName'] == "" || $_POST['lastName'] == "" || $_POST['email'] == "" || $_POST['password'] == "") {
 		    
-		$redirect_url = "/login/?alert=create-missing";
+		$redirect_url = "/dash/?alert=create-missing";
 		header('Location: ' .  $redirect_url);
 		exit;
 		    
@@ -24,7 +24,7 @@
 	
 	$session->setSessionVariable('userID', $id);
 	
-	$redirect_url = "/";
+	$redirect_url = "/dash/";
 	header('Location: ' .  $redirect_url);
 	exit;
 	

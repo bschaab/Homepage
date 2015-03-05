@@ -5,7 +5,7 @@
 	$session = new Session();
 	$session->destroySession();
 	
-	$redirect_url = "/login/?alert=logout-success";
+	$redirect_url = "/dash/?alert=logout-success";
 	header('Location: ' .  $redirect_url);
 	exit;
 	

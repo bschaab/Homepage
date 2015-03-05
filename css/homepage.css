@@ -10,6 +10,102 @@ html, body {
 	margin: 0;
 }
 
+/* General */
+.textLink {
+	color: #0ca5e8;
+	cursor: pointer;
+	transition: .5s;
+}
+.textLink:hover {
+	color: #76c0e0;
+	transition: .5s;
+}
+.iconLink a i, .iconLink i {
+	color: #828282;
+	transition: .5s;
+}
+.iconLink a i:hover, .iconLink i:hover {
+	color: #b7b7b7;
+	transition: .5s;
+}
+
+
+
+/* Alert Bar */
+
+#alertBar {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+	height: auto;
+}
+
+#alertBar p {
+	padding: 5px;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 0px 0px 10px 10px;
+	box-shadow: 0px 0px 9px black;
+}
+
+.alertBarClose {
+	opacity: 0;
+	transition: 2s;
+	transition-delay: 3s;
+}
+.alertBarCloseFull {
+	display: none;
+	transition: 0s;
+	transition-delay: 5s;
+}
+
+
+/* Hover Panels */
+.hoverPanel {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+    right: 0px;
+    z-index: 100;
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    
+	width: 70%;
+	height: 70%;
+	overflow-y: scroll;
+	max-width: 700px;
+	max-height: 500px;
+	
+	background-image: url('/img/fabric.png');
+	background-repeat: repeat;
+	box-shadow: 0px 0px 15px black;
+	border-radius: 10px;
+}
+
+.hoverPanelCurtain {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 50;
+	background-color: rgba(0,0,0,0.6);
+}
+
+.hoverPanel form {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	width: 70%;
+	margin: auto;
+}
+
+
 /* Top bar */
 
 #top-bar {

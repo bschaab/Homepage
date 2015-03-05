@@ -7,8 +7,8 @@
 	$dbCom = new DatabaseCommunicator();
 	
 	//redirect back home
-	if ($dbCom->clean())  { $redirect_url = "/login/?alert=dbsetup-success"; }
-	else { $redirect_url = "/login/?alert=dbsetup-fail"; }
+	if ($dbCom->clean())  { $redirect_url = "/dash/?alert=dbsetup-success"; }
+	else { $redirect_url = "/dash/?alert=dbsetup-fail"; }
 	header('Location: ' .  $redirect_url);
 	exit;
 	

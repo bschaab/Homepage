@@ -31,10 +31,10 @@
 	
 	//redirect to destination
 	if (!$session->getSessionVariable('userID')) {
-		$redirect_url = "/login/?alert=login-fail";
+		$redirect_url = "/dash/?alert=login-fail";
 	}
 	else {
-		$redirect_url = "/";
+		$redirect_url = "/dash/";
 	}
 	
 	header('Location: ' .  $redirect_url);
