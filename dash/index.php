@@ -1,4 +1,12 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/first.php"); ?>
+
+<?php 
+	require_once "../php/models/Session.php";
+	require_once "../php/models/User.php";
+	
+?>
+
+
 <!DOCTYPE html>
 
 <html ng-app="homepageApp" ng-controller="homepageController">

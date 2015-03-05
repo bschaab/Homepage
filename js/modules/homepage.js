@@ -3,7 +3,7 @@
  * Also holds the config and routes for the website
  */
 
-var quickbarApiUrl = "/dash/fake_api/fake_quickbar.json";	//MODIFY THIS TO THE CORRECT URL TO RETRIEVE THE QUICKBAR
+var quickbarApiUrl = "/dash/data/data.php";	//MODIFY THIS TO THE CORRECT URL TO RETRIEVE THE QUICKBAR
 
 var homepageApp = angular.module("homepageApp", ["ngRoute", "homepageFeed", "homepageSearch"]);
 
