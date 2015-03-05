@@ -11,7 +11,6 @@
 ?>
 
 {
-	"loggedIn" : 
 	"firstName" : "<?= $user->getFirstName() ?>",
 	"lastName" : "<?= $user->getLastName() ?>",
 	"quickbarItems" : [
