@@ -76,11 +76,7 @@
 		
 		<!--END alert bar-->
 		
-		
 
-		<a href="#/dash/">Main</a>
-		<a href="#/dash/search">Search</a>
-		<span>This here for debug</span>
 		<div id="homepage-wrapper">
 			<div id="top-bar">
 				<div id="logo" class="top-bar-item">Logo Here</div><!--
@@ -91,22 +87,25 @@
 								<img ng-src="{{quickbarItem.iconUrl}}" title="{{quickbarItem.title}}" />
 							</a>
 						</li>
+						<li class="quickbar-item" id="add-qb-item">
+							<a>+</a>
+						</li>
 					</ul>
 				</div><!--
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
 						<span ng-show="hpUser.loggedIn">Welcome, <span class="textLink">{{ hpUser.firstName }}</span>
-						&nbsp; &nbsp;
-						<span id="pref-btn" class="iconLink"><a href=""><i class="fa fa-cog"></i></a></span>
-						&nbsp;
-						<span id="power-btn" class="iconLink"><a href="/php/controllers/logoutUser.php"><i class="fa fa-power-off"></i></a></span>
+							<span id="pref-btn" class="iconLink">
+								<a href="" class="fa fa-cog"></a>
+							</span>
+							<span id="power-btn" class="iconLink">
+								<a class="fa fa-power-off" href="/php/controllers/logoutUser.php"></a>
+							</span>
 						</span>
-						&nbsp;
-						<span ng-show="!hpUser.loggedIn">
+						<span id="not-logged-in" ng-show="!hpUser.loggedIn">
 							<span ng-click="showLogInPanel = true" class="textLink">Log In</span>
-							&nbsp; | &nbsp;
+							<span class="divider">|</span>
 							<span ng-click="showSignUpPanel = true" class="textLink">Sign Up</span>
-							&nbsp;
 						</span>
 					</div>
 				</div>
@@ -125,7 +124,9 @@
 			</div>
 
 			<div id="search-section">
-				<input type="text" id="search-input" placeholder="Search" />
+				<form ng-submit="search($event)">
+				<input type="text" id="search-input" placeholder="Search" ng-model="searchQuery" ng-focus="searchFocus" ng-blur="searchBlur" />
+				</form>
 			</div>
 			<div id="homepage-main" ng-view></div>
 
@@ -145,9 +146,6 @@
 
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/footer.php"); ?>
 		
-		
-		
-		
 		<!--body js-->
 		<script>
 			$("#sampleUserButton").click(function () {
@@ -155,12 +153,8 @@
 				$("#passwordLogInInput").val("password");
 			});
 		</script>
-		
+		<script type="text/javascript" src="/js/weather/weather.js"></script>
+		<script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
+		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
 	</body>
-	
-		
-	<!--js-->
-    <script type="text/javascript" src="/js/weather/weather.js"></script>
-    <script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
-    <script type="text/javascript" src="/js/weather/currentTime.js"></script>
 </html>

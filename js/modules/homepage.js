@@ -17,8 +17,12 @@ homepageApp.controller("homepageController", ["$scope", "userService",
 			for(var i = 0; i < 3; i++) {
 				$scope.widgetsUrl[i] = "/dash/parts/widget-" + data.widgets[i] + ".html";
 			}
-
 		});
+		
+		$scope.search = function(event) {
+			location.href = "https://www.google.com/?gws_rd=ssl#q=" + $scope.searchQuery;
+			event.preventDefault;
+		}
 	}]
 );
 

@@ -5,30 +5,56 @@
 	
 	$session = new Session();
 	$userID = $session->getSessionVariable("userID");
-	$user = new User();
-	$user->loadUser($userID);
 	
 ?>
 
 {
-	"loggedIn" : <?php if ($userID) echo true; else echo false; ?>,
-	"firstName" : "<?= $user->getFirstName() ?>",
-	"lastName" : "<?= $user->getLastName() ?>",
+	<?php 
+		if ($userID) {
+			$user = new User();
+			$user->loadUser($userID);
+	?>
+			"loggedIn" : true,
+			"firstName" : "<?= $user->getFirstName() ?>",
+			"lastName" : "<?= $user->getLastName() ?>",
+	<?php 
+		}
+		else {
+	?>
+			"loggedIn" : false,
+	<?php
+		}
+	?>
+	<?php
+		// Default quickbar
+		// Icons downloaded from: https://dribbble.com/shots/1233464-24-Free-Flat-Social-Icons
+	?>
+	
 	"quickbarItems" : [
 		{
-			"iconUrl" : "http://i.imgur.com/QmZlg5z.jpg",
-			"title" : "Cool Cat 1",
-			"url" : "http://i.imgur.com/QmZlg5z.jpg"
+			"iconUrl" : "/img/icons/01_twitter.png",
+			"title" : "Twitter",
+			"url" : "http://twitter.com"
 		},
 		{
-			"iconUrl" : "http://imgur.com/PgH4QC5.jpg",
-			"title" : "Cool Cat 2",
-			"url" : "http://imgur.com/PgH4QC5"
+			"iconUrl" : "/img/icons/02_facebook.png",
+			"title" : "Facebook",
+			"url" : "http://www.facebook.com"
 		},
 		{
-			"iconUrl" : "http://i.imgur.com/nbn0zwo.jpg",
-			"title" : "Cool Cat 3",
-			"url" : "http://i.imgur.com/nbn0zwo"
+			"iconUrl" : "/img/icons/03_youtube.png",
+			"title" : "Youtube",
+			"url" : "http://www.youtube.com"
+		},
+		{
+			"iconUrl" : "/img/icons/07_linkedin.png",
+			"title" : "LinkedIn",
+			"url" : "http://www.linkedin.com"
+		},
+		{
+			"iconUrl" : "/img/icons/15_tumblr.png",
+			"title" : "Tumblr",
+			"url" : "http://www.tumblr.com"
 		}
 	],
 	"widgets" : [

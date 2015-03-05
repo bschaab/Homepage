@@ -1,6 +1,11 @@
 /* Media */
-@media all and (max-height: 600px) {
+@media all and (max-height: 600px),
+	all and (max-width: 900px) {
 	#homepage-wrapper {
+		font-size: 9px;
+	}
+	
+	#bottom-bar #weather {
 		font-size: 9px;
 	}
 }
@@ -122,18 +127,17 @@ html, body {
 
 #top-bar #logo {
 	/* SET BACKGROUND URL TO LOGO */
-	display: inline-block;
+	float: left;
 	width: 10%;
 }
 
 #top-bar #quickbar {
 	background-color: rgba(0, 0, 0, .3);
-	display: inline-block;
-	width: 20%;
+	float: left;
 	margin: 0;
 
-	padding-top: .7em;
-	padding-left: .5em;
+	padding: .7em .5em 0 .5em;
+	
 }
 
 #top-bar #quickbar ul {
@@ -152,10 +156,22 @@ html, body {
 	height: 2.5em;
 }
 
+#top-bar #quickbar #add-qb-item {
+	margin: 0 .1em;
+}
+
+#top-bar #quickbar #add-qb-item a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#top-bar #quickbar #add-qb-item:hover {
+	cursor: pointer;
+}
+
 #top-bar #black-bar-wrapper {
 	background-color: rgba(0, 0, 0, .6);
-	width: 70%;
-	display: inline-block;
+	overflow: hidden;
 }
 
 #top-bar #user-settings {
@@ -166,13 +182,24 @@ html, body {
 }
 
 #top-bar #user-settings #pref-btn {
-	content : "PRF";
-	/* REPLACE THIS WITH BACKGROUND IMAGE LATER */
+	color: #FFF;
+	margin: 0 .1em 0 .5em;
 }
 
 #top-bar #user-settings #power-btn {
-	content : "PWR";
-	/* REPLACE THIS WITH BACKGROUND IMAGE LATER */
+	margin: 0 .3em 0 .1em 
+}
+
+#top-bar #user-settings a {
+	color: #fff;
+}
+
+#top-bar #user-settings a:hover {
+	text-decoration: none;
+}
+
+#top-bar #user-settings #not-logged-in .divider {
+	margin: 0 .5em;
 }
 
 /* Categories */
@@ -257,8 +284,8 @@ html, body {
 }
 
 #bottom-bar #info {
-	background-color: rgba(0, 0, 0, .9);
-	height: 12em;
+	background-color: rgba(55, 55, 55, .9);
+	min-height: 12em;
 	width: 25%;
 
 	position: absolute;
