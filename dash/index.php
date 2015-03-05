@@ -14,6 +14,7 @@
 		<meta name="viewport" content="width=device-width" />
 
 		<title ng:bind-template="homepage - {{hpUser.firstName}} {{hpUser.lastName}}">homepage</title>
+        <script type="text/javascript" src="/js/calculator/math.min.js"></script>
 
 		<!-- USING CDN FOR NOW, CHANGE LATER -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
@@ -166,9 +167,11 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-					<div id="widget-0" class="widget" ng-include="widgetsUrl[0]"></div>
-					<div id="widget-1" class="widget" ng-include="widgetsUrl[1]"></div>
-					<div id="widget-2" class="widget" ng-include="widgetsUrl[2]"></div>
+
+                    <div ng-controller = "calcController">
+                        <div id = "widget-0" class = "widget" ng-include = "'calc.html'"></div>
+
+                    </div>
 				</div>
 
 				<div id="info" class="bottom-bar-item">
