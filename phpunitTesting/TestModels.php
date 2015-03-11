@@ -1,8 +1,8 @@
 <?php 
 	
-	require_once "../DatabaseCommunicator.php";
-	require_once "../Session.php";
-	require_once "../User.php";
+	require_once "./php/models/DatabaseCommunicator.php";
+	require_once "./php/models/Session.php";
+	require_once "./php/models/User.php";
 	
 	/* Run with phpunit --stderr TestModels.php */
 	
