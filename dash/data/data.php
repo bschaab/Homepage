@@ -61,6 +61,15 @@
 		"testWidget",
 		"testWidget",
 		"testWidget"
+	],
+	"feed" : [
+		{
+			"classes" : "feed-item-big",
+			"imgSrc" : "",
+			"iconSrc" : "",
+			"time" : "",
+			"title" : "",
+			"author" : ""
 	]
 }
 
