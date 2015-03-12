@@ -167,11 +167,7 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-
-                    <div ng-controller = "calcController">
-                        <div id = "widget-0" class = "widget" ng-include = "'calc.html'"></div>
-
-                    </div>
+                    <div class="widget"></div>
 				</div>
 
 				<div id="info" class="bottom-bar-item">
