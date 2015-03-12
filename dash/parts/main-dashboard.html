@@ -1,17 +1,20 @@
 <ul id="feed">
-	<li ng-repeat="feedItem in hpUser.feed">
-		<div class="feed-item {{feedItem.classes}}">
-			<div class="headline-section">
-				<img src="{{feedItem.imgSrc}}"></img>
+	<li ng-repeat="feedItem in hpUser.feed" class="feed-item {{feedItem.classes}}">
+		<a ng-href="{{feedItem.url}}">
+			<img class="feed-item-background" ng-src="{{feedItem.imgSrc}}"></img>
+			<div class="head-line-section">
 				<div class="top-line">
-					<img class="icon" src="{{feedItem.iconSrc}}"></img>
-					<span>Posted at: </span>
-					<span>{{feedItem.time}}</span>
+					<img class="icon" ng-src="{{feedItem.iconSrc}}"></img>
+					<span class="title-text" ng-if="feedItem.author">Post by: </span>
+					<span class="title-text" ng-if="!feedItem.author">Posted at:</span>
+					<span class="title-detail" ng-if="feedItem.author">{{feedItem.author}}</span>
+					<span class="title-text" ng-if="feedItem.author && feedItem.time">at</span>
+					<span class="title-detail" ng-if="feedItem.time">{{feedItem.time}}</span>
 				</div>
 				<div class="head-line">
 					{{feedItem.title}}
 				</div>
 			</div>
-		</div>
+		</a>
 	</li>
 </ul>
