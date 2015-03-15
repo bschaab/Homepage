@@ -38,8 +38,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -89,6 +89,20 @@
 			</form>
 		</div>
 		
+		<div id="editQuickbarPanel" class="hoverPanel" ng-show="addQuickbarPanel">
+			<form class="form" method="post" action="/php/controllers/createUser.php">
+				<h2>My Quickbar</h2>
+				<h6>here you can add a new quickbar link</h6>
+				<br/>
+				<div class="form-group">
+			    	<label class="sr-only" for="QuickbarLinkInput">New Quickbar Link</label>
+					<input type="text" class="form-control" id="QuickbarLinkInput" placeholder="http://facebook.com/" name="link">
+				</div>
+				<button type="submit" class="btn btn-primary">Add</button>
+				<br/><br/>
+			</form>
+		</div>
+		
 		<!--END hovering panels-->
 		
 		
@@ -118,12 +132,16 @@
 			 --><div id="quickbar" class="top-bar-item">
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
+							<i class="fa fa-times quickbarItemRemoveButton"></i>
 							<a href="{{quickbarItem.url}}">
 								<img ng-src="{{quickbarItem.iconUrl}}" title="{{quickbarItem.title}}" />
 							</a>
 						</li>
-						<li class="quickbar-item" id="add-qb-item">
-							<a>+</a>
+						<li>
+							<i id="add-qb-item" class="fa fa-plus-square" ng-click="addQuickbarPanel = true"></i>
+						</li>
+						<li>
+							<i id="edit-qb-item" class="fa fa-pencil-square-o" onclick="editQuickbarPanel()"></i>
 						</li>
 					</ul>
 				</div><!--
@@ -189,5 +207,6 @@
 		<script type="text/javascript" src="/js/weather/weather.js"></script>
 		<script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
 		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
+		<script type="text/javascript" src="/js/quickbar/quickbar.js"></script>
 	</body>
 </html>
