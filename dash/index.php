@@ -95,8 +95,12 @@
 				<h6>here you can add a new quickbar link</h6>
 				<br/>
 				<div class="form-group">
-			    	<label class="sr-only" for="QuickbarLinkInput">New Quickbar Link</label>
-					<input type="text" class="form-control" id="QuickbarLinkInput" placeholder="http://facebook.com/" name="link">
+			    	<label class="sr-only" for="QuickbarLinkTitleInput">Title</label>
+					<input type="text" class="form-control" id="QuickbarLinkTitleInput" placeholder="Title  (ex: 'Facebook')" name="linkTitle">
+				</div>
+				<div class="form-group">
+			    	<label class="sr-only" for="QuickbarLinkInput">Link</label>
+					<input type="text" class="form-control" id="QuickbarLinkInput" placeholder="Link  (ex: 'http://facebook.com/')" name="link">
 				</div>
 				<button type="submit" class="btn btn-primary">Add</button>
 				<br/><br/>
@@ -133,8 +137,8 @@
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
 							<i class="fa fa-times quickbarItemRemoveButton" onclick="removeQuickbarItem(this)"></i>
-							<a href="{{quickbarItem.url}}">
-								<img ng-src="{{quickbarItem.iconUrl}}" title="{{quickbarItem.title}}" />
+							<a href="{{quickbarItem.url}}" title="{{quickbarItem.title}}">
+								<img ng-src="{{quickbarItem.iconUrl}}"/>
 							</a>
 						</li>
 						<li>

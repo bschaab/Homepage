@@ -13,6 +13,8 @@
 		protected $email;
 		protected $hashedPassword;
 		
+		protected $quickbar;
+		
 		
 		function __construct() {
 			

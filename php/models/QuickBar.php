@@ -1,6 +1,5 @@
 <?php 
 	
-	require_once "DatabaseCommunicator.php";
 	require_once "QuickbarItem.php";
 	
 	/**
@@ -10,10 +9,15 @@
 		
 		protected $quickbarItems;
 		
-		
 		function __construct() {
 			
 		}
+		
+		
+		function setToDefault() {
+			$this->quickbarItems = 
+		}
+		
 		
 		function getId() {
 			return $this->id;

@@ -90,10 +90,15 @@ function saveQuickbarChanges() {
 	var quickbarLinks = {}
 	$("#quickbar-list .quickbar-item a").each(function (index) {
 		
+		var title = $(this).attr("title");
 		var link = $(this).attr("href");
 		
-		quickbarLinks["link" + index] = link;
+		quickbarLinks[title] = link;
 	});
+	
+	for (var item in quickbarLinks) {
+		alert(item + " : " + quickbarLinks[item]);
+	}
 	
 	//send this array somewhere to be put in the db
 	$.post( "/php/controllers/editQuickbar.php", quickbarLinks);
