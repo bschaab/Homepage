@@ -2,9 +2,9 @@
 var editingQuickbar = false
 var blinkInterval;
 
-function editQuickbarPanel () {
+function editQuickbar () {
 	
-	//if we are editing, save changes
+	//if we are editing, stop editing
 	if (editingQuickbar) {
 		
 		//stop the blinking animation
@@ -29,8 +29,6 @@ function editQuickbarPanel () {
 			$(this).hide();	
 		});
 		
-		//save the changes
-		saveQuickbarChanges();
 	}
 	
 	//otherwise, start editing
@@ -41,7 +39,8 @@ function editQuickbarPanel () {
 		
 		//enable sorting
 		$("#quickbar-list").sortable({
-			containment: "parent"
+			containment: "parent",
+			stop: saveQuickbarChanges
 		});
 		$("#quickbar-list").sortable("enable");
 		
@@ -76,6 +75,49 @@ function editQuickbarPanel () {
 }
 
 
-function saveQuickbarChanges() {
-	return true;
+//removes the li from the DOM
+function removeQuickbarItem(element) {
+	$(element).parent().remove();
+	
+	//save the changes
+	saveQuickbarChanges();
 }
+
+
+function saveQuickbarChanges() {
+	
+	//create a structure to be passed to the back end code
+	var quickbarLinks = {}
+	$("#quickbar-list .quickbar-item a").each(function (index) {
+		
+		var link = $(this).attr("href");
+		
+		quickbarLinks["link" + index] = link;
+	});
+	
+	//send this array somewhere to be put in the db
+	$.post( "/php/controllers/editQuickbar.php", quickbarLinks);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

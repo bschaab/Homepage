@@ -89,8 +89,8 @@
 			</form>
 		</div>
 		
-		<div id="editQuickbarPanel" class="hoverPanel" ng-show="addQuickbarPanel">
-			<form class="form" method="post" action="/php/controllers/createUser.php">
+		<div id="addQuickbarPanel" class="hoverPanel" ng-show="addQuickbarPanel">
+			<form class="form" method="post" action="/php/controllers/addQuickbarItem.php">
 				<h2>My Quickbar</h2>
 				<h6>here you can add a new quickbar link</h6>
 				<br/>
@@ -132,7 +132,7 @@
 			 --><div id="quickbar" class="top-bar-item">
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
-							<i class="fa fa-times quickbarItemRemoveButton"></i>
+							<i class="fa fa-times quickbarItemRemoveButton" onclick="removeQuickbarItem(this)"></i>
 							<a href="{{quickbarItem.url}}">
 								<img ng-src="{{quickbarItem.iconUrl}}" title="{{quickbarItem.title}}" />
 							</a>
@@ -141,7 +141,7 @@
 							<i id="add-qb-item" class="fa fa-plus-square" ng-click="addQuickbarPanel = true"></i>
 						</li>
 						<li>
-							<i id="edit-qb-item" class="fa fa-pencil-square-o" onclick="editQuickbarPanel()"></i>
+							<i id="edit-qb-item" class="fa fa-pencil-square-o" onclick="editQuickbar()"></i>
 						</li>
 					</ul>
 				</div><!--
