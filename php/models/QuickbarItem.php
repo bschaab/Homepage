@@ -5,6 +5,25 @@
 	*/
 	class QuickbarItem {
 		
+		protected $title
+		protected $link
+		protected $icon
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		protected $id;
 		protected $firstName;
 		protected $lastName;

@@ -29,6 +29,9 @@ function editQuickbar () {
 			$(this).hide();	
 		});
 		
+		//save changes
+		saveQuickbarChanges();
+		
 	}
 	
 	//otherwise, start editing
@@ -39,8 +42,7 @@ function editQuickbar () {
 		
 		//enable sorting
 		$("#quickbar-list").sortable({
-			containment: "parent",
-			stop: saveQuickbarChanges
+			containment: "parent"
 		});
 		$("#quickbar-list").sortable("enable");
 		
@@ -78,9 +80,6 @@ function editQuickbar () {
 //removes the li from the DOM
 function removeQuickbarItem(element) {
 	$(element).parent().remove();
-	
-	//save the changes
-	saveQuickbarChanges();
 }
 
 
