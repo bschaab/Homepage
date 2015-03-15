@@ -88,11 +88,35 @@
 				return false;
 			}
 			
+			//create the quickbar table
+			$query = "CREATE TABLE quickbar (
+						id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
+						userID int(16),
+						title varchar(255),
+						link varchar(255),
+						icon varchar(255),
+						orderIndex int(4),
+						PRIMARY KEY (id)
+						);";
+			if (!$this->runQuery($query)) {
+				return false;
+			}
+			
 			//create a sample user
 			$password = password_hash("password", PASSWORD_DEFAULT);
 			$query = "INSERT INTO users
 						(lastName, firstName, email, password) VALUES
 						('User', 'Sample', 'sample@email.com', '$password');";
+			if (!$this->runQuery($query)) {
+				return false;
+			}
+			
+			//add the sample user's quickbar
+			$query = "INSERT INTO quickbar
+						(userID, title, link, icon, orderIndex) VALUES
+						(1, 'Twitter', 'http://twitter.com', 'http://grabicon.com/icon?size=50&origin=1196028656.com&domain=http://twitter.com', 0),
+						(1, 'Facebook', 'http://facebook.com', 'http://grabicon.com/icon?size=50&origin=1196028656.com&domain=http://facebook.com', 1),
+						(1, 'Youtube', 'http://youtube.com', 'http://grabicon.com/icon?size=50&origin=1196028656.com&domain=http://youtube.com', 2);";
 			if (!$this->runQuery($query)) {
 				return false;
 			}

@@ -20,6 +20,7 @@
 	$user->setLastName($_POST['lastName']);
 	$user->setEmail($_POST['email']);
 	$user->setPassword($_POST['password']);
+	$user->setQuickbarToDefault();
 	$id = $user->saveUser();
 	
 	if ($id < 1) {

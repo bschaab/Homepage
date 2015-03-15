@@ -5,20 +5,14 @@
 	*/
 	class QuickbarItem {
 		
-		protected $title
-		protected $link
-		protected $icon
+		protected $title;
+		protected $link;
+		protected $icon;
 		
 		function __construct($title, $link) {
 			$this->title = $title;
 			$this->link = $link;
-			
-			//get icon
-			$original = "http://grabicon.com/icon?domain=$link&size=64";
-			$destination = "/img/quickbar/icons/" . time() . rand();
-			copy($original, $destination);
-			
-			$this->icon = $destination;
+			$this->icon = "http://grabicon.com/icon?size=50&origin=" . rand() . ".com&domain=$link"; //TODO: copy this into our server so we don't request everytime
 		}
 		
 		function getTitle() {

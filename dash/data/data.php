@@ -6,12 +6,14 @@
 	$session = new Session();
 	$userID = $session->getSessionVariable("userID");
 	
+	//setup user regardless of logged in
+	$user = new User();
+	$user->setQuickbarToDefault();
+	
 ?>
-
 {
-	<?php 
+	<?php
 		if ($userID) {
-			$user = new User();
 			$user->loadUser($userID);
 	?>
 			"loggedIn" : true,
@@ -31,31 +33,20 @@
 	?>
 	
 	"quickbarItems" : [
+		<?php
+			
+			$quickbarTitles = $user->getQuickbarTitles();
+			$quickbarLinks = $user->getQuickbarLinks();
+			$quickbarIcons = $user->getQuickbarIcons();
+			for ($i=0; $i<sizeof($quickbarTitles); $i++):
+			
+		?>
 		{
-			"iconUrl" : "/img/icons/01_twitter.png",
-			"title" : "Twitter",
-			"url" : "http://twitter.com"
-		},
-		{
-			"iconUrl" : "/img/icons/02_facebook.png",
-			"title" : "Facebook",
-			"url" : "http://www.facebook.com"
-		},
-		{
-			"iconUrl" : "/img/icons/03_youtube.png",
-			"title" : "Youtube",
-			"url" : "http://www.youtube.com"
-		},
-		{
-			"iconUrl" : "/img/icons/07_linkedin.png",
-			"title" : "LinkedIn",
-			"url" : "http://www.linkedin.com"
-		},
-		{
-			"iconUrl" : "/img/icons/15_tumblr.png",
-			"title" : "Tumblr",
-			"url" : "http://www.tumblr.com"
-		}
+			"iconUrl" : "<?php echo $quickbarIcons[$i]; ?>",
+			"title" : "<?php echo $quickbarTitles[$i]; ?>",
+			"url" : "<?php echo $quickbarLinks[$i]; ?>"
+		}<?php if ($i+1 != sizeof($quickbarTitles)) { echo ","; }?>
+		<?php endfor; ?>
 	],
 	"widgets" : [
 		"testWidget",

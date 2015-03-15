@@ -58,7 +58,7 @@ body {
 	right: 0px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 70%;
+	width: 50%;
 	height: auto;
 	z-index: 100;
 }
@@ -178,17 +178,17 @@ body {
 	background-color: #c41919;
 }
 
-#top-bar #quickbar ul li i {
+#top-bar #quickbar i {
 	color: #fcfcfc;
 }
-#top-bar #quickbar ul li i.active {
+#top-bar #quickbar i.active {
 	color: #ffef3b;
 }
-#top-bar #quickbar ul li {
+#top-bar #quickbar ul li, #top-bar #quickbar i {
 	opacity: .7;
 	cursor: pointer;
 }
-#top-bar #quickbar ul li:hover {
+#top-bar #quickbar ul li:hover, #top-bar #quickbar i:hover {
 	opacity: 1;
 }
 
@@ -199,6 +199,9 @@ body {
 #top-bar #quickbar ul li.blinkDown {
 	opacity: .5;
 	transition: .5s;
+}
+#top-bar #quickbar ul i, #top-bar #quickbar ul i:hover {
+	opacity: 1;
 }
 
 #top-bar #quickbar img {

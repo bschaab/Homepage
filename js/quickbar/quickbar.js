@@ -86,21 +86,22 @@ function removeQuickbarItem(element) {
 function saveQuickbarChanges() {
 	
 	//create a structure to be passed to the back end code
-	var quickbarLinks = {}
+	var quickbarElements = {};
 	$("#quickbar-list .quickbar-item a").each(function (index) {
 		
 		var title = $(this).attr("title");
 		var link = $(this).attr("href");
 		
-		quickbarLinks[title] = link;
+		quickbarElements["title_" + index] = title;
+		quickbarElements["link_" + index] = link;
 	});
 	
-	for (var item in quickbarLinks) {
-		alert(item + " : " + quickbarLinks[item]);
-	}
-	
 	//send this array somewhere to be put in the db
-	$.post( "/php/controllers/editQuickbar.php", quickbarLinks);
+	$.post( "/php/controllers/editQuickbar.php", quickbarElements, function(result){
+		if (result) {
+			$("html").html(result);
+		}
+    });
 }
 
 

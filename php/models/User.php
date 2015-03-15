@@ -1,6 +1,7 @@
 <?php 
 	
 	require_once "DatabaseCommunicator.php";
+	require_once "Quickbar.php";
 	
 	/**
 	* Manages a User
@@ -40,6 +41,18 @@
 			return $this->hashedPassword;
 		}
 		
+		function getQuickbarTitles() {
+			return $this->quickbar->getTitles();
+		}
+		
+		function getQuickbarLinks() {
+			return $this->quickbar->getLinks();
+		}
+		
+		function getQuickbarIcons() {
+			return $this->quickbar->getIcons();
+		}
+		
 		
 		function setId($id) {
 			$this->id = $id;
@@ -61,19 +74,49 @@
 			$this->hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 		}
 		
+		function addToQuickbar($title, $link) {
+			if (!$this->quickbar) { $this->quickbar = new Quickbar(); }
+			$this->quickbar->add($title, $link);
+		}
 		
-		function loadUser($id) {
+		function setQuickbar($titles, $links) {
+			if (!$this->quickbar) { $this->quickbar = new Quickbar(); }
+			$this->quickbar->set($titles, $links);
+		}
+		
+		function setQuickbarToDefault() {
+			$this->quickbar = new Quickbar();
+			$this->quickbar->setToDefault();
+		}
+		
+		
+		function loadUser($userID) {
 			$dbCom = new DatabaseCommunicator();
 	
-			$query = "SELECT * FROM users WHERE id = $id";
-	
+			$query = "SELECT * FROM users WHERE id = $userID";
 	        if (!$dbCom->runQuery($query)) { return false; }
 	        if (!$result = $dbCom->getQueryResult()) { return false; }
+	        
 	        $this->id = $result['id'];
 	        $this->firstName = $result['firstName'];
 	        $this->lastName = $result['lastName'];
 	        $this->email = $result['email'];
 	        $this->hashedPassword = $result['password'];
+	        
+	        
+	        //get quickbar
+	        $query = "SELECT * FROM quickbar WHERE userID = $userID ORDER BY orderIndex ASC";
+	        if (!$dbCom->runQuery($query)) { return false; }
+	        $this->quickbar = new Quickbar();
+	        while ($result = $dbCom->getQueryResult()) {
+		        $title = $result['title'];
+		        $link = $result['link'];
+		        $icon = $result['icon'];
+		        $this->quickbar->add($title, $link);
+	        }
+	        if ($this->quickbar->getSize() == 0) {
+		        $this->quickbar->setToDefault();
+	        }
 	        
 	        return true;
 		}
@@ -85,17 +128,45 @@
 			$lastName = $this->lastName;
 			$email = $this->email;
 			$hashedPassword = $this->hashedPassword;
-	
-			$query = "INSERT INTO users
+			$quickbar = $this->quickbar;
+			
+			if ($this->id) {
+				$userID = $this->id;
+				$query = "UPDATE users SET lastName='$lastName', firstName='$firstName', email='$email', password='$hashedPassword' WHERE id=$userID;";
+				if (!$dbCom->runQuery($query)) { return -2; } //general error
+			}
+			else {
+				$query = "INSERT INTO users
 						(lastName, firstName, email, password) VALUES
 						('$lastName', '$firstName', '$email', '$hashedPassword');";
-	
-	        if (!$dbCom->runQuery($query)) { return -1; }
+						if (!$dbCom->runQuery($query)) { return -1; } //duplicate user error
+						
+				//get userID
+				$query = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
+				if (!$dbCom->runQuery($query)) { return -2; } //general error
+				if (!$result = $dbCom->getQueryResult()) { return -2; } //general error
+				$userID = $result['id'];
+	        }
 	        
-	        $query = "SELECT * FROM users ORDER BY id DESC LIMIT 1;";
-	        if (!$dbCom->runQuery($query)) { return -2; }
-	        if (!$result = $dbCom->getQueryResult()) { return -3; }
-	        return $result['id'];
+	        
+		        
+	        //clear old quickbar
+			$query = "DELETE FROM quickbar WHERE userID = $userID";
+			$dbCom->runQuery($query);
+			
+			//save quickbar
+	        $titles = $quickbar->getTitles();
+	        $links = $quickbar->getLinks();
+	        $icons = $quickbar->getIcons();
+	        for ($i=0; $i<$quickbar->getSize(); $i++) {
+		        $title = $titles[$i];
+		        $link = $links[$i];
+		        $icon = $icons[$i];
+		        $query = "INSERT INTO quickbar (userID, title, link, icon, orderIndex) VALUES ($userID,'$title','$link','$icon',$i);";
+		        if (!$dbCom->runQuery($query)) { return -2; }
+		    }
+	        
+	        return $userID;
 	        
 		}
 		

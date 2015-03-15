@@ -1,6 +1,13 @@
 <?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/first.php"); ?>
 
 <?php 
+	
+	//display errors
+	ini_set('display_errors',1);
+	ini_set('display_startup_errors',1);
+	error_reporting(-1);
+
+
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
 ?>
@@ -112,7 +119,7 @@
 		
 		<!--BEGIN alert bar-->
 		<div id="alertBar" ng-class="{ 'alertBarClose': 1}">
-			<?php $alert = $_GET['alert']; ?>
+			<?php if (isset($_GET['alert'])) {$alert = $_GET['alert'];} else {$alert = "";} ?>
 			
 			<?php if ($alert == "dbsetup-success"): ?><p class="bg-success alertBox">Database setup successfully</p><?php endif;?>
 			<?php if ($alert == "dbsetup-fail"): ?><p class="bg-danger alertBox">Database setup failed. Please try again.</p><?php endif; ?>
@@ -124,6 +131,10 @@
 			
 			<?php if ($alert == "login-fail"): ?><p class="bg-danger alertBox">Login failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "logout-success"): ?><p class="bg-success alertBox">Logout successful</p><?php endif;?>
+			
+			<?php if ($alert == "quickbar-add-invalid-input"): ?><p class="bg-danger alertBox">Quickbar Add Failed. You were missing required fields.</p><?php endif; ?>
+			<?php if ($alert == "quickbar-add-fail"): ?><p class="bg-danger alertBox">Quickbar Add Failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "quickbar-add-success"): ?><p class="bg-success alertBox">Quickbar Add Succeeded</p><?php endif; ?>
 			
 		</div>
 		
@@ -141,13 +152,9 @@
 								<img ng-src="{{quickbarItem.iconUrl}}"/>
 							</a>
 						</li>
-						<li>
-							<i id="add-qb-item" class="fa fa-plus-square" ng-click="addQuickbarPanel = true"></i>
-						</li>
-						<li>
-							<i id="edit-qb-item" class="fa fa-pencil-square-o" onclick="editQuickbar()"></i>
-						</li>
 					</ul>
+					<i id="add-qb-item" class="fa fa-plus-square" ng-click="addQuickbarPanel = true" ng-show="hpUser.loggedIn"></i>
+					<i id="edit-qb-item" class="fa fa-pencil-square-o" onclick="editQuickbar()" ng-show="hpUser.loggedIn"></i>
 				</div><!--
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
