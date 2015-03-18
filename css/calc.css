@@ -26,13 +26,13 @@
 	width: 0px;
 	height: 0px;
 	z-index: 99;
-	position: relative;
+	position: absolute;
 	text-shadow:0px 0px 0 rgb(80,80,80), 0px 0px 0 rgb(-85,-85,-85),-1px -1px 0px 
 	rgba(0,0,0,1),-2px -2px 0px rgba(0,0,0,0.5),0px 0px 1px rgba(0,0,0,.2);
 	color: white;
-	font-size: 1.6em;
-	margin-left: -11px;
-	margin-top: -12px;
+	font-size: 1.3em;
+	margin-left: -15px;
+	margin-top: -40px;
 }
 
 
@@ -40,13 +40,13 @@
 	width: 0px;
 	height: 0px;
 	z-index: 99;
-	position: relative;
+	position: absolute;
 	text-shadow:0px 0px 0 rgb(80,80,80), 0px 0px 0 rgb(-85,-85,-85),-1px -1px 0px 
 	rgba(0,0,0,1),-2px -2px 0px rgba(0,0,0,0.5),0px 0px 1px rgba(0,0,0,.2);
 	color: white;
-	font-size: 1.6em;
-	margin-left: -11px;
-	margin-top: -32px;
+	font-size: 1.2em;
+	margin-left: -10px;
+	margin-top: -17px;
 }
 
 .settings-layout-color {
@@ -76,9 +76,10 @@
     background: linear-gradient(#e4e4e4, #d1d1d1);
 }
 
+
 .pick-color-left {
-	width: 13%;
-	height: 10%;
+	height: 20px;
+	width: 20px;
 	margin-top: 5px;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 5px 0px 0px 5px;
@@ -86,23 +87,26 @@
 	border-left: 2px solid black;
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
+	float: left;
 }
 
 .pick-color-middle {
-	width: 13%;
-	height: 10%;
+	height: 20px;
+	width: 20px;
 	margin-top: 5px;
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
+	float: left;
 }
 
 .pick-color-right {
-	width: 13%;
-	height: 10%;
+	height: 20px;
+	width: 20px;
 	margin-top: 5px;
 	border-right: 2px solid black;
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
+	float: left;
 
 	-webkit-border-radius: 0px 5px 5px 0px;
 	border-radius: 0px 5px 5px 0px; 
@@ -191,10 +195,10 @@
 
 #settings-panel {
 	display: none;
-	margin-top: 0px;
+	margin-top: 25px;
 	opacity: 0.8;
-	width: 390px;
-	margin-left: 400px;
+	width: 150px;
+	margin-left: 40px;
 	background: white;
 
 }
@@ -211,72 +215,42 @@
 	display: block;
 }
 
+#calc {
+	margin-left: 850px;
+	margin-top: -50px;
+}
+
+
 
 
 /* Using box shadows to create 3D effects */
 #calculator {
-	/*
-	small
-	width:190px;
-	medium
-	width: 325px;
-	large
-	width : 525px;	
-	*/
-	width: 525px;	
-	height: auto;
-	
-	margin: 100px auto;
+	width: 190px;	
+	height: 225px;
 	padding: 20px 20px 5px;
-	
 	background: #9aa5ea;
 	border-radius: 3px;
-	/*box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);*/
 }
 
 /* Top portion */
 .top span.clear {
 	float: left;
-	border-radius: 50%;
+	
 }
 
 /* Inset shadow on the screen to create indent */
 .top .screen {
-	
-/*
-	class = screen
-	small-----------
 	width : 100px;
 	height : 20px;
-	font-size: 12px;
-	line-height: 22px;
+	font-size : 15px;
+	line-height: 20px;
 	margin-right: 10px;
-	medium------------
-	width: 212px;
-	height: 40px;
-	font-size: 17px;
-	line-height: 40px;
-	margin-right : auto;
-	large--------------
-	width : 362px;
-	height : 60px;
-	font-size : 22px;
-	line-height: 40px;
-	margin-right :auto;
-	*/
-	width : 362px;
-	height : 60px;
-	font-size : 22px;
-	line-height: 40px;
-	margin-right :auto;
-	
 	float: right;
-	
 	padding: 0 10px;
 	
 	background: rgba(0, 0, 0, 0.2);
 	border-radius: 3px;
-	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
+	
 	
 	/* Typography */
 	color: white;
@@ -292,7 +266,7 @@
 
 .top-layout {
 	margin-top: 5px;
-	height: 5%;
+	height: 20px;
 }
 
 /* Applying same to the keys */
@@ -302,45 +276,17 @@
 	top: 0;
 	
 	cursor: pointer;
-	
-	/*
-	keys span
-	small
-	width : 30px;
-	height: 16px;
-	font-size: 8px;
-	line-height: 20px;
-
-
-	font-size : 20px;
-	medium
-	width: 66px;
-    height : 36px;
-    font-size : 12px;
-	line-height: 36px;
-
-	large
-	width : 116px;
-	height: 56px;
-	font-size : 20px;
-	line-height: 45px;
-
-    */
-	width : 116px;
-	height: 56px;
-	font-size : 20px;
-	line-height: 45px;
-
-
-
+	width : 36px;
+	height: 20px;
+	font-size : 8px;
+	line-height: 15px;
 	background: white;
-	border-radius: 50%;
-	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
-	
-	margin: 0 7px 11px 0;
+
+	margin: 0 1px 6px 0;
 
 	color: #888;
 	text-align: center;
+
 	
 	/* prevent selection of text inside keys */
 	user-select: none;
@@ -368,49 +314,27 @@
 
 .keys span.eval {
 	background: #f1ff92;
-	box-shadow: 0px 4px #9da853;
 	color: #888e5f;
 }
 
 .top span.clear {
 	background: #ff9fa8;
-	box-shadow: 0px 4px #ff7c87;
 	color: white;
 }
 
 /* Some hover effects */
 .keys span:hover {
-	box-shadow: 1px 7px #878787;
+
 }
-
-
 
 .keys span.eval:hover {
 	background: #abb850;
-	box-shadow: 0px 4px #717a33;
 	color: #ffffff;
 }
 
 .top span.clear:hover {
 	background: #f68991;
-	box-shadow: 0px 4px #d3545d;
 	color: white;
-}
-
-/* Simulating "pressed" effect on active state of the keys by removing the box-shadow and moving the keys down a bit */
-.keys span:active {
-	box-shadow: 0px 0px #6b54d3;
-	top: 4px;
-}
-
-.keys span.eval:active {
-	box-shadow: 0px 0px #717a33;
-	top: 4px;
-}
-
-.top span.clear:active {
-	top: 4px;
-	box-shadow: 0px 0px #d3545d;
 }
 
 
