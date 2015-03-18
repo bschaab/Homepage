@@ -1,0 +1,1 @@
+OPEN setUp.html and change the open path to /dash/index.php OR /dash/
