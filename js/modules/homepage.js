@@ -22,9 +22,66 @@ homepageApp.controller("homepageController", ["$scope", "userService",
         }]
 );
 
+
+
+
+
+
+/* This service returns a function that takes a callback, this callback is called when the data is successfully retreived from API 
+ */
+homepageApp.factory("userService", ["$http",
+        function($http) {
+            return function(callback) {
+                //Build the URL, since we are using a GET request
+                var urlWithParams = quickbarApiUrl + "?sessionId=" + "0";
+                $http.get(urlWithParams).success(function(data) {
+                    callback(data);
+                });
+            }
+        }]
+);
+
+/* Widget directive */
+homepageApp.directive("homepageWidget", function() {
+    return {
+        //templateUrl : function(elem, attr) {
+
+        //},
+        link : function(scope, element, attrs) {
+            console.log(element);
+            scope.widgetUrl = "parts/search.html";
+            element.attr("ng-include", "widgetUrl");
+        }
+    }
+});
+
+/* Routes */
+homepageApp.config(["$routeProvider",
+    function($routeProvider) {
+        $routeProvider
+            .when("/dash", {
+                templateUrl : "parts/main-dashboard.html",
+                controller : "homepageFeedController"
+            })
+            .when("/dash/search", {
+                templateUrl : "parts/search.html",
+                controller : "homepageSearchController"
+            }).otherwise({
+                redirectTo : "/dash"
+            });
+    }
+]);
+
+
+
 homepageApp.factory("calcFactory", function() {
 
     var calcFac = {};
+
+    calcFac.blahTest = function() {
+        alert("hello");
+        console.log("Hello");
+    }
 
     calcFac.loadButtons = function() {
 
@@ -59,7 +116,7 @@ homepageApp.factory("calcFactory", function() {
                 }
                 else if (buttonPressed == ')') {
                     if (countParanthesis == 0) {
-                       // alert("no matching paranthesis (");
+                        // alert("no matching paranthesis (");
                     }
                     else {
                         screenValue.innerHTML += buttonPressed;
@@ -177,68 +234,42 @@ homepageApp.factory("calcFactory", function() {
                 }
                 return false;
             }
-
-
-            /////////////////////////////*************************************/////////////////////////////////////
-
         }
     }
+
+
+
+
     return calcFac;
 });
 
 
 homepageApp.controller("calcController", ["$scope", "calcFactory",
-    function($scope,calcFactory) {
-    addEventListener('load',calcFactory.loadButtons,false);
-    $scope.loadButtons = calcFactory.loadButtons();
+    function($scope, calcFactory) {
 
-}]);
+        addEventListener('load',calcFactory.loadButtons,false);
+        $scope.loadButtons = calcFactory.loadButtons();
 
+        $scope.swap = function(one, two) {
 
+            one = document.getElementById(one);
+            two = document.getElementById(two);
 
-
-
-/* This service returns a function that takes a callback, this callback is called when the data is successfully retreived from API 
- */
-homepageApp.factory("userService", ["$http",
-        function($http) {
-            return function(callback) {
-                //Build the URL, since we are using a GET request
-                var urlWithParams = quickbarApiUrl + "?sessionId=" + "0";
-                $http.get(urlWithParams).success(function(data) {
-                    callback(data);
-                });
+            // Displaying the settings
+            if (one.style.display == 'block') {
+                two.style.display = 'block';
+                one.style.display = 'none';
             }
-        }]
-);
-
-/* Widget directive */
-homepageApp.directive("homepageWidget", function() {
-    return {
-        //templateUrl : function(elem, attr) {
-
-        //},
-        link : function(scope, element, attrs) {
-            console.log(element);
-            scope.widgetUrl = "parts/search.html";
-            element.attr("ng-include", "widgetUrl");
+            else { // Displaying the calculator
+                one.style.display = 'block';
+                two.style.display = 'none';
+            }
         }
-    }
-});
 
-/* Routes */
-homepageApp.config(["$routeProvider",
-    function($routeProvider) {
-        $routeProvider
-            .when("/dash", {
-                templateUrl : "parts/main-dashboard.html",
-                controller : "homepageFeedController"
-            })
-            .when("/dash/search", {
-                templateUrl : "parts/search.html",
-                controller : "homepageSearchController"
-            }).otherwise({
-                redirectTo : "/dash"
-            });
-    }
-]);
+        $scope.changeCalculatorColor = function(color) {
+            var calculator = document.getElementById('calculator');
+            calculator.style.background = color;
+        }
+
+
+    }]);
