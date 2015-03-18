@@ -203,6 +203,15 @@
 					<div id="weather">
 					</div>
 				</div>
+
+                <div id = "calc" ng-controller = "calcController">
+
+
+
+                    <div ng-include src="'calc.html'"></div>
+                </div>
+
+
 			</div>
 		</div>
 
