@@ -25,7 +25,7 @@ $getfield = '?screen_name='.$_POST['handle'].'&count=20';
 $twitter = new TwitterAPIExchange($settings);
 $string = json_decode($twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)->performRequest(), true);
 
-$feedItem = array(
+/*$feedItem = array(
     'tweets' => array()
 );
 
@@ -38,7 +38,7 @@ foreach($string as $items)
     );
 }
 
-echo json_encode($feedItem);
+*/
 ?>
 
 
