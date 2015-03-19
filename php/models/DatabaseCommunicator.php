@@ -44,7 +44,7 @@ class DatabaseCommunicator {
 
 	//close database connection
 	protected function close() {
-		mysql_close($this->connection);
+		//mysql_close($this->connection);
 	}
 
 
