@@ -51,6 +51,7 @@ class InstagramTokenDB
         $this->username = $username;
     }
 
+
     function loadToken($userID)
     {
         $dbCom = new DatabaseCommunicator();
@@ -63,7 +64,7 @@ class InstagramTokenDB
         if (!$result = $dbCom->getQueryResult()) {
             return false;
         }
-        echo $result['token'];
+//        echo $result['token'];
         $this->token = $result['token'];
         $this->userID = $result['userID'];
         $this->instagramID = $result['instagramID'];
@@ -75,12 +76,7 @@ class InstagramTokenDB
     {
         $dbCom = new DatabaseCommunicator();
 
-//        $id = $this->id;
-//        $token = $this->token;
-//        $userID = $this->userID;
-//        $instagramID = $this->instagramID;
 
-        //$query = "INSERT INTO twitter (userID, oauthToken, oauthTokenSecret, username) VALUES ($userID,'$oauthToken','$oauthTokenSecret','$username');";
         $query = "INSERT INTO instagram (userID,token, instagramID) VALUES ($userID,'$token','$instagramID') ON DUPLICATE KEY UPDATE token = '$token',instagramID = '$instagramID';
 ";
 
@@ -92,6 +88,24 @@ class InstagramTokenDB
         return true;
     }
 
+
+    //
+    function deleteToken($userID){
+        $dbCom = new DatabaseCommunicator();
+
+        $query = "delete FROM instagram WHERE userID = $userID";
+
+
+        if (!$dbCom->runQuery($query)) {
+            return false;
+        }
+        if (!$result = $dbCom->getQueryResult()) {
+            return false;
+        }
+
+
+        return false;
+    }
 
 
 }
