@@ -115,7 +115,19 @@ class DatabaseCommunicator {
 			return false;
 		}
 
-		//create a sample user
+        //create instagram table for tokens
+        $query = "CREATE TABLE instagram (
+                  userID int(16) UNIQUE NOT NULL,
+                  token varchar(255),
+                  instagramID varchar(255),
+                  PRIMARY KEY (userID)
+                  );";
+        if (!$this->runQuery($query)) {
+            return false;
+        }
+
+
+        //create a sample user
 		$password = password_hash("password", PASSWORD_DEFAULT);
 		$query = "INSERT INTO users
                   (lastName, firstName, email, password) VALUES

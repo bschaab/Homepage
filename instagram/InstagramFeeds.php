@@ -8,40 +8,58 @@
 
 
 require_once('Instagram.php');
-
+require_once('InstagramTokenDB.php');
+require_once('InstagramContainer.php');
 
 class InstagramFeeds {
     private $client_id = "f94d2a915bb14ea49ce423ecb37baa2e";
     private $client_secret = "9dc2efb7889b4309a0e302a41783a20c";
     private $callback_url = "http://localhost/instagram/InstaFeeds.php";
+    private $user_token;
     private $myFeeds;
+    private $DBconnection;
 
     public function __construct() {
+        $this->DBconnection = new InstagramTokenDB();
+
+
+
         $config = array(
             'apiKey' => $this->client_id,
             'apiSecret' => $this->client_secret,
             'apiCallback' => $this->callback_url,
         );
+
         $this->myFeeds = new Instagram($config);
-        $code = $_GET['code'];
-        $data = $this->myFeeds->getOAuthToken($code);
-        echo 'Your username is: ' . $data->user->username;
-        if($data->user->username == NULL){
-            echo "USERNAME NULL";
+        $booles = $this->DBconnection->loadToken(1);
+        if($booles == true){
+            $token = $this->DBconnection->getToken();
+            $username = $this->DBconnection->getInstagramID();
+            //echo 'Your username is: ' . $username;
+            $this->myFeeds->setAccessToken($token);
+        }
+        else {
+
+            $code = $_GET['code'];
+            $data = $this->myFeeds->getOAuthToken($code);
+            //echo 'Your username is: ' . $data->user->username;
+            if ($data->user->username == NULL) {
+                echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
+            }
+            $this->user_token = $code;
+            $this->myFeeds->setAccessToken($data);
+
+
+        }
+        if($data->access_token != NULL){
+            $test = $this->DBconnection->saveToken(1,$data->access_token,$data->user->username);
+            if($test == false) {
+                error_log(mysql . error());
+            }
+            //echo $data->access_token;
         }
 
-        $this->myFeeds->setAccessToken($data);
-        echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
 
-
-        /*
-        if ($_SESSION['InstagramAccessToken'] == ''){
-            $accessToken = $this->myFeeds->getAccessToken();
-            $_SESSION['InstagramAccessToken'] = $accessToken;
-        }else{
-            $accessToken = $_SESSION['InstagramAccessToken'];
-            $this->myFeeds->setAccessToken($_SESSION['InstagramAccessToken']);
-        }*/
     }
 
     public function getLoginUrl(){
@@ -58,6 +76,19 @@ class InstagramFeeds {
         }
         $this->myFeeds->setAccessToken($data);
     }
+
+    public function setToken(){
+        if ($_SESSION['InstagramAccessToken'] == ''){
+            $accessToken = $this->myFeeds->getAccessToken();
+            $_SESSION['InstagramAccessToken'] = $accessToken;
+            echo "TOKEN NOT SET";
+        }else{
+            $accessToken = $_SESSION['InstagramAccessToken'];
+            $this->myFeeds->setAccessToken($_SESSION['InstagramAccessToken']);
+            echo "TOKEN SET";
+        }
+    }
+
 
     public function getPopularFeeds($limit){
         $feedsList = array();
