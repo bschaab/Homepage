@@ -1,8 +1,8 @@
 <?php 
 	
-	require_once "./php/models/DatabaseCommunicator.php";
-	require_once "./php/models/Session.php";
-	require_once "./php/models/User.php";
+	require_once "../php/models/DatabaseCommunicator.php";
+	require_once "../php/models/Session.php";
+	require_once "../php/models/User.php";
 	
 	/* Run with phpunit --stderr TestModels.php */
 	
@@ -71,6 +71,7 @@
 		    $user->setLastName("Buddy");
 		    $user->setEmail("testBuddy@email.com");
 		    $user->setPassword("password909");
+		    $user->setQuickbarToDefault();
 			$user->saveUser();
 			
 			$dbCom = new DatabaseCommunicator();
@@ -103,6 +104,65 @@
 	    }
 	    
 	    
+	    
+	    /**** Quickbar Tests ****/
+	    
+	    public function testQuickbarAdd() {
+		    
+			$quickbar = new Quickbar();
+			$this->assertEquals(0, $quickbar->getSize());
+			$quickbar->add("Reddit", "http://reddit.com");
+			$this->assertEquals(1, $quickbar->getSize());
+			$quickbar->add("The Weather Channel", "http://theweatherchannel.com");
+			$this->assertEquals(2, $quickbar->getSize());
+	    }
+	    
+	    
+	    public function testQuickbarClear() {
+		    
+			$quickbar = new Quickbar();
+			$this->assertEquals(0, $quickbar->getSize());
+			$quickbar->add("Reddit", "http://reddit.com");
+			$this->assertEquals(1, $quickbar->getSize());
+			$quickbar->clear();
+			$this->assertEquals(0, $quickbar->getSize());
+	    }
+	    
+	    
+	    public function testQuickbarSetToDefault() {
+		    
+			$quickbar = new Quickbar();
+			$quickbar->setToDefault();
+			$titles = $quickbar->getTitles();
+			$links = $quickbar->getLinks();
+			$icons = $quickbar->getIcons();
+			$this->assertEquals(3, sizeof($titles));
+			$this->assertEquals(3, sizeof($links));
+			$this->assertEquals(3, sizeof($icons));
+			$this->assertTrue($quickbar->getTitles()[0] != "");
+			$this->assertTrue($quickbar->getLinks()[1] != "");
+			$this->assertTrue($quickbar->getIcons()[2] != "");
+	    }
+	    
+	    
+	    public function testQuickbarSet() {
+		    
+			$quickbar = new Quickbar();
+			
+			$titles = array();
+			$links = array();
+			$quickbar->set($titles, $links);
+			$this->assertEquals(0, $quickbar->getSize());
+			
+			$titles = array("Reddit", "Youtube", "Vimeo", "SoundCloud");
+			$links = array("http://reddit.com", "http://youtube.com", "http://vimeo.com", "http://soundcloud.com");
+			$quickbar->set($titles, $links);
+			$this->assertEquals(4, $quickbar->getSize());
+			$this->assertTrue($quickbar->getTitles()[0] != "");
+			$this->assertTrue($quickbar->getLinks()[1] != "");
+			$this->assertTrue($quickbar->getIcons()[2] != "");
+			$this->assertTrue($quickbar->getTitles()[3] != "");
+	    }
 	
 	}
 	
