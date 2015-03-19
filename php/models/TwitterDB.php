@@ -90,9 +90,28 @@ class TwitterDB
         $oauthTokenSecret = $this->oauthTokenSecret;
         $username = $this->username;
 
-        $query = "INSERT INTO twitter (userID, oauthToken, oauthTokenSecret, username) VALUES ($userID,'$oauthToken','$oauthTokenSecret','$username');";
+        $query = "SELECT * FROM twitter WHERE userID= $userID";
         if (!$dbCom->runQuery($query)) {
-            return -2;
+            return false;
+        }
+        if (!$result = $dbCom->getQueryResult()) {
+            $set = false;
+        }
+        else {
+            $set = true;
+        }
+
+        if ($set) {
+            $query = "UPDATE twitter SET oauthToken='$oauthToken',oauthTokenSecret='$oauthTokenSecret', username='$username' WHERE userID= $userID";
+            echo $query;
+            if (!$dbCom->runQuery($query)) { return -2; } //general error
+        }
+
+        else {
+            $query = "INSERT INTO twitter (userID, oauthToken, oauthTokenSecret, username) VALUES ($userID,'$oauthToken','$oauthTokenSecret','$username');";
+            if (!$dbCom->runQuery($query)) {
+                return -2;
+            }
         }
     }
 }

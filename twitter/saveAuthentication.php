@@ -11,6 +11,7 @@ require_once "../php/models/TwitterDB.php";
 require_once "../php/models/Session.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 
+header('Location: /twitter/twitterFeed.php');
 $session = new Session();
 
 define("CONSUMER_SECRET","2OSfTohYKDc338orDKT7KzwmuRbctpP65riLFgURLwl9xAn2x5");
