@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
  * Created by PhpStorm.
  * User: Adam
@@ -8,7 +7,11 @@ session_start();
  */
 
 require "twitteroauth/autoload.php";
+require_once "../php/models/TwitterDB.php";
+require_once "../php/models/Session.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
+
+$session = new Session();
 
 define("CONSUMER_SECRET","2OSfTohYKDc338orDKT7KzwmuRbctpP65riLFgURLwl9xAn2x5");
 define("CONSUMER_KEY", "lv9iiNeCkmBOX523sOqy5BvLI");
@@ -26,7 +29,13 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $request_token['oa
 
 $access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
 
-$_SESSION['access_token'] = $access_token;
+$twitterDB = new TwitterDB();
+$twitterDB->setUserID($session->getSessionVariable('userID'));
+$twitterDB->setOauthToken($access_token["oauth_token"]);
+$twitterDB->setOauthTokenSecret($access_token["oauth_token_secret"]);
+$twitterDB->setUsername($access_token["screen_name"]);
+
+$twitterDB->saveTokens();
 
 
 ?>
