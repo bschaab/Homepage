@@ -181,7 +181,7 @@
 						<span class="category-text">+</span>
 					</span>
 					<!--  Placeholder -->
-					<span class="category-item"><a href="\..\twitter\requestAuthentication.php">Sign in with Twitter</a></span>
+					<span class="category-item"><a href="/twitter/requestAuthentication.php">Sign in with Twitter</a></span>
 					<span class="category-item">Test Item 2</span>
 					<span class="category-item">Test Item 3</span>
 				</div>
