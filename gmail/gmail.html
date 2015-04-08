@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+<body>
+
+<script>
+    function logMeIn() {
+        scope = "http://www.google.com/calendar/feeds/";
+        var token = google.accounts.user.login(scope);
+    }
+    function setupMyService() {
+        var myService = new google.gdata.calendar.CalendarService('exampleCo-exampleApp-1');
+        logMeIn();
+        return myService;
+    }
+
+    var service = setupMyService();
+</script>
+
+helllo
+</body>
+</html>
