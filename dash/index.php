@@ -37,6 +37,15 @@
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/head.php"); ?>
 
 		<link rel="stylesheet" href="/css/homepage.css" type="text/css">
+		
+		<!-- Calculator Widget includes -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/css/calc.css">
+		<script type="text/javascript" src="/js/calculator/calculator.js"></script>
+		<script type="text/javascript" src="/Calculator/jscolor/jscolor.js"></script>
+		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
+		<script src="/js/calculator/calc.js" type ="text/javascript"></script>
 	</head>
 	<body onload="startTime()">
 	
@@ -196,22 +205,15 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-                    <div class="widget"></div>
+                    <div class="widget" ng-include="widgetsUrl[0]"></div>
+                    <div class="widget" ng-include="widgetsUrl[1]"></div>
+                    <div class="widget" ng-include="widgetsUrl[2]"></div>
 				</div>
 
 				<div id="info" class="bottom-bar-item">
 					<div id="weather">
 					</div>
 				</div>
-
-                <div id = "calc" ng-controller = "calcController">
-
-
-
-                    <div ng-include src="'calc.html'"></div>
-                </div>
-
-
 			</div>
 		</div>
 

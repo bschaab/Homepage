@@ -49,7 +49,7 @@
 		<?php endfor; ?>
 	],
 	"widgets" : [
-		"testWidget",
+		"calc",
 		"testWidget",
 		"testWidget"
 	],

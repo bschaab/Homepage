@@ -1,13 +1,3 @@
-/* Basic reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	
-	/* Better text styling */
-	font: bold 14px Arial, sans-serif;
-}
-
 /* Finally adding some IE9 fallbacks for gradients to finish things up */
 
 #test {
@@ -26,13 +16,10 @@
 	width: 0px;
 	height: 0px;
 	z-index: 99;
-	position: absolute;
 	text-shadow:0px 0px 0 rgb(80,80,80), 0px 0px 0 rgb(-85,-85,-85),-1px -1px 0px 
 	rgba(0,0,0,1),-2px -2px 0px rgba(0,0,0,0.5),0px 0px 1px rgba(0,0,0,.2);
 	color: white;
 	font-size: 1.3em;
-	margin-left: -15px;
-	margin-top: -40px;
 }
 
 
@@ -214,14 +201,6 @@
 #full-panel {
 	display: block;
 }
-
-#calc {
-	margin-left: 850px;
-	margin-top: -50px;
-}
-
-
-
 
 /* Using box shadows to create 3D effects */
 #calculator {
