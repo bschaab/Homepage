@@ -19,6 +19,11 @@ homepageApp.controller("homepageController", ["$scope", "userService",
                 }
 
             });
+            
+    		$scope.search = function(event) {
+				location.href = "https://www.google.com/?gws_rd=ssl#q=" + $scope.searchQuery;
+				event.preventDefault;
+			}
         }]
 );
 
