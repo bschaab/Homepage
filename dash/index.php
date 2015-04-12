@@ -43,6 +43,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/css/calc.css">
+        <link rel="stylesheet" type="text/css" href="/css/stocks.css">
 		<script type="text/javascript" src="/js/calculator/calculator.js"></script>
 		<script type="text/javascript" src="/Calculator/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
