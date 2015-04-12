@@ -54,8 +54,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -119,6 +119,24 @@
 					<input type="text" class="form-control" id="QuickbarLinkInput" placeholder="Link  (ex: 'http://facebook.com/')" name="link">
 				</div>
 				<button type="submit" class="btn btn-primary">Add</button>
+				<br/><br/>
+			</form>
+		</div>
+		
+		<div id="editWidgetPanel" class="hoverPanel" ng-show="editWidgetPanel">
+			<form class="form" method="post" action="/php/controllers/editWidgetPanel.php">
+				<h2>Edit Widget Slot {{edgeWidgetPanelSlot + 1}}</h2>
+				<h6>choose which widget shows in this slot</h6>
+				<br/>
+				<div class="form-group">
+					<label class="sr-only" for="WidgetInput">Title</label>
+					<select name="widget" id="WidgetInput" class="form-control">
+						<option value="calc">Calculator</option>
+						<option value="testWidget">Test Widget</option>
+					</select>
+				</div>
+				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
+				<button type="submit" class="btn btn-primary">Select</button>
 				<br/><br/>
 			</form>
 		</div>
@@ -205,10 +223,30 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-                    <div class="widget" ng-include="widgetsUrl[0]"></div>
-                    <div class="widget" ng-include="widgetsUrl[1]"></div>
-                    <div class="widget" ng-include="widgetsUrl[2]"></div>
-				</div>
+
+					<div class="widgetWrapper">
+                    	<div class="widget" ng-include="widgetsUrl[0]"></div>
+						<div class="editWidgetButton">
+                    	    <i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 0;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+
+					<div class="widgetWrapper">
+                    	<div class="widget" ng-include="widgetsUrl[1]"></div>
+						<div class="editWidgetButton">
+							<i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 1;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+
+					<div class="widgetWrapper">
+						<div class="widget" ng-include="widgetsUrl[2]"></div>
+						<div class="editWidgetButton">
+                        	<i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 2;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+                    
+
+				</div><!--end widget area-->
 
 				<div id="info" class="bottom-bar-item">
 					<div id="weather">

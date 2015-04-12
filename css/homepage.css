@@ -450,12 +450,33 @@ body {
 	bottom: 0;
 }
 
-#bottom-bar #widgets-area .widget {
+#bottom-bar #widgets-area .widgetWrapper {
+	position: relative;
 	width: 20em;
 	margin-right: 4em;
 	display: inline-block;
 	vertical-align: bottom;
 }
+
+#bottom-bar #widgets-area .widget {
+	width: 100%;
+	height: 100%;
+}
+
+#bottom-bar #widgets-area .editWidgetButton {
+	position: absolute;
+	top: 0px;
+	right: -20px;
+	cursor: pointer;
+}
+
+#bottom-bar #widgets-area .editWidgetButton i {
+	color: rgba(0,0,0,0.2);
+}
+#bottom-bar #widgets-area .editWidgetButton i:hover {
+	color: rgba(0,0,0,0.5);
+}
+
 
 #bottom-bar #info {
 	background-color: rgba(55, 55, 55, .9);
