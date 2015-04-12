@@ -169,6 +169,21 @@
 	
 	
 	
+	/**** Widget Tests (Parameterized) ****/
+	
+	
+	// getWidget()
+	
+	// setWidget()
+	
+	// setWidgetsToDefault()
+	
+	
+	// loadUser() with widgets
+	
+	
+	// saveUser() with widgets
+	
 	
 	
 	
