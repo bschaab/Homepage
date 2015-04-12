@@ -1,0 +1,11 @@
+Steps for the basic Twitter Manual Test
+
+1. Make sure that Sample User aka Harry Johnson is signed out of Twitter in your browser.
+2. Navigate to the Homepage dashboard
+3. Click the Login button
+4. Enter sample user's credentials - email: sample@email.com, password: password
+5. When the dashboard refreshes, click the sign in to twitter button towards the top right corner of the page.
+6. Enter in Harry Johnson/Sample User's credentials to authorize HomepageUIUC - username: throwawayacat, password: homepageuiuc
+7. Press the Authorize button, and verify that you are redirected back to the twitterFeed.php page and Twitter data in the form
+of a JSON object is displayed.
+Note: Upon integration into the static feed, this manual test will need to be updated.
