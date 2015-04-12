@@ -139,6 +139,7 @@
 						<option value="spotifyTopTracks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyTopTracks'">Spotify Top US Tracks</option>
 						<option value="mathGame" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'mathGame'">Math Game</option>
 						<option value="sudoku" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'sudoku'">Sudoku</option>
+                        <option value="stocks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'stocks'">Stocks</option>
 					</select>
 				</div>
 				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
