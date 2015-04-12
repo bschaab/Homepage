@@ -134,7 +134,7 @@ class DatabaseCommunicator {
 		$password = password_hash("password", PASSWORD_DEFAULT);
 		$query = "INSERT INTO users
                   (lastName, firstName, email, password, widget0, widget1, widget2) VALUES
-                  ('User', 'Sample', 'sample@email.com', '$password', 'testWidget', 'calc', 'testWidget');";
+                  ('User', 'Sample', 'sample@email.com', '$password', 'spotifyMixedGenParty', 'calc', 'sudoku');";
 		if (!$this->runQuery($query)) {
 			return false;
 		}

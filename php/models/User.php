@@ -103,9 +103,9 @@
 		}
 		
 		function setWidgetsToDefault() {
-			$this->widgets[0] = 'testWidget';
+			$this->widgets[0] = 'spotifyMixedGenParty';
 	        $this->widgets[1] = 'calc';
-	        $this->widgets[2] = 'testWidget';
+	        $this->widgets[2] = 'sudoku';
 		}
 		
 		

@@ -131,9 +131,13 @@
 				<div class="form-group">
 					<label class="sr-only" for="WidgetInput">Title</label>
 					<select name="widget" id="WidgetInput" class="form-control">
-						<option value="calc" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'calc'">Calculator</option>
-						<option value="testWidget" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'testWidget'">Test Widget</option>
-						<option value="holidayCountdown" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'holidayCountdown'">Holiday Countdown</option>
+						<option value="calc" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'calc'">Customizable Calculator</option>
+						<option value="multiUtility" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'multiUtility'">Multi Utility</option>
+						<option value="spotifyDeepFocus" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyDeepFocus'">Spotify Deep Focus</option>
+						<option value="spotifyMixedGenParty" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyMixedGenParty'">Spotify Mixed Generations Party</option>
+						<option value="spotifyTopTracks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyTopTracks'">Spotify Top US Tracks</option>
+						<option value="mathGame" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'mathGame'">Math Game</option>
+						<option value="sudoku" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'sudoku'">Sudoku</option>
 					</select>
 				</div>
 				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
