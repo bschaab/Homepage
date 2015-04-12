@@ -13,6 +13,7 @@
 /* Reset */
 html, body {
 	margin: 0;
+	min-width: 1200px;
 }
 
 body {
@@ -439,6 +440,7 @@ body {
 	bottom: 0px;
 	width: 100%;
 	height: 22%;
+	min-width: 1200px;
 }
 
 #bottom-bar .bottom-bar-item {
@@ -448,19 +450,23 @@ body {
 #bottom-bar #widgets-area {
 	position: absolute;
 	bottom: 0;
+	width: 75%;
 }
 
 #bottom-bar #widgets-area .widgetWrapper {
 	position: relative;
-	width: 20em;
-	margin-right: 4em;
+	height: 300px;
+	width: 25%;
+	margin-right: 8%;
 	display: inline-block;
 	vertical-align: bottom;
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 15px 15px 0px 0px;
 }
 
 #bottom-bar #widgets-area .widget {
-	width: 100%;
 	height: 100%;
+	width: 100%:
 }
 
 #bottom-bar #widgets-area .editWidgetButton {

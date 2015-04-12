@@ -82,6 +82,9 @@ class DatabaseCommunicator {
                   firstName varchar(255),
                   email varchar(255) UNIQUE,
                   password varchar(512),
+                  widget0 varchar(64),
+                  widget1 varchar(64),
+                  widget2 varchar(64),
                   PRIMARY KEY (id)
                   );";
 		if (!$this->runQuery($query)) {
@@ -130,8 +133,8 @@ class DatabaseCommunicator {
         //create a sample user
 		$password = password_hash("password", PASSWORD_DEFAULT);
 		$query = "INSERT INTO users
-                  (lastName, firstName, email, password) VALUES
-                  ('User', 'Sample', 'sample@email.com', '$password');";
+                  (lastName, firstName, email, password, widget0, widget1, widget2) VALUES
+                  ('User', 'Sample', 'sample@email.com', '$password', 'testWidget', 'calc', 'testWidget');";
 		if (!$this->runQuery($query)) {
 			return false;
 		}
@@ -146,7 +149,7 @@ class DatabaseCommunicator {
 			return false;
 		}
 
-		//add the sample user's quickbar
+		//add the sample user's twitter info
 		$query = "INSERT INTO twitter
                   (userID, oauthToken, oauthTokenSecret, username) VALUES
                   (1, '3031713874-GTxZJAegriyiuu9Xy49mcHnmGshSoU3rwStT6Vk', '6A78bk1hGjDAychFw4wbM2DZJ8TLNKzBPYD3YbDrUmrEc', 'throwawayacat');";

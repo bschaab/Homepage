@@ -131,8 +131,9 @@
 				<div class="form-group">
 					<label class="sr-only" for="WidgetInput">Title</label>
 					<select name="widget" id="WidgetInput" class="form-control">
-						<option value="calc">Calculator</option>
-						<option value="testWidget">Test Widget</option>
+						<option value="calc" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'calc'">Calculator</option>
+						<option value="testWidget" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'testWidget'">Test Widget</option>
+						<option value="holidayCountdown" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'holidayCountdown'">Holiday Countdown</option>
 					</select>
 				</div>
 				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
@@ -162,6 +163,9 @@
 			<?php if ($alert == "quickbar-add-invalid-input"): ?><p class="bg-danger alertBox">Quickbar Add Failed. You were missing required fields.</p><?php endif; ?>
 			<?php if ($alert == "quickbar-add-fail"): ?><p class="bg-danger alertBox">Quickbar Add Failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "quickbar-add-success"): ?><p class="bg-success alertBox">Quickbar Add Succeeded</p><?php endif; ?>
+			
+			<?php if ($alert == "widget-edit-fail"): ?><p class="bg-danger alertBox">Widget Slot Change Failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "widget-edit-success"): ?><p class="bg-success alertBox">Widget Slot Successfully Changed</p><?php endif; ?>
 			
 		</div>
 		
