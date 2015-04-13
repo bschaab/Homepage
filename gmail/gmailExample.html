@@ -20,6 +20,16 @@
 
 
   <body>
+ 
+	<form>
+	Target:<br>
+	<input type="text" name="firstname">
+	<br>
+	Message:<br>
+	<input type="text" name="lastname" size = "100" height: "100">
+	</form> 
+	<button onclick="sendMessage()"> send </button>
+	 
   	
   <p id = "hello"></p>
  
@@ -40,8 +50,8 @@
 
    <!--Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
-    
-    
+    <button id="Logout-button" onclick = "window.location = 'https://mail.google.com/mail/u/0/?logout&hl=en';">log-out</button>
+       
     <script type="text/javascript">
         		var j = 0;
         		var size = 0;
@@ -65,6 +75,10 @@
         gapi.client.setApiKey(apiKey);
         window.setTimeout(checkAuth,1);
       }
+
+		function logOut(){
+			gapi.auth.setToken('');//.execute(function(){location.reload()});			
+		}
 
       function checkAuth() {
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
@@ -99,6 +113,36 @@
 	       			 });
 	}
 
+
+	function sendMessage(){
+		gapi.client.load('gmail', 'v1').then(function() {
+		var to = 'hehebandit@gmail.com',
+        subject = 'Hello World',
+        content = 'send a Gmail.'
+
+  		var email = "From: 'me'\r\n"+
+        "To:  "+ to +"\r\n"+
+        "Subject: "+subject+"\r\n"+
+        "\r\n"+
+        content;
+		
+			
+		var message = email;
+		
+        var base64EncodedEmail = btoa(message).replace(/\//g,'_').replace(/\+/g,'-');
+  		var request = gapi.client.gmail.users.messages.send({
+        'userId': 'me',
+        'message': {
+            'raw': base64EncodedEmail
+        }
+	    }).execute(function(resp){location.reload()});
+        
+      });
+		
+		
+	}
+	
+	
 
 
       function makeApiCall() {
