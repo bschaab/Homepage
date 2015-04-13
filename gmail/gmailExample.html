@@ -6,11 +6,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
-  $(function() {
-    $( "#accordion" ).accordion();
-  });
   
   
 
@@ -25,17 +21,11 @@
 
   <body>
   	
-  
-  	
-  	<div id="accordion">
-  <h3 id = "title_1">Section 1</h3>
-  <div id = "1">
-
-  </div>
-  
-	</div>
-  	
-  	
+  <p id = "hello"></p>
+ 
+  		<div id = "hiddenFlag"><!-- style="visibility: hidden">-->
+  			0
+  		</div>
   	
   	
   	
@@ -53,6 +43,8 @@
     
     
     <script type="text/javascript">
+        		var j = 0;
+        		var size = 0;
 
 	//localhost:8080
      var clientId = '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com';
@@ -98,8 +90,23 @@
       }
 
       // Load the API and make an API call.  Display the results on the screen.
+              		var FLAGS = 0;
+
+	  function deleteMessage(messageID){
+	        		 gapi.client.gmail.users.messages.delete({
+	        	            'userId': 'me',
+	        	            'id' : messageID
+	       			 });
+	}
+
+
+
       function makeApiCall() {
         // Step 4: Load the Google+ API
+        var bodyArr = [];
+        var fromArr = [];
+       	var dateArr = [];
+       	var snippetArr = [];
         gapi.client.load('gmail', 'v1').then(function() {
 
         gapi.client.gmail.users.getProfile({
@@ -113,30 +120,94 @@
         gapi.client.gmail.users.messages.list({
         	            'userId': 'me'
         }).execute(function(resp){ 
-        		console.log(resp);
-        		var total = 10;
-        		var j = 0;
-        		//for(j = 0 ; j < total ; j++){}
-        		console.log(resp['messages'][j]['id']);
-        				
+        		//console.log(resp);
+        		var total = 5;
+        		
+				while(size < 5 && j < (resp['messages'].length-2) ){
 	        		 gapi.client.gmail.users.messages.get({
 	        	            'userId': 'me',
 	        	            'id' : resp['messages'][j]['id']
-	       			 }).execute(function(resp2){ 
-	        			console.log(resp2);
-	        			var body = resp2['payload']['parts'][j]['body']['data'];
-	        			var snippet = resp2['snippet'];
-	        			var date = resp2['payload']['headers'][4]['value'];
-	        			var from = resp2['payload']['headers'][13]['value'];
-						body = atob(body);			
-						console.log(body);
-		        		console.log(snippet);
-	        			console.log(date.split(';')[1]);
-	        			console.log(from);
-	        			
-	        			createMessage(body, snippet, date, from);
+	       			 }).execute(function(resp2){
+		       			 	//console.log(resp['messages'][j]['id']); 
+		        			if(resp2['payload']['parts'] === undefined){
+
+		        			}
+		        			else{
+		        			var body = resp2['payload']['parts'][0]['body']['data'];
+		        			body = window.atob(body.replace(/\s/g, ''));
+		        			
+		        			var snippet = resp2['snippet'];
+		        			var header = resp2['payload']['headers'];
+							var headerLength = header.length;
+								
+								if(headerLength >= 13){
+								var flag = document.getElementById('hiddenFlag').innerHTML;
+								var zz = flag.valueOf();
+								zz = zz + 1;
+								flag = zz.toString();
+								document.getElementById('hiddenFlag').innerHTML = '';
+								document.getElementById('hiddenFlag').innerHTML = flag;
+
+			        			var date = resp2['payload']['headers'][4]['value'];
+			        			var from = resp2['payload']['headers'][13]['value'];
+								//body = atob(body);
+								
+								
+								var content_html = document.createTextNode(body);
+								var snippet_html = document.createTextNode(snippet);
+								var deleteZXC = document.createTextNode("delete");       
+
+								var header = document.createElement("h3");
+								var p	   = document.createElement("p");
+								var btn = document.createElement("BUTTON");
+								var temp = resp2['id'];
+
+								btn.onclick = function(){
+										 gapi.client.gmail.users.messages.delete({
+	        	            			'userId': 'me',
+	        	            			'id' : temp
+	       								 }).execute(function(resp){
+	       								 	location.reload();
+	       								 });
+
+								};
+								
+								header.appendChild(snippet_html);
+								p.appendChild(content_html);
+								btn.appendChild(deleteZXC);
+								//btn.setAttribute("onclick", "deleteMessage(temp);");
+						
+								var d = document.getElementById("content");																
+								d.appendChild(header);
+								d.appendChild(p);
+								d.appendChild(btn);							
+								
+								console.log(body);
+						        console.log(snippet);
+			        			console.log(from);
+			        			console.log(date.split(';')[1]);
+			        			bodyArr.push(body);
+			        			snippetArr.push(snippet);
+			        			dateArr.push(date);
+			        			fromArr.push(from);
+							//console.log(resp2);
+								}
+								else{
+									
+
+								}
+							}			
+						//}
 	        		} 
-        			);	
+        			);
+
+        			console.log(bodyArr.length);
+        			var myFlag = document.getElementById('hiddenFlag').innerHTML;
+        			if(myFlag == '5'){
+        				break;
+	        			}
+        			j = j+1;
+        			}	//forloop
         		
         	} 
         ); 	
@@ -149,38 +220,15 @@
 		}*/
           
         });
+       createMessage(bodyArr, snippetArr, dateArr, fromArr);
       }
       
         function createMessage(body, snippet, date, from) {
-        	var p = document.createElement("p");
-        	var header = document.createElement("h3");
-        	var div = document.createElement("div");
         	
-     
-        	var email_content = document.createTextNode(body);
-        	var title_content = document.createTextNode(snippet);
+        	var content = document.createTextNode(body);
+        	var p = document.getElementById("content_1");
+        	p.appendChild(content);
         	
-        	p.appendChild(email_content);
-        	header.appendChild(title_content);
-        
-        	var element = document.getElementById("accordion");
-        	
-        	header.className = "ui-accordion-header ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons";
-        	header.setAttribute("role", "tab");
-        	header.setAttribute("aria-controls", "1");
-        	header.setAttribute("aria-selected", "true");
-        	header.setAttribute("aria-expanded", "true");
-        	header.setAttribute("tabindex", "0");
-        	
-        	div.className = "ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active";
-        	// div.setAttribute("style", "display: block; height: 0px;");
-        	div.setAttribute("role", "tabpanel");
-        	 div.setAttribute("aria-hidden", "false");
-        	
-        	element.appendChild(header);
-        	div.appendChild(p);
-        	element.appendChild(div);
-   
         	
   			}
     </script>
