@@ -24,6 +24,8 @@ homepageApp.controller("homepageController", ["$scope", "userService",
 				location.href = "https://www.google.com/?gws_rd=ssl#q=" + $scope.searchQuery;
 				event.preventDefault;
 			}
+			
+			$scope.bookmarkToggle = -1;	// Initialize bookmark toggling
         }]
 );
 

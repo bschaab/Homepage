@@ -180,6 +180,9 @@
 		
 		<!--END alert bar-->
 		
+		<div id="allow">
+			<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
+		</div>
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
@@ -215,15 +218,20 @@
 				</div>
 			</div>
 			
-			<div id="categories-wrapper">
-				<div id="categories">
-					<span id="add-more-cats" class="category-item">
+			<div id="bookmark-wrapper">
+				<div id="bookmarks">
+					<span id="add-more-bmarks" class="bookmark-category bookmark-list-item" ng-show="hpUser.loggedIn">
 						<span class="category-text">+</span>
 					</span>
-					<!--  Placeholder -->
-					<span class="category-item" ng-show="hpUser.loggedIn"><a href="/twitter/requestAuthentication.php">Sign in with Twitter</a></span>
-					<span class="category-item">Test Item 2</span>
-					<span class="category-item">Test Item 3</span>
+					<div id="bookmark-click-bg" ng-show="bookmarkToggle != -1" ng-click="bookmarkToggle = -1"></div>
+					<div class="bookmark-category bookmark-list-item" ng-repeat="bookmark in hpUser.bookmarks" ng-click="$parent.bookmarkToggle = $parent.bookmarkToggle == $index ? -1 : $index">
+						<span class="bookmark-text">{{bookmark.categoryName}}</span>
+						<ul ng-show="$parent.bookmarkToggle == $index">
+							<li class="bookmark-list-item" ng-repeat="site in bookmark.sites">
+								<a ng-href="{{site.bookmarkUrl}}">{{site.bookmarkName}}</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 

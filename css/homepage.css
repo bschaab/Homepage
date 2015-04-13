@@ -258,35 +258,63 @@ body {
 }
 
 /* Categories */
-#categories-wrapper {
+#bookmark-wrapper {
 	height: 3.3em;
 	width: 100%;
 }
 
-#categories {
+#bookmarks {
 	margin: .4em .4em 0 0;
 	float: right;
 	height: 2.5em;
 	color: #FFF;
 }
 
-#add-more-cats.category-item {
+.bookmark-list-item {
+	line-height: 2.5em;
+	vertical-align: center;
+	text-align: center;
+	
+	background-color: rgba(0, 0, 0, .7);
+}
+
+#add-more-bmarks.bookmark-category {
 	width: 1.5em;
 	min-width: 0;
 }
 
-.category-item {
+.bookmark-category {
 	display: inline-block;
 	height: 100%;
 	margin: 0 .3em;
 	width: 5%;
 	min-width: 10em;
 
-	line-height: 2.5em;
-	vertical-align: center;
-	text-align: center;
+	cursor: pointer;
+	position: relative;
+}
 
-	background-color: rgba(0, 0, 0, .7);
+.bookmark-category ul {
+	list-style-type: none;
+	position: absolute;
+	
+	width: 100%;
+	
+	margin-top: .3em;
+	padding: 0;
+}
+
+.bookmark-category ul > li {
+	margin-top: .1em;
+	display: block;
+}
+
+#bookmark-click-bg {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 /* Search */
