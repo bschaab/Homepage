@@ -27,10 +27,6 @@
 	<?php
 		}
 	?>
-	<?php
-		// Default quickbar
-		// Icons downloaded from: https://dribbble.com/shots/1233464-24-Free-Flat-Social-Icons
-	?>
 	
 	"quickbarItems" : [
 		<?php
@@ -53,6 +49,81 @@
 		"<?php echo $user->getWidget(1); ?>",
 		"<?php echo $user->getWidget(2); ?>"
 	],
+	
+	"bookmarks" : [
+		{
+			"categoryName" : "Social Media",
+			"sites" : [
+				{
+					"bookmarkName" : "Facebook",
+					"bookmarkUrl" : "http://www.facebook.com"
+				},
+				{
+					"bookmarkName" : "Instagram",
+					"bookmarkUrl" : "http://www.instagram.com"
+				},
+				{
+					"bookmarkName" : "Twitter",
+					"bookmarkUrl" : "http://www.twitter.com"
+				},
+				{
+					"bookmarkName" : "Pinterest",
+					"bookmarkUrl" : "http://www.pinterest.com"
+				}
+			]
+		},
+		{
+			"categoryName" : "News",
+			"sites" : [
+				{
+					"bookmarkName" : "CNN",
+					"bookmarkUrl" : "http://www.cnn.com"
+				},
+				{
+					"bookmarkName" : "Fox News",
+					"bookmarkUrl" : "http://www.foxnews.com"
+				},
+				{
+					"bookmarkName" : "Huffington Post",
+					"bookmarkUrl" : "http://www.huffingtonpost.com"
+				},
+				{
+					"bookmarkName" : "New York Times",
+					"bookmarkUrl" : "http://www.nytimes.com"
+				},
+				{
+					"bookmarkName" : "National Public Radio",
+					"bookmarkUrl" : "http://www.npr.com"
+				},
+				{
+					"bookmarkName" : "British Broadcasting Corporation",
+					"bookmarkUrl" : "http://www.bbc.com"
+				},
+				{
+					"bookmarkName" : "The Wall Street Journal",
+					"bookmarkUrl" : "http://www.wsj.com"
+				}
+			]
+		},
+		{
+			"categoryName" : "Tech",
+			"sites" : [
+				{
+					"bookmarkName" : "Reddit",
+					"bookmarkUrl" : "http://www.reddit.com"
+				},
+				{
+					"bookmarkName" : "TechCrunch",
+					"bookmarkUrl" : "http://www.techcrunch.com"
+				},
+				{
+					"bookmarkName" : "Hacker News",
+					"bookmarkUrl" : "http://www.news.ycombinator.com"
+				}
+			]
+		}
+	],
+	
 	"feed" : [
 		{
 			"url" : "http://www.reddit.com/r/aww",
