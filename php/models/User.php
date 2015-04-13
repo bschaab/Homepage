@@ -144,6 +144,24 @@
 		}
 		
 		function saveUser() {
+	        
+	        //manages updating or inserting the user into the database
+	        $this->saveUserInsertUser();
+		        
+		    //manages updating or inserting the quickbar for the user into the database
+	        $this->saveUserInsertQuickbar();
+	        
+	        $userID = $this->id;
+	        return $userID;
+	        
+		}
+		
+		
+		// Helps the function saveUser().
+		// Manages updating or inserting the user into the database.
+		// Also will set the user id.
+		function saveUserInsertUser() {
+			
 			$dbCom = new DatabaseCommunicator();
 			
 			$firstName = $this->firstName;
@@ -174,9 +192,28 @@
 				$userID = $result['id'];
 	        }
 	        
-	        
-		        
-	        //clear old quickbar
+	        $this->id = $userID;
+			
+		}
+		
+		// Helps the function saveUser().
+		// Manages updating or inserting the quickbar for the user into the database.
+		function saveUserInsertQuickbar() {
+			
+			$dbCom = new DatabaseCommunicator();
+			
+			$firstName = $this->firstName;
+			$lastName = $this->lastName;
+			$email = $this->email;
+			$hashedPassword = $this->hashedPassword;
+			$quickbar = $this->quickbar;
+			$widget0 = $this->widgets[0];
+			$widget1 = $this->widgets[1];
+			$widget2 = $this->widgets[2];
+			
+			$userID = $this->id;
+			
+			//clear old quickbar
 			$query = "DELETE FROM quickbar WHERE userID = $userID";
 			$dbCom->runQuery($query);
 			
@@ -191,9 +228,7 @@
 		        $query = "INSERT INTO quickbar (userID, title, link, icon, orderIndex) VALUES ($userID,'$title','$link','$icon',$i);";
 		        if (!$dbCom->runQuery($query)) { return -2; }
 		    }
-	        
-	        return $userID;
-	        
+			
 		}
 		
 		
