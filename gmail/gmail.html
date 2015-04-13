@@ -1,31 +1,121 @@
 <html>
   <head>
     <script src="https://apis.google.com/js/client.js"></script>
-    <script>
-      function auth() {
-        var config = {
-          'client_id': '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com',
-          'scope': 'https://www.googleapis.com/auth/urlshortener'
-        };
-        gapi.auth.authorize(config, function() {
-          console.log('login complete');
-          console.log(gapi.auth.getToken());
-        });
-      }
-  
-  	function getMessage(){    
-       var threads = GmailApp.getInboxThreads();
-		for (var i = 0; i < threads.length; i++) {
-		   console.log(threads[i].getFirstMessageSubject());
-		 }
- 	}
-      
-    </script>
   </head>
 
+
+
   <body>
+  		<div id= "content">
+  				hello
+  		</div>
+  		<h4></h4>
   		
-    <button onclick="auth();">hello</button>
-    <button onclick="getMessage();">getMessage</button>
   </body>
+
+
+
+   <!--Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+    
+    
+    <script type="text/javascript">
+
+	//localhost:8080
+     var clientId = '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com';
+     	//localhost
+	  //var clientId = '470903586983-24dm43r555muk55qea38njkrvteev1fl.apps.googleusercontent.com';
+
+	//localhost:8080
+      var apiKey = 'AIzaSyA5JHDmzCp3KcXWDzpIjZNgefLVzymxPSo';
+      	//localhost
+      //var apiKey = 'AIzaSyAhoEOtA9eRECSbPAnYAfdjgADMlGa5N3A';
+
+
+      //var scopes = 'https://www.googleapis.com/auth/plus.me';
+	  var scopes = 'https://mail.google.com/';
+
+      function handleClientLoad() {
+        // Step 2: Reference the API key
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        	//if the auth is successfull hide the button
+        if (authResult && !authResult.error) {
+          authorizeButton.style.visibility = 'hidden';
+          makeApiCall();
+          //if fail show the button
+        } else {
+          authorizeButton.style.visibility = '';
+          authorizeButton.onclick = handleAuthClick;
+        }
+      }
+
+      function handleAuthClick(event) {
+        // Step 3: get authorization to use private data
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+        return false;
+      }
+
+      // Load the API and make an API call.  Display the results on the screen.
+      function makeApiCall() {
+        // Step 4: Load the Google+ API
+        gapi.client.load('gmail', 'v1').then(function() {
+
+        gapi.client.gmail.users.getProfile({
+            'userId': 'me'
+        }).execute(function(resp){ 
+        		console.log(resp);
+        	
+        	} 
+        ); 
+        	
+        gapi.client.gmail.users.messages.list({
+        	            'userId': 'me'
+        }).execute(function(resp){ 
+        		console.log(resp);
+        		var total = 10;
+        		var j = 0;
+        		//for(j = 0 ; j < total ; j++){}
+        		console.log(resp['messages'][j]['id']);
+        				
+	        		 gapi.client.gmail.users.messages.get({
+	        	            'userId': 'me',
+	        	            'id' : resp['messages'][j]['id']
+	       			 }).execute(function(resp2){ 
+	        			console.log(resp2);
+	        			var body = resp2['payload']['parts'][j]['body']['data'];
+	        			var snippet = resp2['snippet'];
+	        			var date = resp2['payload']['headers'][4]['value'];
+	        			var from = resp2['payload']['headers'][13]['value'];
+						body = atob(body);			
+						console.log(body);
+		        		console.log(snippet);
+	        			console.log(date.split(';')[1]);
+	        			console.log(from);
+	        		} 
+        			);	
+        		
+        	} 
+        ); 	
+		
+		/*
+		for(var key in request){
+			for(var key2 in key){
+				console.log(key2);	
+			}
+		}*/
+          
+        });
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
 </html>

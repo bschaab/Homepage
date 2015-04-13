@@ -1,8 +1,189 @@
-Client ID	688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com
-Email address	688997813097-slfbf24164p8vlg1rbmebebl2nmiare7@developer.gserviceaccount.com
-Client secret	
-OYQs2tY3wlsfaf9LDWVGPqxx
-Redirect URIs	
-http://127.0.0.1:8020/oauth2callback
-Javascript Origins	
-http://127.0.0.1:8020/
+<html>
+  <head>
+    <script src="https://apis.google.com/js/client.js"></script>
+      <meta charset="utf-8">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#accordion" ).accordion();
+  });
+  
+  
+
+  
+  
+  
+  
+  </script>
+  </head>
+
+
+
+  <body>
+  	
+  
+  	
+  	<div id="accordion">
+  <h3 id = "title_1">Section 1</h3>
+  <div id = "1">
+
+  </div>
+  
+	</div>
+  	
+  	
+  	
+  	
+  	
+  		<div id= "content">
+  				hello
+  		</div>
+  		<h4></h4>
+  		
+  </body>
+
+
+
+   <!--Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+    
+    
+    <script type="text/javascript">
+
+	//localhost:8080
+     var clientId = '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com';
+     	//localhost
+	  //var clientId = '470903586983-24dm43r555muk55qea38njkrvteev1fl.apps.googleusercontent.com';
+
+	//localhost:8080
+      var apiKey = 'AIzaSyA5JHDmzCp3KcXWDzpIjZNgefLVzymxPSo';
+      	//localhost
+      //var apiKey = 'AIzaSyAhoEOtA9eRECSbPAnYAfdjgADMlGa5N3A';
+
+
+      //var scopes = 'https://www.googleapis.com/auth/plus.me';
+	  var scopes = 'https://mail.google.com/';
+
+      function handleClientLoad() {
+        // Step 2: Reference the API key
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        	//if the auth is successfull hide the button
+        if (authResult && !authResult.error) {
+          authorizeButton.style.visibility = 'hidden';
+          makeApiCall();
+          //if fail show the button
+        } else {
+          authorizeButton.style.visibility = '';
+          authorizeButton.onclick = handleAuthClick;
+        }
+      }
+
+      function handleAuthClick(event) {
+        // Step 3: get authorization to use private data
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+        return false;
+      }
+
+      // Load the API and make an API call.  Display the results on the screen.
+      function makeApiCall() {
+        // Step 4: Load the Google+ API
+        gapi.client.load('gmail', 'v1').then(function() {
+
+        gapi.client.gmail.users.getProfile({
+            'userId': 'me'
+        }).execute(function(resp){ 
+        		console.log(resp);
+        	
+        	} 
+        ); 
+        	
+        gapi.client.gmail.users.messages.list({
+        	            'userId': 'me'
+        }).execute(function(resp){ 
+        		console.log(resp);
+        		var total = 10;
+        		var j = 0;
+        		//for(j = 0 ; j < total ; j++){}
+        		console.log(resp['messages'][j]['id']);
+        				
+	        		 gapi.client.gmail.users.messages.get({
+	        	            'userId': 'me',
+	        	            'id' : resp['messages'][j]['id']
+	       			 }).execute(function(resp2){ 
+	        			console.log(resp2);
+	        			var body = resp2['payload']['parts'][j]['body']['data'];
+	        			var snippet = resp2['snippet'];
+	        			var date = resp2['payload']['headers'][4]['value'];
+	        			var from = resp2['payload']['headers'][13]['value'];
+						body = atob(body);			
+						console.log(body);
+		        		console.log(snippet);
+	        			console.log(date.split(';')[1]);
+	        			console.log(from);
+	        			
+	        			createMessage(body, snippet, date, from);
+	        		} 
+        			);	
+        		
+        	} 
+        ); 	
+		
+		/*
+		for(var key in request){
+			for(var key2 in key){
+				console.log(key2);	
+			}
+		}*/
+          
+        });
+      }
+      
+        function createMessage(body, snippet, date, from) {
+        	var p = document.createElement("p");
+        	var header = document.createElement("h3");
+        	var div = document.createElement("div");
+        	
+     
+        	var email_content = document.createTextNode(body);
+        	var title_content = document.createTextNode(snippet);
+        	
+        	p.appendChild(email_content);
+        	header.appendChild(title_content);
+        
+        	var element = document.getElementById("accordion");
+        	
+        	header.className = "ui-accordion-header ui-state-default ui-accordion-header-active ui-state-active ui-corner-top ui-accordion-icons";
+        	header.setAttribute("role", "tab");
+        	header.setAttribute("aria-controls", "1");
+        	header.setAttribute("aria-selected", "true");
+        	header.setAttribute("aria-expanded", "true");
+        	header.setAttribute("tabindex", "0");
+        	
+        	div.className = "ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active";
+        	// div.setAttribute("style", "display: block; height: 0px;");
+        	div.setAttribute("role", "tabpanel");
+        	 div.setAttribute("aria-hidden", "false");
+        	
+        	element.appendChild(header);
+        	div.appendChild(p);
+        	element.appendChild(div);
+   
+        	
+  			}
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+</html>

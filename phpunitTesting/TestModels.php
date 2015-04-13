@@ -4,6 +4,7 @@
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
 	require_once "../php/models/TwitterDB.php";
+	require_once "../php/models/Todos.php";
 	
 	/* Run with phpunit --stderr TestModels.php */
 	
@@ -172,6 +173,7 @@
 			$this->assertTrue($quickbar->getTitles()[3] != "");
 		}
 
+		/**** TwitterDB Tests ****/
 		public function testTwitterDBSaveTokens()
 		{
 			$twitter = new TwitterDB();
@@ -209,45 +211,124 @@
 		}
 
 
-		/**** Twitter Tests ****/
+		/**** TODOList Tests ****/
+		public function testTodoSaveTask()
+		{
+			$todo = new Todos();
+			$todo->setId(1);
+			$todo->setUserID(1);
+			$todo->setTask("Do CS 428 Homework");
+			$todo->saveTask();
+
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM todos WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+
+			$this->assertEquals($todo->getId(), $result['id']);
+			$this->assertEquals($todo->getTask(), $result['task']);
+		}
+
+		public function testTodoLoadTask()
+		{
+			$todo = new Todos();
+			$todo->loadTasks(1);
+
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM todos WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+
+			$this->assertEquals($todo->getId(), $result['id']);
+			$this->assertEquals($todo->getTask(), $result['task']);
+
+		}
+		
+		
+		
+		/**** Widget Tests (Parameterized) ****/
+	
+		public static function defaultWidgetDataProvider() {
+			return array(
+				array(0, 'spotifyMixedGenParty'),
+				array(1, 'calc'),
+				array(2, 'sudoku'),
+			);
+		}
+		public static function newWidgetDataProvider() {
+			return array(
+				array(0, 'mathGame'),
+				array(1, 'sudoku'),
+				array(2, 'spotifyTopTracks'),
+			);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testGetWidgetFromDefaults($index, $result)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider newWidgetDataProvider
+		*/
+		public function testSetWidget($index, $widgetName)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+		    $user->setWidget($index, $widgetName);
+			$this->assertEquals($user->getWidget($index), $widgetName);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testSetWidgetsToDefault($index, $result)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testLoadUserWithWidgets($index, $result)
+		{
+			$user = new User();
+			$user->loadUser(1);
+			
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider newWidgetDataProvider
+		*/
+		public function testSaveUserWithWidgets($index, $widgetName)
+		{
+			$user = new User();
+			$user->setFirstName("Test");
+		    $user->setLastName("Pal");
+		    $user->setEmail("testPal@email.com");
+		    $user->setPassword("password909");
+		    $user->setQuickbarToDefault();
+		    $user->setWidgetsToDefault();
+			$user->setWidget($index, $widgetName);
+			$user->saveUser();
+			
+			$dbCom = new DatabaseCommunicator();
+			
+			$dbCom->runQuery("SELECT * FROM users WHERE email = 'testPal@email.com'");
+			$result = $dbCom->getQueryResult();
+
+			$this->assertEquals($user->getWidget($index), $result['widget' . $index]);
+			
+			$dbCom->runQuery("DELETE FROM users WHERE email = 'testPal@email.com'"); //delete so the next param tests can be run
+		}
 
 
 	}
-	/**** Widget Tests (Parameterized) ****/
-	
-	
-	// getWidget()
-	
-	// setWidget()
-	
-	// setWidgetsToDefault()
-	
-	
-	// loadUser() with widgets
-	
-	
-	// saveUser() with widgets
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 ?>

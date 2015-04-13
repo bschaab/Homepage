@@ -105,8 +105,19 @@ class DatabaseCommunicator {
 			return false;
 		}
 
-		//create the twitter table
-		$query = "CREATE TABLE twitter (
+		//create the todos table
+        $query = "CREATE TABLE todos (
+                  id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
+                  userID int(16),
+                  task varchar(255),
+                  PRIMARY KEY (id)
+                  );";
+        if (!$this->runQuery($query)) {
+            return false;
+        }
+
+        //create the twitter table
+        $query = "CREATE TABLE twitter (
                   id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
                   userID int(16),
                   oauthToken varchar(255),
@@ -114,9 +125,9 @@ class DatabaseCommunicator {
                   username varchar(255),
                   PRIMARY KEY (id)
                   );";
-		if (!$this->runQuery($query)) {
-			return false;
-		}
+        if (!$this->runQuery($query)) {
+            return false;
+        }
 
         //create instagram table for tokens
         $query = "CREATE TABLE instagram (
