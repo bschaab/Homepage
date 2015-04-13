@@ -44,6 +44,7 @@
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/css/calc.css">
         <link rel="stylesheet" type="text/css" href="/css/stocks.css">
+        <link rel="stylesheet" type="text/css" href="/todoList/todos.css">
 		<script type="text/javascript" src="/js/calculator/calculator.js"></script>
 		<script type="text/javascript" src="/Calculator/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
@@ -141,6 +142,7 @@
 						<option value="mathGame" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'mathGame'">Math Game</option>
 						<option value="sudoku" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'sudoku'">Sudoku</option>
                         <option value="stocks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'stocks'">Stocks</option>
+                        <option value="todos" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'todos'">Todo List</option>
 					</select>
 				</div>
 				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
@@ -279,5 +281,6 @@
 		<script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
 		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
 		<script type="text/javascript" src="/js/quickbar/quickbar.js"></script>
+        <script type="text/javascript" src="/todoList/todos.js"></script>
 	</body>
 </html>
