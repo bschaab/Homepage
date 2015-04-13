@@ -241,44 +241,94 @@
 			$this->assertEquals($todo->getTask(), $result['task']);
 
 		}
+		
+		
+		
+		/**** Widget Tests (Parameterized) ****/
+	
+		public static function defaultWidgetDataProvider() {
+			return array(
+				array(0, 'spotifyMixedGenParty'),
+				array(1, 'calc'),
+				array(2, 'sudoku'),
+			);
+		}
+		public static function newWidgetDataProvider() {
+			return array(
+				array(0, 'mathGame'),
+				array(1, 'sudoku'),
+				array(2, 'spotifyTopTracks'),
+			);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testGetWidgetFromDefaults($index, $result)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider newWidgetDataProvider
+		*/
+		public function testSetWidget($index, $widgetName)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+		    $user->setWidget($index, $widgetName);
+			$this->assertEquals($user->getWidget($index), $widgetName);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testSetWidgetsToDefault($index, $result)
+		{
+			$user = new User();
+		    $user->setWidgetsToDefault();
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider defaultWidgetDataProvider
+		*/
+		public function testLoadUserWithWidgets($index, $result)
+		{
+			$user = new User();
+			$user->loadUser(1);
+			
+			$this->assertEquals($user->getWidget($index), $result);
+		}
+		
+		/**
+		* @dataProvider newWidgetDataProvider
+		*/
+		public function testSaveUserWithWidgets($index, $widgetName)
+		{
+			$user = new User();
+			$user->setFirstName("Test");
+		    $user->setLastName("Pal");
+		    $user->setEmail("testPal@email.com");
+		    $user->setPassword("password909");
+		    $user->setQuickbarToDefault();
+		    $user->setWidgetsToDefault();
+			$user->setWidget($index, $widgetName);
+			$user->saveUser();
+			
+			$dbCom = new DatabaseCommunicator();
+			
+			$dbCom->runQuery("SELECT * FROM users WHERE email = 'testPal@email.com'");
+			$result = $dbCom->getQueryResult();
+
+			$this->assertEquals($user->getWidget($index), $result['widget' . $index]);
+			
+			$dbCom->runQuery("DELETE FROM users WHERE email = 'testPal@email.com'"); //delete so the next param tests can be run
+		}
 
 
 	}
-	/**** Widget Tests (Parameterized) ****/
-	
-	
-	// getWidget()
-	
-	// setWidget()
-	
-	// setWidgetsToDefault()
-	
-	
-	// loadUser() with widgets
-	
-	
-	// saveUser() with widgets
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 ?>
