@@ -4,6 +4,7 @@
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
 	require_once "../php/models/TwitterDB.php";
+	require_once "../php/models/Todos.php";
 	
 	/* Run with phpunit --stderr TestModels.php */
 	
@@ -172,6 +173,7 @@
 			$this->assertTrue($quickbar->getTitles()[3] != "");
 		}
 
+		/**** TwitterDB Tests ****/
 		public function testTwitterDBSaveTokens()
 		{
 			$twitter = new TwitterDB();
@@ -209,7 +211,36 @@
 		}
 
 
-		/**** Twitter Tests ****/
+		/**** TODOList Tests ****/
+		public function testTodoSaveTask()
+		{
+			$todo = new Todos();
+			$todo->setId(1);
+			$todo->setUserID(1);
+			$todo->setTask("Do CS 428 Homework");
+			$todo->saveTask();
+
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM todos WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+
+			$this->assertEquals($todo->getId(), $result['id']);
+			$this->assertEquals($todo->getTask(), $result['task']);
+		}
+
+		public function testTodoLoadTask()
+		{
+			$todo = new Todos();
+			$todo->loadTasks(1);
+
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM todos WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+
+			$this->assertEquals($todo->getId(), $result['id']);
+			$this->assertEquals($todo->getTask(), $result['task']);
+
+		}
 
 
 	}
