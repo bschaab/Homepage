@@ -1,28 +1,31 @@
-<!DOCTYPE html>
 <html>
-<head lang="en">
+  <head>
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script>
+      function auth() {
+        var config = {
+          'client_id': '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/urlshortener'
+        };
+        gapi.auth.authorize(config, function() {
+          console.log('login complete');
+          console.log(gapi.auth.getToken());
+        });
+      }
+  
+  	function getMessage(){    
+       var threads = GmailApp.getInboxThreads();
+		for (var i = 0; i < threads.length; i++) {
+		   console.log(threads[i].getFirstMessageSubject());
+		 }
+ 	}
+      
+    </script>
+  </head>
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <meta charset="UTF-8">
-    <title>
-    </title>
-</head>
-<body>
-
-<script>
-    function logMeIn() {
-        scope = "http://www.google.com/calendar/feeds/";
-        var token = google.accounts.user.login(scope);
-    }
-    function setupMyService() {
-        var myService = new google.gdata.calendar.CalendarService('exampleCo-exampleApp-1');
-        logMeIn();
-        return myService;
-    }
-
-    var service = setupMyService();
-</script>
-
-helllo
-</body>
+  <body>
+  		
+    <button onclick="auth();">hello</button>
+    <button onclick="getMessage();">getMessage</button>
+  </body>
 </html>

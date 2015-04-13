@@ -10,6 +10,7 @@
 
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
+	require_once "../php/models/Session.php";
 ?>
 
 
@@ -42,6 +43,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/css/calc.css">
+        <link rel="stylesheet" type="text/css" href="/css/stocks.css">
 		<script type="text/javascript" src="/js/calculator/calculator.js"></script>
 		<script type="text/javascript" src="/Calculator/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
@@ -54,8 +56,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -123,6 +125,30 @@
 			</form>
 		</div>
 		
+		<div id="editWidgetPanel" class="hoverPanel" ng-show="editWidgetPanel">
+			<form class="form" method="post" action="/php/controllers/editWidgetPanel.php">
+				<h2>Edit Widget Slot {{edgeWidgetPanelSlot + 1}}</h2>
+				<h6>choose which widget shows in this slot</h6>
+				<br/>
+				<div class="form-group">
+					<label class="sr-only" for="WidgetInput">Title</label>
+					<select name="widget" id="WidgetInput" class="form-control">
+						<option value="calc" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'calc'">Customizable Calculator</option>
+						<option value="multiUtility" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'multiUtility'">Multi Utility</option>
+						<option value="spotifyDeepFocus" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyDeepFocus'">Spotify Deep Focus</option>
+						<option value="spotifyMixedGenParty" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyMixedGenParty'">Spotify Mixed Generations Party</option>
+						<option value="spotifyTopTracks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'spotifyTopTracks'">Spotify Top US Tracks</option>
+						<option value="mathGame" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'mathGame'">Math Game</option>
+						<option value="sudoku" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'sudoku'">Sudoku</option>
+                        <option value="stocks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'stocks'">Stocks</option>
+					</select>
+				</div>
+				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
+				<button type="submit" class="btn btn-primary">Select</button>
+				<br/><br/>
+			</form>
+		</div>
+		
 		<!--END hovering panels-->
 		
 		
@@ -144,6 +170,9 @@
 			<?php if ($alert == "quickbar-add-invalid-input"): ?><p class="bg-danger alertBox">Quickbar Add Failed. You were missing required fields.</p><?php endif; ?>
 			<?php if ($alert == "quickbar-add-fail"): ?><p class="bg-danger alertBox">Quickbar Add Failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "quickbar-add-success"): ?><p class="bg-success alertBox">Quickbar Add Succeeded</p><?php endif; ?>
+			
+			<?php if ($alert == "widget-edit-fail"): ?><p class="bg-danger alertBox">Widget Slot Change Failed. Please try again.</p><?php endif; ?>
+			<?php if ($alert == "widget-edit-success"): ?><p class="bg-success alertBox">Widget Slot Successfully Changed</p><?php endif; ?>
 			
 		</div>
 		
@@ -190,7 +219,7 @@
 						<span class="category-text">+</span>
 					</span>
 					<!--  Placeholder -->
-					<span class="category-item"><a href="/twitter/requestAuthentication.php">Sign in with Twitter</a></span>
+					<span class="category-item" ng-show="hpUser.loggedIn"><a href="/twitter/requestAuthentication.php">Sign in with Twitter</a></span>
 					<span class="category-item">Test Item 2</span>
 					<span class="category-item">Test Item 3</span>
 				</div>
@@ -205,10 +234,30 @@
 
 			<div id="bottom-bar">
 				<div id="widgets-area" class="bottom-bar-item">
-                    <div class="widget" ng-include="widgetsUrl[0]"></div>
-                    <div class="widget" ng-include="widgetsUrl[1]"></div>
-                    <div class="widget" ng-include="widgetsUrl[2]"></div>
-				</div>
+
+					<div class="widgetWrapper">
+                    	<div class="widget" ng-include="widgetsUrl[0]"></div>
+						<div class="editWidgetButton">
+                    	    <i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 0;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+
+					<div class="widgetWrapper">
+                    	<div class="widget" ng-include="widgetsUrl[1]"></div>
+						<div class="editWidgetButton">
+							<i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 1;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+
+					<div class="widgetWrapper">
+						<div class="widget" ng-include="widgetsUrl[2]"></div>
+						<div class="editWidgetButton">
+                        	<i class="fa fa-pencil-square-o" ng-click="editWidgetPanel = true; edgeWidgetPanelSlot = 2;" ng-show="hpUser.loggedIn"></i>
+                    	</div>
+					</div>
+                    
+
+				</div><!--end widget area-->
 
 				<div id="info" class="bottom-bar-item">
 					<div id="weather">

@@ -9,7 +9,7 @@
 	//setup user regardless of logged in
 	$user = new User();
 	$user->setQuickbarToDefault();
-	
+	$user->setWidgetsToDefault();
 ?>
 {
 	<?php
@@ -49,9 +49,9 @@
 		<?php endfor; ?>
 	],
 	"widgets" : [
-		"calc",
-		"testWidget",
-		"testWidget"
+		"<?php echo $user->getWidget(0); ?>",
+		"<?php echo $user->getWidget(1); ?>",
+		"<?php echo $user->getWidget(2); ?>"
 	],
 	"feed" : [
 		{

@@ -8,17 +8,22 @@
 	*/
 	class User {
 		
+		//personal
 		protected $id;
 		protected $firstName;
 		protected $lastName;
 		protected $email;
 		protected $hashedPassword;
 		
+		//widgets
+		protected $widgets;
+		
+		//quickbar
 		protected $quickbar;
 		
 		
 		function __construct() {
-			
+			$widgets = array();
 		}
 		
 		function getId() {
@@ -74,6 +79,14 @@
 			$this->hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 		}
 		
+		function getWidget($index) {
+			return $this->widgets[$index];
+		}
+		
+		function setWidget($index, $widgetName) {
+			$this->widgets[$index] = $widgetName;
+		}
+		
 		function addToQuickbar($title, $link) {
 			if (!$this->quickbar) { $this->quickbar = new Quickbar(); }
 			$this->quickbar->add($title, $link);
@@ -89,6 +102,12 @@
 			$this->quickbar->setToDefault();
 		}
 		
+		function setWidgetsToDefault() {
+			$this->widgets[0] = 'spotifyMixedGenParty';
+	        $this->widgets[1] = 'calc';
+	        $this->widgets[2] = 'sudoku';
+		}
+		
 		
 		function loadUser($userID) {
 			$dbCom = new DatabaseCommunicator();
@@ -102,6 +121,9 @@
 	        $this->lastName = $result['lastName'];
 	        $this->email = $result['email'];
 	        $this->hashedPassword = $result['password'];
+	        $this->widgets[0] = $result['widget0'];
+	        $this->widgets[1] = $result['widget1'];
+	        $this->widgets[2] = $result['widget2'];
 	        
 	        
 	        //get quickbar
@@ -129,16 +151,20 @@
 			$email = $this->email;
 			$hashedPassword = $this->hashedPassword;
 			$quickbar = $this->quickbar;
+			$widget0 = $this->widgets[0];
+			$widget1 = $this->widgets[1];
+			$widget2 = $this->widgets[2];
 			
 			if ($this->id) {
 				$userID = $this->id;
-				$query = "UPDATE users SET lastName='$lastName', firstName='$firstName', email='$email', password='$hashedPassword' WHERE id=$userID;";
+				$query = "UPDATE users SET lastName='$lastName', firstName='$firstName', email='$email', password='$hashedPassword',
+				widget0='$widget0', widget1='$widget1', widget2='$widget2' WHERE id=$userID;";
 				if (!$dbCom->runQuery($query)) { return -2; } //general error
 			}
 			else {
 				$query = "INSERT INTO users
-						(lastName, firstName, email, password) VALUES
-						('$lastName', '$firstName', '$email', '$hashedPassword');";
+						(lastName, firstName, email, password, widget0, widget1, widget2) VALUES
+						('$lastName', '$firstName', '$email', '$hashedPassword', '$widget0', '$widget1', '$widget2');";
 						if (!$dbCom->runQuery($query)) { return -1; } //duplicate user error
 						
 				//get userID
