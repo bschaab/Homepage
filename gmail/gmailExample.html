@@ -6,18 +6,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script>
-  
-  
-
-  
-  
-  
-  
-  </script>
   </head>
-
-
 
   <body>
  
@@ -31,22 +20,16 @@
 	<button onclick="sendMessage()"> send </button>
 	 
   	
-  <p id = "hello"></p>
+  
  
   		<div id = "hiddenFlag"><!-- style="visibility: hidden">-->
-  			0
   		</div>
-  	
-  	
-  	
+  	  	
   		<div id= "content">
-  				hello
   		</div>
   		<h4></h4>
   		
   </body>
-
-
 
    <!--Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
@@ -55,7 +38,7 @@
     <script type="text/javascript">
         		var j = 0;
         		var size = 0;
-
+	var messageProcessed = 0;
 	//localhost:8080
      var clientId = '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com';
      	//localhost
@@ -142,15 +125,13 @@
 		
 	}
 	
-	
-
-
       function makeApiCall() {
         // Step 4: Load the Google+ API
         var bodyArr = [];
         var fromArr = [];
        	var dateArr = [];
        	var snippetArr = [];
+       	var emailFeed = [];      	
         gapi.client.load('gmail', 'v1').then(function() {
 
         gapi.client.gmail.users.getProfile({
@@ -166,7 +147,7 @@
         }).execute(function(resp){ 
         		//console.log(resp);
         		var total = 5;
-        		
+        		var j = 0;
 				while(size < 5 && j < (resp['messages'].length-2) ){
 	        		 gapi.client.gmail.users.messages.get({
 	        	            'userId': 'me',
@@ -178,102 +159,109 @@
 		        			}
 		        			else{
 		        			var body = resp2['payload']['parts'][0]['body']['data'];
-		        			body = window.atob(body.replace(/\s/g, ''));
+		        			//body = window.atob(body.replace(/\s/g, ''));
 		        			
 		        			var snippet = resp2['snippet'];
 		        			var header = resp2['payload']['headers'];
 							var headerLength = header.length;
 								
 								if(headerLength >= 13){
-								var flag = document.getElementById('hiddenFlag').innerHTML;
-								var zz = flag.valueOf();
-								zz = zz + 1;
-								flag = zz.toString();
-								document.getElementById('hiddenFlag').innerHTML = '';
-								document.getElementById('hiddenFlag').innerHTML = flag;
 
-			        			var date = resp2['payload']['headers'][4]['value'];
-			        			var from = resp2['payload']['headers'][13]['value'];
-								//body = atob(body);
-								
-								
-								var content_html = document.createTextNode(body);
-								var snippet_html = document.createTextNode(snippet);
-								var deleteZXC = document.createTextNode("delete");       
-
-								var header = document.createElement("h3");
-								var p	   = document.createElement("p");
-								var btn = document.createElement("BUTTON");
-								var temp = resp2['id'];
-
-								btn.onclick = function(){
-										 gapi.client.gmail.users.messages.delete({
-	        	            			'userId': 'me',
-	        	            			'id' : temp
-	       								 }).execute(function(resp){
-	       								 	location.reload();
-	       								 });
-
-								};
-								
-								header.appendChild(snippet_html);
-								p.appendChild(content_html);
-								btn.appendChild(deleteZXC);
-								//btn.setAttribute("onclick", "deleteMessage(temp);");
-						
-								var d = document.getElementById("content");																
-								d.appendChild(header);
-								d.appendChild(p);
-								d.appendChild(btn);							
-								
-								console.log(body);
-						        console.log(snippet);
-			        			console.log(from);
-			        			console.log(date.split(';')[1]);
-			        			bodyArr.push(body);
-			        			snippetArr.push(snippet);
-			        			dateArr.push(date);
-			        			fromArr.push(from);
-							//console.log(resp2);
-								}
-								else{
+				        			var date = resp2['payload']['headers'][4]['value'];
+				        			var from = resp2['payload']['headers'][13]['value'];
 									
+									
+									var content_html = document.createTextNode(body);
+									var snippet_html = document.createTextNode(snippet);
+									var deleteZXC = document.createTextNode("delete");       
+									var header = document.createElement("h3");
+									var p	   = document.createElement("p");
+									var btn = document.createElement("BUTTON");
+									var temp = resp2['id'];
+	
+									btn.onclick = function(){
+											 gapi.client.gmail.users.messages.delete({
+		        	            			'userId': 'me',
+		        	            			'id' : temp
+		       								 }).execute(function(resp){
+		       								 	location.reload();
+		       								 });
+	
+									};
+									header.appendChild(snippet_html);
+									p.appendChild(content_html);
+									btn.appendChild(deleteZXC);
+									//btn.setAttribute("onclick", "deleteMessage(temp);");
+							
+									var d = document.getElementById("content");																
+									d.appendChild(header);
+									d.appendChild(p);
+									d.appendChild(btn);							
+									
+									console.log(body);
+							        console.log(snippet);
+				        			console.log(from);
+				        			date = date.split(';')[1];
+				        			console.log(date);
+									var tempObject = {
+										'body' : body,
+										'from' : from,
+										'snippet' : snippet,
+										'date' : date									
+									}
+									emailFeed.push(tempObject);
+									console.log(emailFeed.length);
+									if(emailFeed.length > 70 && messageProcessed == 0){
+										processData(emailFeed);
+							      		messageProcessed =1;
+									}
+								} //endif header
+								else{}
+								j = j+1;								
 
-								}
+
 							}			
-						//}
-	        		} 
+	        		} //promise close inside
         			);
 
-        			console.log(bodyArr.length);
-        			var myFlag = document.getElementById('hiddenFlag').innerHTML;
-        			if(myFlag == '5'){
-        				break;
-	        			}
+        	
         			j = j+1;
-        			}	//forloop
+        			}//while loop
         		
-        	} 
+        	}//promise outside
         ); 	
 		
-		/*
-		for(var key in request){
-			for(var key2 in key){
-				console.log(key2);	
-			}
-		}*/
           
         });
        createMessage(bodyArr, snippetArr, dateArr, fromArr);
       }
       
+
+		//process the email feeds array
+      function processData(emailFeed){
+      	if(messageProcessed == 0){
+	      	messageProcessed =1;
+	      	alert("PROCESSDATA");
+			//alert(emailFeed[0].date);
+			var thisDate = new Date(emailFeed[0].date);
+			emailFeed.sort(function(a,b){
+				var aDate = new Date(a.date);
+				var bDate = new Date(b.date);
+				return bDate-aDate;			
+			});	
+      	}
+      	
+      	
+      }
+      
+      
+      	//create a message
         function createMessage(body, snippet, date, from) {
         	
         	var content = document.createTextNode(body);
         	var p = document.getElementById("content_1");
         	p.appendChild(content);
-        	
-        	
+        	       	
   			}
     </script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
