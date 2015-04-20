@@ -18,10 +18,10 @@ class InstagramFeeds {
     private $user_token;
     private $myFeeds;
     private $DBconnection;
+	private $authenticated;
 
     public function __construct() {
         $this->DBconnection = new InstagramTokenDB();
-
 
 
         $config = array(
@@ -35,30 +35,35 @@ class InstagramFeeds {
         if($booles == true){
             $token = $this->DBconnection->getToken();
             $username = $this->DBconnection->getInstagramID();
-            //echo 'Your username is: ' . $username;
             $this->myFeeds->setAccessToken($token);
         }
         else {
-
-            $code = $_GET['code'];
-            $data = $this->myFeeds->getOAuthToken($code);
-            //echo 'Your username is: ' . $data->user->username;
-            if ($data->user->username == NULL) {
-                echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
-            }
-            $this->user_token = $code;
-            $this->myFeeds->setAccessToken($data);
+        	$code = '';
+        	if (isset($_GET['code'])){
+				$code = $_GET['code'];				
+	            $data = $this->myFeeds->getOAuthToken($code);
+	            if ($data->user->username == NULL) {
+	                echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
+	            }
+	            $this->user_token = $code;
+	            $this->myFeeds->setAccessToken($data);
+        	}
+			else {
+				$code = '';
+				echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
+			}
 
 
         }
-        if($data->access_token != NULL){
-            $test = $this->DBconnection->saveToken(1,$data->access_token,$data->user->username);
-            if($test == false) {
-                error_log(mysql . error());
-            }
-            //echo $data->access_token;
-        }
-
+		if(isset($data)){
+	        if($data->access_token != NULL){
+	            $test = $this->DBconnection->saveToken(1,$data->access_token,$data->user->username);
+	            if($test == false) {
+	                error_log(mysql . error());
+	            }
+	            //echo $data->access_token;
+	        }
+		}
 
     }
 
@@ -68,13 +73,22 @@ class InstagramFeeds {
 
 
     public function userLoginCheck(){
-        $code = $_GET['code'];
-        $data = $this->myFeeds->getOAuthToken($code);
-        echo 'Your username is: ' . $data->user->username;
-        if($data->user->username == NULL){
-            echo "USERNAME NULL";
-        }
-        $this->myFeeds->setAccessToken($data);
+    	/*
+	        $code = $_GET['code'];
+	        $data = $this->myFeeds->getOAuthToken($code);
+	        echo 'Your username is: ' . $data->user->username;
+	        if($data->user->username == NULL){
+				return false;
+	        }
+	        //$this->myFeeds->setAccessToken($data);
+    		return true;		
+		*/
+		if(isset($_GET['code'])){
+			return true;
+		}	
+		else{
+	        return false;					
+		}
     }
 
     public function setToken(){

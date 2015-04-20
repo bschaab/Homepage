@@ -160,7 +160,9 @@
 		        			else{
 		        			var body = resp2['payload']['parts'][0]['body']['data'];
 		        			//body = window.atob(body.replace(/\s/g, ''));
-		        			
+		        			body = decode64(body);
+
+		        			//body = window.atob( unescape( encodeURIComponent( body ) ) );
 		        			var snippet = resp2['snippet'];
 		        			var header = resp2['payload']['headers'];
 							var headerLength = header.length;
@@ -188,6 +190,7 @@
 		       								 });
 	
 									};
+									/*
 									header.appendChild(snippet_html);
 									p.appendChild(content_html);
 									btn.appendChild(deleteZXC);
@@ -197,18 +200,19 @@
 									d.appendChild(header);
 									d.appendChild(p);
 									d.appendChild(btn);							
-									
+									*/
 									console.log(body);
 							        console.log(snippet);
 				        			console.log(from);
 				        			date = date.split(';')[1];
 				        			console.log(date);
+				        			date = new Date(date);
 									var tempObject = {
 										'body' : body,
 										'from' : from,
 										'snippet' : snippet,
 										'date' : date									
-									}
+									};
 									emailFeed.push(tempObject);
 									console.log(emailFeed.length);
 									if(emailFeed.length > 70 && messageProcessed == 0){
@@ -233,7 +237,6 @@
 		
           
         });
-       createMessage(bodyArr, snippetArr, dateArr, fromArr);
       }
       
 
@@ -251,18 +254,27 @@
 			});	
       	}
       	
-      	
+      	alert("PROCESS DATA DONE");
+      	createMessage(emailFeed,5);
       }
       
-      
+		      
+		function decode64(s) {
+		    var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+		    var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		    for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+		    for(x=0;x<L;x++){
+		        c=e[s.charAt(x)];b=(b<<6)+c;l+=6;
+		        while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+		    }
+		    return r;
+		};
+		      
       	//create a message
-        function createMessage(body, snippet, date, from) {
+        function createMessage(emailFeed,limit) {
         	
-        	var content = document.createTextNode(body);
-        	var p = document.getElementById("content_1");
-        	p.appendChild(content);
         	       	
-  			}
+  		}
     </script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
