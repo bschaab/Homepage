@@ -23,7 +23,6 @@ class InstagramFeeds {
     public function __construct() {
         $this->DBconnection = new InstagramTokenDB();
 
-
         $config = array(
             'apiKey' => $this->client_id,
             'apiSecret' => $this->client_secret,
@@ -64,7 +63,7 @@ class InstagramFeeds {
 	            //echo $data->access_token;
 	        }
 		}
-
+        echo "<a href= 'https://instagram.com/accounts/logout'> logout </a>";
     }
 
     public function getLoginUrl(){

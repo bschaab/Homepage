@@ -7,13 +7,12 @@ require_once('InstagramContainer.php');
 //test12345
 
 
+
 $instagram = new InstagramFeeds();
 if($instagram->userLoginCheck()){
-$results = $instagram->getUserFeeds(2);
-var_dump($results);	
+    $results = $instagram->getUserFeeds(2);
+    var_dump($results);
 }
-
-
 
 
 ?>
