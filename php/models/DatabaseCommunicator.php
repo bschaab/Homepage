@@ -1,4 +1,6 @@
 <?php
+	
+require_once "Session.php";
 
 /**
  * This class allows for communication with the database
@@ -62,6 +64,11 @@ class DatabaseCommunicator {
 
 	//setup the database
 	protected function setup() {
+		
+		//clear current session
+		$session = new Session();
+		$session->destroySession();
+		
 
 		$name = $this->name;
 
