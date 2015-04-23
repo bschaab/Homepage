@@ -8,7 +8,7 @@
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   </head>
 
-  <body>
+   <body>
  
 	<form>
 	Target:<br>
@@ -19,18 +19,16 @@
 	</form> 
 	<button onclick="sendMessage()"> send </button>
 	 
-  	
-  
- 
-  		<div id = "hiddenFlag"><!-- style="visibility: hidden">-->
-  		</div>
-  	  	
-  		<div id= "content">
-  		</div>
-  		<h4></h4>
-  		
-  </body>
+  	<div id = "hiddenFlag"><!-- style="visibility: hidden">--></div>  	
+  	<div id= "content"></div>
+		<div class="transbox">
+			<img src="MailGood.png" style="width:70px;height:45px; display: inline">
+			<h3 id = "emailTitle" style="align: left; display: inline"> </h3>
 
+			<p id = "emailBody"></p>	
+		</div>
+  </body>
+  
    <!--Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
     <button id="Logout-button" onclick = "window.location = 'https://mail.google.com/mail/u/0/?logout&hl=en';">log-out</button>
