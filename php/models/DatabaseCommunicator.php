@@ -7,8 +7,10 @@ class DatabaseCommunicator {
 
 
 	protected $user = 'root';
+	protected $password = 'root';
 	protected $name = 'homepageDB';
-	protected $host = "127.0.0.1";
+	protected $host = "localhost";
+	//protected $host = "127.0.0.1";
 	protected $connection = null;
 
 	protected $result = null; //query result holder
@@ -35,7 +37,8 @@ class DatabaseCommunicator {
 
 	//open database connection
 	protected function open() {
-		$this->connection = mysql_connect($this->host, $this->user);
+		$this->connection = mysql_connect($this->host, $this->user, $this->password);
+		//$this->connection = mysql_connect($this->host, $this->user);
 		if (!$this->connection) {
 			die("Database connection failed:" . mysql_error());
 		}
