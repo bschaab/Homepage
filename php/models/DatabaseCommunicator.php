@@ -1,4 +1,6 @@
 <?php
+	
+require_once "Session.php";
 
 /**
  * This class allows for communication with the database
@@ -7,7 +9,9 @@ class DatabaseCommunicator {
 
 
 	protected $user = 'root';
+	protected $password = 'root';
 	protected $name = 'homepageDB';
+	//protected $host = "localhost";
 	protected $host = "127.0.0.1";
 	protected $connection = null;
 
@@ -35,6 +39,7 @@ class DatabaseCommunicator {
 
 	//open database connection
 	protected function open() {
+		//$this->connection = mysql_connect($this->host, $this->user, $this->password);
 		$this->connection = mysql_connect($this->host, $this->user);
 		if (!$this->connection) {
 			die("Database connection failed:" . mysql_error());
@@ -59,6 +64,11 @@ class DatabaseCommunicator {
 
 	//setup the database
 	protected function setup() {
+		
+		//clear current session
+		$session = new Session();
+		$session->destroySession();
+		
 
 		$name = $this->name;
 
