@@ -5,6 +5,7 @@
 	require_once "../php/models/User.php";
 	require_once "../php/models/TwitterDB.php";
 	require_once "../php/models/Todos.php";
+	require_once "../instagram/InstagramTokenDB.php";
 	
 	/* Run with phpunit --stderr TestModels.php */
 	
@@ -209,6 +210,90 @@
 			$this->assertEquals($twitter->getOauthTokenSecret(), $result['oauthTokenSecret']);
 			$this->assertEquals($twitter->getUsername(), $result['username']);
 		}
+
+
+
+		/**** Instagram Tests ****/
+		public function testInstagramSaveToken()
+		{
+			$instagramDB = new InstagramTokenDB();
+			$instagramDB->saveToken('1','a','a');
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+			$this->assertEquals('1',$result['userID']);
+			$this->assertEquals('a',$result['token']);
+			$this->assertEquals('a',$result['instagramID']);					
+		}
+
+		public function testInstagramSaveTokenUpdateToken()
+		{
+			$instagramDB = new InstagramTokenDB();
+
+			$instagramDB->saveToken("2","a","a");
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '2'");
+			$result = $dbQ->getQueryResult();
+			$this->assertEquals('2',$result['userID']);
+			$this->assertEquals('a',$result['token']);
+			$this->assertEquals('a',$result['instagramID']);					
+			
+			
+			$instagramDB->saveToken("2","b","a");
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '2'");
+			$result = $dbQ->getQueryResult();
+			$this->assertEquals('2',$result['userID']);
+			$this->assertEquals('b',$result['token']);
+			$this->assertEquals('a',$result['instagramID']);					
+		}
+		
+		public function testInstagramSaveTokenUpdateInstagramID()
+		{
+			$instagramDB = new InstagramTokenDB();
+
+			$instagramDB->saveToken("3","a","a");
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '3'");
+			$result = $dbQ->getQueryResult();
+			$this->assertEquals('3',$result['userID']);
+			$this->assertEquals('a',$result['token']);
+			$this->assertEquals('a',$result['instagramID']);					
+			$instagramDB->saveToken("3","a","c");			
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '3'");
+			$result = $dbQ->getQueryResult();			
+			$this->assertEquals('3',$result['userID']);
+			$this->assertEquals('a',$result['token']);
+			$this->assertEquals('c',$result['instagramID']);					
+		}
+		
+
+		public function instagramTestLoadToken()
+		{
+
+			$instagramDB = new InstagramTokenDB();
+			$instagramDB->saveToken("1","a","a");
+			$result = $instagramDB->loadToken("1");
+
+			$this->assertEquals('1',$instagramDB->userID);
+			$this->assertEquals('a',$instagramDB->token);
+			$this->assertEquals('a',$instagramDB->instagramID);
+
+		}
+		
+		public function instagramTestDeleteToken()
+		{
+
+			$instagramDB = new InstagramTokenDB();
+			$instagramDB->saveToken("1","a","a");
+			$instagramDB->deleteToken("1");
+			$dbQ = new DatabaseCommunicator();
+			$dbQ->runQuery("SELECT * FROM instagram WHERE userID = '1'");
+			$result = $dbQ->getQueryResult();
+
+
+			$this->assertEquals($result,100);
+		}
+
 
 
 		/**** TODOList Tests ****/
