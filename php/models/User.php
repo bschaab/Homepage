@@ -22,12 +22,11 @@
 		protected $quickbar;
 
 		//Todos
-		protected $todos;
+		protected $todos = array();
 		
 		
 		function __construct() {
 			$widgets = array();
-			$todos = array();
 		}
 
 		function getTodos(){
@@ -152,9 +151,8 @@
 	        }
 
 			//Todos
-			$query = "SELECT * FROM todos WHERE userID = $userID ORDER BY orderIndex ASC";
+			$query = "SELECT * FROM todos WHERE userID = $userID";
 			if (!$dbCom->runQuery($query)) { return false; }
-			$this->todos = new Todos();
 			while ($result = $dbCom->getQueryResult()) {
 				$task = $result['task'];
 				array_push($this->todos, $task);

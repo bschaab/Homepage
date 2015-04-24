@@ -53,13 +53,12 @@
 		"<?php echo $user->getWidget(2); ?>"
 	],
 
-	"todos" : [
-		<?php for ($i=0; $i<sizeof($todos); $i++):?>
-		{
-			"<?php echo $todos[$i]; ?>"
-		}<?php if ($i+1 != sizeof($todos)) { echo ","; }?>
-		<?php endfor; ?>
-	],
+    "todos" : [
+        <?php for ($i=0; $i<sizeof($user->getTodos()); $i++):?>
+            "<?php echo $user->getTodos()[$i]; ?>"
+            <?php if ($i+1 != sizeof($user->getTodos())) { echo ","; }?>
+        <?php endfor; ?>
+],
 	"bookmarks" : [
 		{
 			"categoryName" : "Social Media",
