@@ -291,7 +291,7 @@
 			$result = $dbQ->getQueryResult();
 
 
-			$this->assertEquals($result,100);
+			$this->assertEquals($result,null);
 		}
 
 
