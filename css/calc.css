@@ -1,5 +1,6 @@
 /* Finally adding some IE9 fallbacks for gradients to finish things up */
 
+
 #test {
 	width:50% !important;
 }
@@ -9,7 +10,6 @@
 }
 
 #settings {
-	height: 20px;
 }
 
 #settings-button-calc {
@@ -24,10 +24,8 @@
 
 
 #settings-button-settings {
-	width: 0px;
-	height: 0px;
+	top: -27px;
 	z-index: 99;
-	position: absolute;
 	text-shadow:0px 0px 0 rgb(80,80,80), 0px 0px 0 rgb(-85,-85,-85),-1px -1px 0px 
 	rgba(0,0,0,1),-2px -2px 0px rgba(0,0,0,0.5),0px 0px 1px rgba(0,0,0,.2);
 	color: white;
@@ -41,6 +39,7 @@
     background-color: #F9F9F9;
     opacity: 2.0;
     padding-top: -50px;
+    text-align: center;
 
 }
 
@@ -65,9 +64,11 @@
 
 
 .pick-color-left {
-	height: 20px;
-	width: 20px;
+	height: 36px;
+	width: 36px;
 	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 5px 0px 0px 5px;
 	border-radius: 5px 0px 0px 5px; 
@@ -78,18 +79,22 @@
 }
 
 .pick-color-middle {
-	height: 20px;
-	width: 20px;
+	height: 36px;
+	width: 36px;
 	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
 	float: left;
 }
 
 .pick-color-right {
-	height: 20px;
-	width: 20px;
+	height: 36px;
+	width: 36px;
 	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 	border-right: 2px solid black;
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
@@ -182,11 +187,9 @@
 
 #settings-panel {
 	display: none;
-	margin-top: 25px;
 	opacity: 0.8;
-	width: 150px;
-	margin-left: 40px;
 	background: white;
+	height: 190px;
 
 }
 
@@ -204,8 +207,6 @@
 
 /* Using box shadows to create 3D effects */
 #calculator {
-	width: 190px;	
-	height: 225px;
 	padding: 20px 20px 5px;
 	background: #9aa5ea;
 	border-radius: 3px;
@@ -219,13 +220,13 @@
 
 /* Inset shadow on the screen to create indent */
 .top .screen {
-	width : 100px;
+	width : 147px;
 	height : 20px;
 	font-size : 15px;
 	line-height: 20px;
 	margin-right: 10px;
-	float: right;
-	padding: 0 10px;
+	float: left;
+	padding: 0 5px;
 	
 	background: rgba(0, 0, 0, 0.2);
 	border-radius: 3px;
@@ -278,7 +279,7 @@
 /* style different type of keys (operators/evaluate/clear) differently */
 .keys span.operator {
 	background: #fdae4e;
-	margin-right: 0;
+	margin-right: 1;
 
 }
 

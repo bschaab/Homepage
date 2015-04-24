@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="gmailExample.css">
   </head>
 
-   <body>
+  <body>
  
 	<form>
 	Target:<br>
@@ -28,7 +29,7 @@
 			<p id = "emailBody"></p>	
 		</div>
   </body>
-  
+
    <!--Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
     <button id="Logout-button" onclick = "window.location = 'https://mail.google.com/mail/u/0/?logout&hl=en';">log-out</button>
@@ -37,23 +38,34 @@
         		var j = 0;
         		var size = 0;
 	var messageProcessed = 0;
-
+	//localhost:8080
      var clientId = '688997813097-slfbf24164p8vlg1rbmebebl2nmiare7.apps.googleusercontent.com';
+     	//localhost
+	  //var clientId = '470903586983-24dm43r555muk55qea38njkrvteev1fl.apps.googleusercontent.com';
 
-      var apiKey = 'AIzaSyAdxB6BEVThZb0DkXGxRkpfgAarjN5yCEU';
+	//localhost:8080
+      var apiKey = 'AIzaSyA5JHDmzCp3KcXWDzpIjZNgefLVzymxPSo';
+      	//localhost
+      //var apiKey = 'AIzaSyAhoEOtA9eRECSbPAnYAfdjgADMlGa5N3A';
 
+
+      //var scopes = 'https://www.googleapis.com/auth/plus.me';
 	  var scopes = 'https://mail.google.com/';
+
       function handleClientLoad() {
         // Step 2: Reference the API key
         gapi.client.setApiKey(apiKey);
         window.setTimeout(checkAuth,1);
       }
+
 		function logOut(){
 			gapi.auth.setToken('');//.execute(function(){location.reload()});			
 		}
+
       function checkAuth() {
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
       }
+
       function handleAuthResult(authResult) {
         var authorizeButton = document.getElementById('authorize-button');
         	//if the auth is successfull hide the button
@@ -66,24 +78,30 @@
           authorizeButton.onclick = handleAuthClick;
         }
       }
+
       function handleAuthClick(event) {
         // Step 3: get authorization to use private data
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
         return false;
       }
+
       // Load the API and make an API call.  Display the results on the screen.
               		var FLAGS = 0;
+
 	  function deleteMessage(messageID){
 	        		 gapi.client.gmail.users.messages.delete({
 	        	            'userId': 'me',
 	        	            'id' : messageID
 	       			 });
 	}
+
+
 	function sendMessage(){
 		gapi.client.load('gmail', 'v1').then(function() {
 		var to = 'hehebandit@gmail.com',
         subject = 'Hello World',
         content = 'send a Gmail.'
+
   		var email = "From: 'me'\r\n"+
         "To:  "+ to +"\r\n"+
         "Subject: "+subject+"\r\n"+
@@ -114,6 +132,7 @@
        	var snippetArr = [];
        	var emailFeed = [];      	
         gapi.client.load('gmail', 'v1').then(function() {
+
         gapi.client.gmail.users.getProfile({
             'userId': 'me'
         }).execute(function(resp){ 
@@ -121,7 +140,7 @@
         	
         	} 
         ); 
-        	console.log("HELLO----------GETTING MESSAGE LIST");
+        	
         gapi.client.gmail.users.messages.list({
         	            'userId': 'me'
         }).execute(function(resp){ 
@@ -134,19 +153,21 @@
 	        	            'id' : resp['messages'][j]['id']
 	       			 }).execute(function(resp2){
 		       			 	//console.log(resp['messages'][j]['id']); 
-		       			 	console.log(resp2);
 		        			if(resp2['payload']['parts'] === undefined){
+
 		        			}
 		        			else{
 		        			var body = resp2['payload']['parts'][0]['body']['data'];
 		        			//body = window.atob(body.replace(/\s/g, ''));
 		        			body = decode64(body);
+
 		        			//body = window.atob( unescape( encodeURIComponent( body ) ) );
 		        			var snippet = resp2['snippet'];
 		        			var header = resp2['payload']['headers'];
 							var headerLength = header.length;
 								
 								if(headerLength >= 13){
+
 				        			var date = resp2['payload']['headers'][4]['value'];
 				        			var from = resp2['payload']['headers'][13]['value'];
 									
@@ -200,9 +221,12 @@
 								} //endif header
 								else{}
 								j = j+1;								
+
+
 							}			
 	        		} //promise close inside
         			);
+
         	
         			j = j+1;
         			}//while loop
@@ -214,6 +238,7 @@
         });
       }
       
+
 		//process the email feeds array
       function processData(emailFeed){
       	if(messageProcessed == 0){
@@ -228,10 +253,13 @@
 			});	
       	}
       	
+      	console.log(emailFeed);
       	alert("PROCESS DATA DONE");
-      	createMessage(emailFeed,5);
+      	createMessage(emailFeed, 5);
       }
       
+
+
 		      
 		function decode64(s) {
 		    var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
@@ -245,8 +273,9 @@
 		};
 		      
       	//create a message
-        function createMessage(emailFeed,limit) {
-        	
+        function createMessage(emailFeed, limit) {
+        	document.getElementById("emailBody").innerHTML = emailFeed[0]['body'];
+        	document.getElementById("emailTitle").innerHTML = emailFeed[0]['snippet'];
         	       	
   		}
     </script>

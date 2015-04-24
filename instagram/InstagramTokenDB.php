@@ -81,8 +81,8 @@ class InstagramTokenDB
 ";
 
         if (!$dbCom->runQuery($query)) {
-            echo "FAILURE";
-            error_log(mysql.error());
+            echo "INSTAGRAM SAVE TOKEN FAILURE";
+           // error_log(mysql.error());
             return false;
         }
         return true;
