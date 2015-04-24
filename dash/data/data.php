@@ -54,7 +54,7 @@
 	],
 
 	"todos" : [
-		"<?php for ($i=0; $i<sizeof($todos); $i++):?>
+		<?php for ($i=0; $i<sizeof($todos); $i++):?>
 		{
 			"<?php echo $todos[$i]; ?>"
 		}<?php if ($i+1 != sizeof($todos)) { echo ","; }?>
