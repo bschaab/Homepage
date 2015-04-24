@@ -11,7 +11,7 @@
 	$user = new User();
 	$user->setQuickbarToDefault();
 	$user->setWidgetsToDefault();
-	
+
 	$feedDisplayer = new FeedDisplayer();	// TODO move this
 ?>
 {
@@ -52,7 +52,14 @@
 		"<?php echo $user->getWidget(1); ?>",
 		"<?php echo $user->getWidget(2); ?>"
 	],
-	
+
+	"todos" : [
+		"<?php for ($i=0; $i<sizeof($todos); $i++):?>
+		{
+			"<?php echo $todos[$i]; ?>"
+		}<?php if ($i+1 != sizeof($todos)) { echo ","; }?>
+		<?php endfor; ?>
+	],
 	"bookmarks" : [
 		{
 			"categoryName" : "Social Media",

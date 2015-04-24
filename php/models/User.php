@@ -20,12 +20,23 @@
 		
 		//quickbar
 		protected $quickbar;
+
+		//Todos
+		protected $todos;
 		
 		
 		function __construct() {
 			$widgets = array();
+			$todos = array();
 		}
-		
+
+		function getTodos(){
+			return $this->todos;
+		}
+
+		function setTodo($index, $task) {
+			$this->todos[$index] = $task;
+		}
 		function getId() {
 			return $this->id;
 		}
@@ -139,7 +150,15 @@
 	        if ($this->quickbar->getSize() == 0) {
 		        $this->quickbar->setToDefault();
 	        }
-	        
+
+			//Todos
+			$query = "SELECT * FROM todos WHERE userID = $userID ORDER BY orderIndex ASC";
+			if (!$dbCom->runQuery($query)) { return false; }
+			$this->todos = new Todos();
+			while ($result = $dbCom->getQueryResult()) {
+				$task = $result['task'];
+				array_push($this->todos, $task);
+			}
 	        return true;
 		}
 		
