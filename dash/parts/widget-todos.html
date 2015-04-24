@@ -1,10 +1,13 @@
 <div id="todoapp">
+    <header>
         <h1>Todos</h1>
-        <form method="post" action="/todoList/addTask.php">
+        <form method="post" action="../../todoList/addTask.php">
             <input name="task" type="text" placeholder="What needs to be done?">
         </form>
-    <section id="main">
+    </header>
+    <section>
         <ul id="todo-list">
+            <li ng-repeat="task in hpUser.todos"><div class='view'><form action="../../todoList/deleteTask.php" method="post"><input name="deletedTask" class='toggle' type='checkbox' onclick="submit();"><label data=''>&nbsp;&nbsp;{{task}}<input name="hiddenTask" type="hidden" value={{task}}></label></form></div></li>
         </ul>
     </section>
 </div>

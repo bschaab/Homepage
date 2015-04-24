@@ -81,7 +81,7 @@ class Todos
         $userID = $this->userID;
         $task = $this->task;
 
-        $query = "DELETE FROM todos WHERE userID=$userID AND task='$task');";
+        $query = "DELETE FROM todos WHERE userID=$userID AND task='$task';";
         if (!$dbCom->runQuery($query)) {
             return -2;
         }
