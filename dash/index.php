@@ -7,10 +7,13 @@
 	ini_set('display_startup_errors',1);
 	error_reporting(-1);
 
-
+	//required files
 	require_once "../php/models/Session.php";
 	require_once "../php/models/User.php";
 	require_once "../php/models/Session.php";
+	
+	//background selection
+	$bkgd_choice = rand(1,10);
 ?>
 
 
@@ -50,7 +53,7 @@
 		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
 		<script src="/js/calculator/calc.js" type ="text/javascript"></script>
 	</head>
-	<body onload="startTime()">
+	<body onload="startTime()" style="background-image: url('../img/bkgd/bkgd_<?php echo $bkgd_choice; ?>.jpg');">
 	
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/header.php"); ?>
 		
@@ -186,8 +189,8 @@
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
-				<div id="logo" class="top-bar-item">Logo Here</div><!--
-			 --><div id="quickbar" class="top-bar-item">
+				<div id="logo" class="top-bar-item"><img src="../img/logo.png" alt="homepage" height="42"/></div>
+				<div id="quickbar" class="top-bar-item">
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
 							<i class="fa fa-times quickbarItemRemoveButton" onclick="removeQuickbarItem(this)"></i>

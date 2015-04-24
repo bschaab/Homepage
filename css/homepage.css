@@ -14,13 +14,12 @@
 html, body {
 	margin: 0;
 	min-width: 1300px;
-	background-image: url("../img/bkgd.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 
 body {
 	height: 100vh;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #homepage-wrapper {
@@ -133,7 +132,8 @@ body {
 #top-bar {
 	height: 3em;
 	color: #fff;
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(0, 0, 0, 1);
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
 }
 
 #top-bar .top-bar-item {
@@ -143,18 +143,17 @@ body {
 }
 
 #top-bar #logo {
-	/* SET BACKGROUND URL TO LOGO */
+	background-color: rgba(120, 155, 171, 1);
 	float: left;
 	width: 10%;
+	text-align: center;
 }
 
 #top-bar #quickbar {
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(90, 90, 90, 1);
 	float: left;
 	margin: 0;
-
 	padding: .2em .5em 0 .5em;
-	
 }
 
 #top-bar #quickbar ul {
