@@ -65,8 +65,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel || settingsPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false; settingsPanel = false;"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -161,6 +161,19 @@
 			</form>
 		</div>
 		
+		<div id="settingsPanel" class="hoverPanel" ng-show="settingsPanel">
+			<form class="form" method="post" action="/php/controllers/editWidgetPanel.php">
+				<h2>User Preferences</h2>
+				<h6>tweak homepage to your personal preferences</h6>
+				<br/>
+				<div class="form-group">
+					<div id="allow">
+						<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		
 		<!--END hovering panels-->
 		
 		
@@ -189,10 +202,6 @@
 		</div>
 		
 		<!--END alert bar-->
-		
-		<div id="allow" class="hidden">
-			<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
-		</div>
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
@@ -212,7 +221,10 @@
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
 						<span ng-show="hpUser.loggedIn">Welcome, {{ hpUser.firstName }}
-							<span id="power-btn" class="iconLink">
+							<span class="user-settings-btn" class="iconLink">
+								<a class="fa fa-cog" ng-click="settingsPanel = true"></a>
+							</span>
+							<span class="user-settings-btn" class="iconLink">
 								<a class="fa fa-power-off" href="/php/controllers/logoutUser.php"></a>
 							</span>
 						</span>

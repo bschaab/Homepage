@@ -39,6 +39,10 @@ body {
 	clear: both;
 }
 
+.textCenter {
+	text-align: center;
+}
+
 
 /* General */
 .textLink {
@@ -133,6 +137,11 @@ body {
 	padding-bottom: 30px;
 	width: 70%;
 	margin: auto;
+}
+
+
+#settingsPanel {
+	padding-top: 40px;
 }
 
 
@@ -252,8 +261,9 @@ body {
 	margin: 0 .1em 0 .5em;
 }
 
-#top-bar #user-settings #power-btn {
-	margin: 0 .3em 0 .1em 
+#top-bar #user-settings .user-settings-btn {
+	margin: 0 .3em 0 .3em;
+	cursor: pointer;
 }
 
 #top-bar #user-settings a {
