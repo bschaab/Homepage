@@ -39,9 +39,14 @@
         <link href="../css/weather.css" rel="stylesheet">
 
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/head.php"); ?>
-
+		
+		<!--styles-->
 		<link rel="stylesheet" href="/css/homepage.css" type="text/css">
 		
+		<!--fonts-->
+		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+		
+				
 		<!-- Calculator Widget includes -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
@@ -185,7 +190,7 @@
 		
 		<!--END alert bar-->
 		
-		<div id="allow">
+		<div id="allow" class="hidden">
 			<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
 		</div>
 
@@ -206,10 +211,7 @@
 				</div><!--
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
-						<span ng-show="hpUser.loggedIn">Welcome, <span class="textLink">{{ hpUser.firstName }}</span>
-							<span id="pref-btn" class="iconLink">
-								<a href="" class="fa fa-cog"></a>
-							</span>
+						<span ng-show="hpUser.loggedIn">Welcome, {{ hpUser.firstName }}
 							<span id="power-btn" class="iconLink">
 								<a class="fa fa-power-off" href="/php/controllers/logoutUser.php"></a>
 							</span>
@@ -226,7 +228,7 @@
 			<div id="bookmark-wrapper">
 				<div id="bookmarks">
 					<span id="add-more-bmarks" class="bookmark-category bookmark-list-item" ng-show="hpUser.loggedIn">
-						<span class="category-text">+</span>
+						<span class="category-text"><i class="fa fa-plus-square"></i></span>
 					</span>
 					<div id="bookmark-click-bg" ng-show="bookmarkToggle != -1" ng-click="bookmarkToggle = -1"></div>
 					<div class="bookmark-category bookmark-list-item" ng-repeat="bookmark in hpUser.bookmarks" ng-click="$parent.bookmarkToggle = $parent.bookmarkToggle == $index ? -1 : $index">
@@ -295,5 +297,7 @@
 		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
 		<script type="text/javascript" src="/js/quickbar/quickbar.js"></script>
         <script type="text/javascript" src="/todoList/todos.js"></script>
+        
+        <div class="clearAll"></div>
 	</body>
 </html>

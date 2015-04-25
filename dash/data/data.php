@@ -101,15 +101,15 @@
 					"bookmarkUrl" : "http://www.nytimes.com"
 				},
 				{
-					"bookmarkName" : "National Public Radio",
+					"bookmarkName" : "NPR",
 					"bookmarkUrl" : "http://www.npr.com"
 				},
 				{
-					"bookmarkName" : "British Broadcasting Corporation",
+					"bookmarkName" : "BBC",
 					"bookmarkUrl" : "http://www.bbc.com"
 				},
 				{
-					"bookmarkName" : "The Wall Street Journal",
+					"bookmarkName" : "Wall Street Journal",
 					"bookmarkUrl" : "http://www.wsj.com"
 				}
 			]
