@@ -8,7 +8,9 @@
 <body>
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
-<tr><td><a href="bookmarksTest">bookmarksTest</a></td></tr>
+<tr><td><a href="testDefaultCats.html">testDefaultCats</a></td></tr>
+<tr><td><a href="testAddCategory.html">testAddCategory</a></td></tr>
+<tr><td><a href="testBookmarkLink.html">testBookmarkLink</a></td></tr>
 </tbody></table>
 </body>
 </html>
