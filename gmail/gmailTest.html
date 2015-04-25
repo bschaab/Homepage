@@ -15,13 +15,18 @@
   <script src="gmail.js"></script>
   <script src="/js/jsmockito-1.0.4.js"></script>
   <script type="text/javascript" src="https://github.com/downloads/danielfm/jshamcrest/jshamcrest-0.5.2-minified.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
   
-  
-  <div id = "hiddenEmail">
-  	
- 
-  	 	
- </div>
+  	<div id = "hiddenEmail" style="visibility: hidden">
+  			<b><h5 id = "emailTitle" style="align: left; display: inline; font-weight: 700"></h5></b>
+			<button type="button" onclick="nextMessage('right')" style="display: inline; float: right;" class='btn'>></button>
+			<button type="button" onclick="nextMessage('left')"  style="display: inline; float: right; margin-right: 2px" class="btn"><</button>
+			<h0 id = "emailDate"  style="align: right; float: right; margin-right: 2px; display: inline"> </h0>
+			<p style = "font-size: 10px" id = "emailBody"></p>	
+ 	</div>
   
 </body>
 </html>

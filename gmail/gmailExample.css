@@ -5,6 +5,8 @@
     cursor: pointer;
 }
 
+a { cursor: pointer; }
+
 /* CSS Method for adding Font Awesome Chevron Icons */
  .accordion-toggle:after {
     /* symbol for "opening" panels */

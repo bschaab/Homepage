@@ -191,17 +191,34 @@
       function processData(emailFeed){
 	      	messageProcessed =1;
 			var thisDate = new Date(emailFeed[0].date);
+			sortData(emailFeed);
+	      	emailFeedGlobal = emailFeed;
+      	
+      	createMessage(emailFeed, 0);
+      }
+
+
+
+		function sortData(emailFeed){
 			emailFeed.sort(function(a,b){
 				var aDate = new Date(a.date);
 				var bDate = new Date(b.date);
 				return bDate-aDate;			
 			});	
-      	
-
-      	emailFeedGlobal = emailFeed;
-      	createMessage(emailFeed, 0);
-      }
+			
+		}
       
+      	function redirectUser(){
+      		if(emailFeedGlobal.length > 0){
+      		var url = "https://mail.google.com/mail/u/0/#inbox/" + (emailFeedGlobal[emailNum].id);
+      		window.open(url);
+      		return url;
+      		}
+      		else{
+      		window.open("https://mail.google.com/mail/u/0/#inbox");
+      		return "https://mail.google.com/mail/u/0/#inbox";
+      		}
+      	}
 		      
 		function decode64(s) {
 			if (s == null) {
@@ -231,6 +248,9 @@
 		
 			};*/        	
 		    	
+
+			$(window).trigger('resize');
+
         	if(emailFeed.length > 0){
 	        	document.getElementById("emailBody").innerHTML = emailFeed[emailNum]['body'];
 	        	var title = emailFeed[emailNum]['title'];
@@ -247,7 +267,6 @@
 			}
 			else
 			{
-				alert("NO MESSAGES");
 				document.getElementById("emailBody").innerHTML = "you don't have any messages";
 			}
  			
@@ -269,4 +288,6 @@
 
   			createMessage(emailFeedGlobal, emailNum);
   		}
+
+
 
