@@ -9,6 +9,10 @@
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="testTodoPresent.html">testTodoPresent</a></td></tr>
+<tr><td><a href="testAddTask.html">testAddTask</a></td></tr>
+<tr><td><a href="testDeleteTask.html">testDeleteTask</a></td></tr>
+<tr><td><a href="testBasicFlow.html">testBasicFlow</a></td></tr>
+<tr><td><a href="testLogoutPersistence.html">testLogoutPersistence</a></td></tr>
 </tbody></table>
 </body>
 </html>
