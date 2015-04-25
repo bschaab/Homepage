@@ -47,23 +47,28 @@
 				forEach($twitter_objs as $feed_obj) {
 					$image_url = "";
 				
-					$feed_entities = $feed_obj["entities"];
-					if(in_array("media", $feed_entities)) {
-						$image_url = $feed_entities["media"][0]["media_url"];
+					if(in_array("entities", $feed_obj)) {
+						$feed_entities = $feed_obj["entities"];
+						if(in_array("media", $feed_entities)) {
+							$image_url = $feed_entities["media"][0]["media_url"];
+						}
+						else {
+							$image_url = $feed_obj["user"]["profile_banner_url"];
+						}
+					
+						$feed_objs[] = new FeedItem(
+							$feed_obj["text"],
+							$feed_obj["user"]["name"],
+							strtotime($feed_obj["created_at"]),
+							"http://twitter.com/" . $feed_obj["user"]["screen_name"] . "/status/" . $feed_obj["id"],
+							"/img/icons/01_twitter.png",
+							$image_url,
+							1
+						);
 					}
 					else {
-						$image_url = $feed_obj["user"]["profile_banner_url"];
+						return array();
 					}
-					
-					$feed_objs[] = new FeedItem(
-						$feed_obj["text"],
-						$feed_obj["user"]["name"],
-						strtotime($feed_obj["created_at"]),
-						"http://twitter.com/" . $feed_obj["user"]["screen_name"] . "/status/" . $feed_obj["id"],
-						"/img/icons/01_twitter.png",
-						$image_url,
-						1
-					);
 				}
 				
 				return $feed_objs;
