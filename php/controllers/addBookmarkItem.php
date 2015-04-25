@@ -11,12 +11,12 @@ $user = new User();
 $userID = $session->getSessionVariable("userID");
 $user->loadUser($userID);
 
-$name = $_POST['linkName'];
-$link = $_POST['link'];
-$category = $_POST['category'];
+$name = $_POST['bmarkName'];
+$link = $_POST['bmarkLink'];
+$category = $_POST['bmarkCategory'];
 
 //check for valid input
-if ($title == "" || $link == "" || $category == "") {
+if ($name == "" || $link == "" || $category == "") {
     $redirect_url = "/dash/?alert=quickbar-add-invalid-input";
     header('Location: ' .  $redirect_url);
     exit;
@@ -26,7 +26,7 @@ if (strpos($link, "http://") === false) {
 }
 
 //add them to the bookmarks and save
-$user->addToBookmarks($title, $link, $category);
+$user->addToBookmarks($name, $link, $category);
 $status = $user->saveUser();
 
 if ($status < 1) {

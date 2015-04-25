@@ -11,8 +11,9 @@
 	$user = new User();
 	$user->setQuickbarToDefault();
 	$user->setWidgetsToDefault();
+    $user->setBookmarksToDefault();
 
-	$feedDisplayer = new FeedDisplayer();	// TODO move this
+	$feedDisplayer = new FeedDisplayer($userID);	// TODO move this
 ?>
 {
 	<?php
@@ -83,7 +84,7 @@ for ($i=0; $i<sizeof($bookmarkCategories); $i++):
 <?php endfor; ?>
 ],
 	
-	"feed" : <?= $feedDisplayer->getFeedToDisplay($userID) ?>
+	"feed" : <?= $feedDisplayer->getFeedToDisplay() ?>
 }
 
 

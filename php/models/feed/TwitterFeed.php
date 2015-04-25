@@ -16,7 +16,7 @@
 			$username = $twitterDB->getUsername();
 
 			if($oauth_token === "" || $oauth_token === null) {
-				$this->twitter_obj = null;	
+				$this->twitter_obj = null;
 			}
 			else {
 				/*set access tokens */
@@ -64,9 +64,14 @@
 						$image_url,
 						1
 					);
+					
+					error_log($feed_obj["text"]);
 				}
 				
 				return $feed_objs;
+			}
+			else {
+				return array();
 			}
 		}
 	}
