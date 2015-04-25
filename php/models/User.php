@@ -305,20 +305,24 @@
             $bookmarks = $this->bookmarks;
             $userID = $this->id;
 
-            //clear old quickbar
+            //clear old bookmarks
             $query = "DELETE FROM bookmarks WHERE userID = $userID";
             $dbCom->runQuery($query);
 
-            //save quickbar
-            $names = $bookmarks->getNames();
-            $links = $bookmarks->getLinks();
+            //save bookmarks
             $categories = $bookmarks->getCategories();
-            for ($i=0; $i<$bookmarks->getSize(); $i++) {
-                $name = $names[$i];
-                $link = $links[$i];
-                $category = $categories[$i];
-                $query = "INSERT INTO bookmarks (userID, name, link, category) VALUES ($userID,'$name','$link','$category');";
-                if (!$dbCom->runQuery($query)) { return -2; }
+            for ($j=0; $j<sizeof($categories); $j++) {
+                $names = $bookmarks->getNames($categories[$j]);
+                $links = $bookmarks->getLinks($categories[$j]);
+                for ($i=0; $i<sizeof($names); $i++) {
+                    $name = $names[$i];
+                    $link = $links[$i];
+                    $category = $categories[$j];
+                    $query = "INSERT INTO bookmarks (userID, name, link, category) VALUES ($userID,'$name','$link','$category');";
+                    if (!$dbCom->runQuery($query)) {
+                        return -2;
+                    }
+                }
             }
 
         }
