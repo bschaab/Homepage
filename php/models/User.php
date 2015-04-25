@@ -83,6 +83,10 @@
         function getBookmarkCategories() {
             return $this->bookmarks->getCategories();
         }
+
+        function getBookmarkIdxs($category) {
+            return $this->bookmarks->getIdxs($category);
+        }
 		
 		
 		function setId($id) {
@@ -134,14 +138,14 @@
 	        $this->widgets[2] = 'sudoku';
 		}
 
-        function addToBookmarks($name, $link, $category) {
+        function addToBookmarks($name, $link, $category, $idx) {
             if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
-            $this->bookmarks->add($name, $link, $category);
+            $this->bookmarks->add($name, $link, $category, $idx);
         }
 
-        function setBookmarks($names, $links, $categories) {
+        function setBookmarks($names, $links, $categories, $idx) {
             if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
-            $this->bookmarks->set($names, $links, $categories);
+            $this->bookmarks->set($names, $links, $categories, $idx);
         }
 
         function setBookmarksToDefault() {
@@ -188,8 +192,9 @@
             while ($result = $dbCom->getQueryResult()) {
                 $name = $result['name'];
                 $link = $result['link'];
+                $idx = $result['id'];
                 $category = $result['category'];
-                $this->bookmarks->add($name, $link, $category);
+                $this->bookmarks->add($name, $link, $category, $idx);
             }
             if ($this->bookmarks->getSize() == 0) {
                 $this->bookmarks->setToDefault();
@@ -362,6 +367,14 @@
 			return false;
 			
 		}
+
+        // removes a bookmark for the user given an index of the bookmark
+        function removeBookmark($idx) {
+            $dbCom = new DatabaseCommunicator();
+
+            $query = "DELETE FROM bookmarks WHERE id=$idx";
+            if (!$dbCom->runQuery($query)) { return false; }
+        }
 		
 	
 	}

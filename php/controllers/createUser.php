@@ -22,6 +22,7 @@
 	$user->setPassword($_POST['password']);
 	$user->setQuickbarToDefault();
 	$user->setWidgetsToDefault();
+    $user->setBookmarksToDefault();
 	$id = $user->saveUser();
 	
 	if ($id < 1) {

@@ -66,6 +66,7 @@ $bookmarkCategories = $user->getBookmarkCategories();
 for ($i=0; $i<sizeof($bookmarkCategories); $i++):
     $bookmarkNames = $user->getBookmarkNames($bookmarkCategories[$i]);
     $bookmarkLinks = $user->getBookmarkLinks($bookmarkCategories[$i]);
+    $bookmarkIdx = $user->getBookmarkIdxs($bookmarkCategories[$i]);
     ?>
     {
     "categoryName" : "<?php echo $bookmarkCategories[$i]; ?>",
@@ -75,7 +76,8 @@ for ($i=0; $i<sizeof($bookmarkCategories); $i++):
         ?>
         {
         "bookmarkName" : "<?php echo $bookmarkNames[$j]; ?>",
-        "bookmarkUrl" : "<?php echo $bookmarkLinks[$j]; ?>"
+        "bookmarkUrl" : "<?php echo $bookmarkLinks[$j]; ?>",
+        "bookmarkIdx" : "<?php echo $bookmarkIdx[$j]; ?>"
         }
         <?php if ($j+1 != sizeof($bookmarkNames)) { echo ","; }?>
     <?php endfor; ?>
