@@ -146,6 +146,8 @@
 						<option value="sudoku" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'sudoku'">Sudoku</option>
                         <option value="stocks" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'stocks'">Stocks</option>
                         <option value="todos" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'todos'">Todo List</option>
+                        <option value="gmail" ng-selected="hpUser.widgets[edgeWidgetPanelSlot] === 'gmail'">gmail</option>
+
 					</select>
 				</div>
 				<input type="hidden" name="slot" value="{{edgeWidgetPanelSlot}}"/> 
