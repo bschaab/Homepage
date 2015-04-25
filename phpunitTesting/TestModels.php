@@ -77,6 +77,8 @@
 			$user->setEmail("testBuddy@email.com");
 			$user->setPassword("password909");
 			$user->setQuickbarToDefault();
+			$user->setBookmarksToDefault();
+
 			$user->saveUser();
 
 			$dbCom = new DatabaseCommunicator();
@@ -87,7 +89,6 @@
 			$this->assertEquals($user->getFirstName(), $result['firstName']);
 			$this->assertEquals($user->getLastName(), $result['lastName']);
 			$this->assertTrue($result['password'] != "");
-
 		}
 
 		public function testLoadUser()
@@ -110,7 +111,23 @@
 			$this->assertEquals(1, $user->verifyUser("password"));
 		}
 
+		/**** Bookmarks Tests ****/
+		public function testBookmarkAdd()
+		{
+			$bookmarks = new Bookmarks();
+			$bookmarks->add("Test","http://espn.com","Sports",-1);
+			$this->assertEquals(1,$bookmarks->getSize());
+		}
 
+		public function testSetBookmarksToDefault()
+		{
+			$bookmarks = new Bookmarks();
+			$bookmarks->setToDefault();
+			$categories = $bookmarks->getCategories();
+			$this->assertEquals("Social Media",$categories[0]);
+			$this->assertEquals("News", $categories[1]);
+			$this->assertEquals("Tech", $categories[2]);
+		}
 		/**** Quickbar Tests ****/
 
 		public function testQuickbarAdd()
@@ -400,6 +417,7 @@
 		    $user->setPassword("password909");
 		    $user->setQuickbarToDefault();
 		    $user->setWidgetsToDefault();
+			$user->setBookmarksToDefault();
 			$user->setWidget($index, $widgetName);
 			$user->saveUser();
 			
