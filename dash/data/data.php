@@ -11,6 +11,7 @@
 	$user = new User();
 	$user->setQuickbarToDefault();
 	$user->setWidgetsToDefault();
+    $user->setBookmarksToDefault();
 
 	$feedDisplayer = new FeedDisplayer($userID);	// TODO move this
 ?>

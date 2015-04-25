@@ -65,8 +65,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel || settingsPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false; settingsPanel = false;"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || addBookmarkPanel || editBookmarkPanel || editWidgetPanel || settingsPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; addBookmarkPanel = false; editBookmarkPanel = false; editWidgetPanel = false; settingsPanel = false;"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -117,22 +117,58 @@
 		</div>
 		
 		<div id="addQuickbarPanel" class="hoverPanel" ng-show="addQuickbarPanel">
-			<form class="form" method="post" action="/php/controllers/addQuickbarItem.php">
-				<h2>My Quickbar</h2>
-				<h6>here you can add a new quickbar link</h6>
-				<br/>
-				<div class="form-group">
-			    	<label class="sr-only" for="QuickbarLinkTitleInput">Title</label>
-					<input type="text" class="form-control" id="QuickbarLinkTitleInput" placeholder="Title  (ex: 'Facebook')" name="linkTitle">
-				</div>
-				<div class="form-group">
-			    	<label class="sr-only" for="QuickbarLinkInput">Link</label>
-					<input type="text" class="form-control" id="QuickbarLinkInput" placeholder="Link  (ex: 'http://facebook.com/')" name="link">
-				</div>
-				<button type="submit" class="btn btn-primary">Add</button>
-				<br/><br/>
-			</form>
-		</div>
+            <form class="form" method="post" action="/php/controllers/addQuickbarItem.php">
+                <h2>My Quickbar</h2>
+                <h6>here you can add a new quickbar link</h6>
+                <br/>
+                <div class="form-group">
+                    <label class="sr-only" for="QuickbarLinkTitleInput">Title</label>
+                    <input type="text" class="form-control" id="QuickbarLinkTitleInput" placeholder="Title  (ex: 'Facebook')" name="linkTitle">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="QuickbarLinkInput">Link</label>
+                    <input type="text" class="form-control" id="QuickbarLinkInput" placeholder="Link  (ex: 'http://facebook.com/')" name="link">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <br/><br/>
+            </form>
+        </div>
+
+        <div id="addBookmarkPanel" class="hoverPanel" ng-show="addBookmarkPanel">
+            <form class="form" method="post" action="/php/controllers/addBookmarkItem.php">
+                <h2>My Bookmarks</h2>
+                <h6>here you can add a new bookmark</h6>
+                <br/>
+                <div class="form-group">
+                    <label class="sr-only" for="BookmarkCategoryInput">Folder</label>
+                    <input type="text" class="form-control" id="BookmarkCategoryInput" placeholder="Folder  (ex: 'News')" name="bmarkCategory">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="BookmarkNameInput">Name</label>
+                    <input type="text" class="form-control" id="BookmarkNameInput" placeholder="Name  (ex: 'CNN')" name="bmarkName">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="BookmarkLinkInput">Link</label>
+                    <input type="text" class="form-control" id="BookmarkLinkInput" placeholder="Link  (ex: 'http://cnn.com/')" name="bmarkLink">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <br/><br/>
+            </form>
+        </div>
+
+        <div id="editBookmarkPanel" class="hoverPanel" ng-show="editBookmarkPanel">
+            <form class="form" method="post" action="/php/controllers/editBookmarks.php">
+                <h2>My Bookmarks</h2>
+                <h6>here you can remove existing bookmark</h6>
+                <br/>
+                <div ng-repeat="bookmark in hpUser.bookmarks" class="form-group">
+                    <h1>{{bookmark.categoryName}}</h1>
+                    <li ng-repeat="site in bookmark.sites"><input name="deletedBmark" class='toggle' type='checkbox'><label data=''>&nbsp;&nbsp;{{site.bookmarkName}}</li>
+                </div>
+                <button type="submit" class="btn btn-primary">Delete</button>
+                <br/><br/>
+            </form>
+        </div>
 		
 		<div id="editWidgetPanel" class="hoverPanel" ng-show="editWidgetPanel">
 			<form class="form" method="post" action="/php/controllers/editWidgetPanel.php">
@@ -241,7 +277,10 @@
 			<div id="bookmark-wrapper">
 				<div id="bookmarks">
 					<span id="add-more-bmarks" class="bookmark-category bookmark-list-item" ng-show="hpUser.loggedIn">
-						<span class="category-text"><i class="fa fa-plus-square"></i></span>
+						<span class="category-text"><i class="fa fa-plus-square" ng-click="addBookmarkPanel = true"></i></span>
+					</span>
+                    <span id="add-more-bmarks" class="bookmark-category bookmark-list-item" ng-show="hpUser.loggedIn">
+						<span class="category-text"><i class="fa fa-pencil-square-o" ng-click="editBookmarkPanel = true"></i></span>
 					</span>
 					<div id="bookmark-click-bg" ng-show="bookmarkToggle != -1" ng-click="bookmarkToggle = -1"></div>
 					<div class="bookmark-category bookmark-list-item" ng-repeat="bookmark in hpUser.bookmarks" ng-click="$parent.bookmarkToggle = $parent.bookmarkToggle == $index ? -1 : $index">

@@ -31,7 +31,6 @@
 		
 		function __construct() {
 			$widgets = array();
-            $bookmarks = array();
 		}
 
 		function getTodos(){
