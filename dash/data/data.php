@@ -59,79 +59,29 @@
             <?php if ($i+1 != sizeof($user->getTodos())) { echo ","; }?>
         <?php endfor; ?>
 ],
-	"bookmarks" : [
-		{
-			"categoryName" : "Social Media",
-			"sites" : [
-				{
-					"bookmarkName" : "Facebook",
-					"bookmarkUrl" : "http://www.facebook.com"
-				},
-				{
-					"bookmarkName" : "Instagram",
-					"bookmarkUrl" : "http://www.instagram.com"
-				},
-				{
-					"bookmarkName" : "Twitter",
-					"bookmarkUrl" : "http://www.twitter.com"
-				},
-				{
-					"bookmarkName" : "Pinterest",
-					"bookmarkUrl" : "http://www.pinterest.com"
-				}
-			]
-		},
-		{
-			"categoryName" : "News",
-			"sites" : [
-				{
-					"bookmarkName" : "CNN",
-					"bookmarkUrl" : "http://www.cnn.com"
-				},
-				{
-					"bookmarkName" : "Fox News",
-					"bookmarkUrl" : "http://www.foxnews.com"
-				},
-				{
-					"bookmarkName" : "Huffington Post",
-					"bookmarkUrl" : "http://www.huffingtonpost.com"
-				},
-				{
-					"bookmarkName" : "New York Times",
-					"bookmarkUrl" : "http://www.nytimes.com"
-				},
-				{
-					"bookmarkName" : "NPR",
-					"bookmarkUrl" : "http://www.npr.com"
-				},
-				{
-					"bookmarkName" : "BBC",
-					"bookmarkUrl" : "http://www.bbc.com"
-				},
-				{
-					"bookmarkName" : "Wall Street Journal",
-					"bookmarkUrl" : "http://www.wsj.com"
-				}
-			]
-		},
-		{
-			"categoryName" : "Tech",
-			"sites" : [
-				{
-					"bookmarkName" : "Reddit",
-					"bookmarkUrl" : "http://www.reddit.com"
-				},
-				{
-					"bookmarkName" : "TechCrunch",
-					"bookmarkUrl" : "http://www.techcrunch.com"
-				},
-				{
-					"bookmarkName" : "Hacker News",
-					"bookmarkUrl" : "http://www.news.ycombinator.com"
-				}
-			]
-		}
-	],
+"bookmarks" : [
+<?php
+$bookmarkCategories = $user->getBookmarkCategories();
+for ($i=0; $i<sizeof($bookmarkCategories); $i++):
+    $bookmarkNames = $user->getBookmarkNames($bookmarkCategories[$i]);
+    $bookmarkLinks = $user->getBookmarkLinks($bookmarkCategories[$i]);
+    ?>
+    {
+    "categoryName" : "<?php echo $bookmarkCategories[$i]; ?>",
+    "sites" : [
+    <?php
+    for ($j=0; $j<sizeof($bookmarkNames); $j++):
+        ?>
+        {
+        "bookmarkName" : "<?php echo $bookmarkNames[$j]; ?>",
+        "bookmarkUrl" : "<?php echo $bookmarkLinks[$j]; ?>"
+        }
+        <?php if ($j+1 != sizeof($bookmarkNames)) { echo ","; }?>
+    <?php endfor; ?>
+    ]
+    }<?php if ($i+1 != sizeof($bookmarkCategories)) { echo ","; }?>
+<?php endfor; ?>
+],
 	
 	"feed" : <?= $feedDisplayer->getFeedToDisplay($userID) ?>
 }
