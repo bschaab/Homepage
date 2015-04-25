@@ -67,6 +67,16 @@ class Todos
 
         $userID = $this->userID;
         $task = $this->task;
+
+        $this->checkForDuplicates($dbCom, $userID, $task);
+
+        $query = "INSERT INTO todos (userID, task) VALUES ($userID,'$task');";
+        if (!$dbCom->runQuery($query)) {
+                return -2;
+        }
+    }
+
+    function checkForDuplicates($dbCom, $userID, $task) {
         $query = "SELECT * FROM todos WHERE userID=$userID AND task='$task'";
         if(!$dbCom->runQuery($query)){
             return -2;
@@ -76,11 +86,6 @@ class Todos
             $redirect_url = "/dash/?alert=todo-duplicate";
             header('Location: ' .  $redirect_url);
             exit;
-        }
-
-        $query = "INSERT INTO todos (userID, task) VALUES ($userID,'$task');";
-        if (!$dbCom->runQuery($query)) {
-                return -2;
         }
     }
 
