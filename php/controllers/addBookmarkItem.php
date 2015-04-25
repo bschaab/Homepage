@@ -17,7 +17,7 @@ $category = $_POST['bmarkCategory'];
 
 //check for valid input
 if ($name == "" || $link == "" || $category == "") {
-    $redirect_url = "/dash/?alert=quickbar-add-invalid-input";
+    $redirect_url = "/dash/?alert=bookmark-invalid-add";
     header('Location: ' .  $redirect_url);
     exit;
 }
@@ -30,12 +30,12 @@ $user->addToBookmarks($name, $link, $category, -1);
 $status = $user->saveUser();
 
 if ($status < 1) {
-    $redirect_url = "/dash/?alert=quickbar-add-fail";
+    $redirect_url = "/dash/?alert=bookmark-add-fail";
     header('Location: ' .  $redirect_url);
     exit;
 }
 
-$redirect_url = "/dash/?alert=quickbar-add-success";
+$redirect_url = "/dash/?alert=bookmark-add-success";
 header('Location: ' .  $redirect_url);
 exit;
 

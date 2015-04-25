@@ -213,7 +213,6 @@ class DatabaseCommunicator {
                   (1, 'Twitter', 'http://twitter.com', 'Social Media'),
                   (1,'Facebook', 'http://facebook.com', 'Social Media'),
                   (1,'Instagram', 'http://instagram.com', 'Social Media'),
-                  (1,'Twitter', 'http://twitter.com', 'Social Media'),
                   (1,'Pinterest', 'http://pinterest.com', 'Social Media'),
                   (1,'CNN', 'http://cnn.com', 'News'),
                   (1,'Fox News', 'http://foxnews.com', 'News'),

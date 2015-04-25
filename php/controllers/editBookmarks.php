@@ -12,6 +12,11 @@ $userID = $session->getSessionVariable("userID");
 $user->loadUser($userID);
 
 $idxs = $_POST['deletedBmarkIdxs'];
+if(empty($idxs)){
+    $redirect_url = "/dash/?alert=bookmark-delete-fail";
+    header('Location: ' .  $redirect_url);
+    exit;
+}
 if (!empty($idxs)) {
     for($i=0; $i < count($idxs); $i++)
     {
@@ -19,7 +24,7 @@ if (!empty($idxs)) {
     }
 }
 
-$redirect_url = "/dash/?alert=quickbar-add-success";
+$redirect_url = "/dash/?alert=bookmark-delete-success";
 header('Location: ' .  $redirect_url);
 exit;
 
