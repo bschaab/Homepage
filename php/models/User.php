@@ -2,6 +2,7 @@
 	
 	require_once "DatabaseCommunicator.php";
 	require_once "Quickbar.php";
+    require_once "Bookmarks.php";
 	
 	/**
 	* Manages a User
@@ -23,10 +24,14 @@
 
 		//Todos
 		protected $todos = array();
+
+        //Bookmarks
+        protected $bookmarks;
 		
 		
 		function __construct() {
 			$widgets = array();
+            $bookmarks = array();
 		}
 
 		function getTodos(){
@@ -67,6 +72,18 @@
 		function getQuickbarIcons() {
 			return $this->quickbar->getIcons();
 		}
+
+        function getBookmarkNames($category) {
+            return $this->bookmarks->getNames($category);
+        }
+
+        function getBookmarkLinks($category) {
+            return $this->bookmarks->getLinks($category);
+        }
+
+        function getBookmarkCategories() {
+            return $this->bookmarks->getCategories();
+        }
 		
 		
 		function setId($id) {
@@ -117,6 +134,21 @@
 	        $this->widgets[1] = 'calc';
 	        $this->widgets[2] = 'sudoku';
 		}
+
+        function addToBookmarks($name, $link, $category) {
+            if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
+            $this->bookmarks->add($name, $link, $category);
+        }
+
+        function setBookmarks($names, $links, $categories) {
+            if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
+            $this->bookmarks->set($names, $links, $categories);
+        }
+
+        function setBookmarksToDefault() {
+            $this->bookmarks = new Bookmarks();
+            $this->bookmarks->setToDefault();
+        }
 		
 		
 		function loadUser($userID) {
@@ -137,18 +169,32 @@
 	        
 	        
 	        //get quickbar
-	        $query = "SELECT * FROM quickbar WHERE userID = $userID ORDER BY orderIndex ASC";
-	        if (!$dbCom->runQuery($query)) { return false; }
-	        $this->quickbar = new Quickbar();
-	        while ($result = $dbCom->getQueryResult()) {
-		        $title = $result['title'];
-		        $link = $result['link'];
-		        $icon = $result['icon'];
-		        $this->quickbar->add($title, $link);
-	        }
-	        if ($this->quickbar->getSize() == 0) {
-		        $this->quickbar->setToDefault();
-	        }
+            $query = "SELECT * FROM quickbar WHERE userID = $userID ORDER BY orderIndex ASC";
+            if (!$dbCom->runQuery($query)) { return false; }
+            $this->quickbar = new Quickbar();
+            while ($result = $dbCom->getQueryResult()) {
+                $title = $result['title'];
+                $link = $result['link'];
+                $icon = $result['icon'];
+                $this->quickbar->add($title, $link);
+            }
+            if ($this->quickbar->getSize() == 0) {
+                $this->quickbar->setToDefault();
+            }
+
+            //get bookmarks
+            $query = "SELECT * FROM bookmarks WHERE userID = $userID";
+            if (!$dbCom->runQuery($query)) { return false; }
+            $this->bookmarks = new Bookmarks();
+            while ($result = $dbCom->getQueryResult()) {
+                $name = $result['name'];
+                $link = $result['link'];
+                $category = $result['category'];
+                $this->bookmarks->add($name, $link, $category);
+            }
+            if ($this->bookmarks->getSize() == 0) {
+                $this->bookmarks->setToDefault();
+            }
 
 			//Todos
 			$query = "SELECT * FROM todos WHERE userID = $userID";
@@ -167,6 +213,9 @@
 		        
 		    //manages updating or inserting the quickbar for the user into the database
 	        $this->saveUserInsertQuickbar();
+
+            //manages updating or inserting the bookmarks for the user into the database
+            $this->saveUserInsertBookmark();
 	        
 	        $userID = $this->id;
 	        return $userID;
@@ -247,6 +296,36 @@
 		    }
 			
 		}
+
+        // Helps the function saveUser().
+        // Manages updating or inserting the bookmarks for the user into the database.
+        function saveUserInsertBookmark() {
+
+            $dbCom = new DatabaseCommunicator();
+            $bookmarks = $this->bookmarks;
+            $userID = $this->id;
+
+            //clear old bookmarks
+            $query = "DELETE FROM bookmarks WHERE userID = $userID";
+            $dbCom->runQuery($query);
+
+            //save bookmarks
+            $categories = $bookmarks->getCategories();
+            for ($j=0; $j<sizeof($categories); $j++) {
+                $names = $bookmarks->getNames($categories[$j]);
+                $links = $bookmarks->getLinks($categories[$j]);
+                for ($i=0; $i<sizeof($names); $i++) {
+                    $name = $names[$i];
+                    $link = $links[$i];
+                    $category = $categories[$j];
+                    $query = "INSERT INTO bookmarks (userID, name, link, category) VALUES ($userID,'$name','$link','$category');";
+                    if (!$dbCom->runQuery($query)) {
+                        return -2;
+                    }
+                }
+            }
+
+        }
 		
 		
 		// verifies a user by their email and password

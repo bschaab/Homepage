@@ -21,7 +21,7 @@ class DatabaseCommunicator {
 
 		//open database connection
 		$this->open();
-
+		
 		//if selection fails, setup the database
 		if (!$this->select()) {
 			if (!$this->setup()) {
@@ -85,6 +85,22 @@ class DatabaseCommunicator {
 		//select our new database
 		if (!$this->select()) { return false; }
 
+
+		$this->setupTables();
+
+		$this->setupSampleUser();
+        
+
+		return true;
+
+	}
+	
+	
+	
+	//setup the tables
+	//called by setup()
+	public function setupTables() {
+		
 		//create the users table
 		$query = "CREATE TABLE users (
                   id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
@@ -114,6 +130,19 @@ class DatabaseCommunicator {
 		if (!$this->runQuery($query)) {
 			return false;
 		}
+
+        //create the bookmarks table
+        $query = "CREATE TABLE bookmarks (
+                  id int(16) UNIQUE NOT NULL AUTO_INCREMENT,
+                  userID int(16),
+                  name varchar(255),
+                  link varchar(255),
+                  category varchar(255),
+                  PRIMARY KEY (id)
+                  );";
+        if (!$this->runQuery($query)) {
+            return false;
+        }
 
 		//create the todos table
         $query = "CREATE TABLE todos (
@@ -149,9 +178,17 @@ class DatabaseCommunicator {
         if (!$this->runQuery($query)) {
             return false;
         }
-
-
-        //create a sample user
+		
+	}
+	
+	
+	
+	
+	//setup the sample user
+	//called by setup() 
+	public function setupSampleUser() {
+		
+		//create a sample user
 		$password = password_hash("password", PASSWORD_DEFAULT);
 		$query = "INSERT INTO users
                   (lastName, firstName, email, password, widget0, widget1, widget2) VALUES
@@ -177,10 +214,12 @@ class DatabaseCommunicator {
 		if (!$this->runQuery($query)) {
 			return false;
 		}
-
-		return true;
-
 	}
+	
+	
+	
+	
+	
 
 
 

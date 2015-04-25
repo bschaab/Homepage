@@ -39,9 +39,14 @@
         <link href="../css/weather.css" rel="stylesheet">
 
 		<?php require($_SERVER['DOCUMENT_ROOT'] . "/php/include/head.php"); ?>
-
+		
+		<!--styles-->
 		<link rel="stylesheet" href="/css/homepage.css" type="text/css">
 		
+		<!--fonts-->
+		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+		
+				
 		<!-- Calculator Widget includes -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
@@ -60,8 +65,8 @@
 		
 		<!--BEGIN hovering panels-->
 		
-		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel"
-			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false"></div>
+		<div class="hoverPanelCurtain" ng-show="showLogInPanel || showSignUpPanel || addQuickbarPanel || editWidgetPanel || settingsPanel"
+			ng-click="showLogInPanel = false; showSignUpPanel = false; addQuickbarPanel = false; editWidgetPanel = false; settingsPanel = false;"></div>
 		
 		<div id="logInPanel" class="hoverPanel" ng-show="showLogInPanel">
 			<form class="form" method="post" action="/php/controllers/loginUser.php">
@@ -156,6 +161,20 @@
 			</form>
 		</div>
 		
+		<div id="settingsPanel" class="hoverPanel" ng-show="settingsPanel">
+			<form class="form" method="post" action="/php/controllers/editWidgetPanel.php">
+				<h2>User Preferences</h2>
+				<h6>tweak homepage to your personal preferences</h6>
+				<br/>
+				<div class="form-group">
+					<div id="allow">
+						<a href="/twitter/requestAuthentication.php">Sign in with Twitter</a>
+						<a href="/php/controllers/instagram/requestAuthentication.php">Sign in with Instagram</a>
+					</div>
+				</div>
+			</form>
+		</div>
+		
 		<!--END hovering panels-->
 		
 		
@@ -180,15 +199,10 @@
 			
 			<?php if ($alert == "widget-edit-fail"): ?><p class="bg-danger alertBox">Widget Slot Change Failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "widget-edit-success"): ?><p class="bg-success alertBox">Widget Slot Successfully Changed</p><?php endif; ?>
-			
+			<?php if ($alert == "todo-duplicate"): ?><p class="bg-danger alertBox">Cannot Add Duplicates to To-Do List</p><?php endif; ?>
 		</div>
 		
 		<!--END alert bar-->
-		
-		<div id="allow">
-			<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
-			<a href="/php/controllers/instagram/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Instagram</a>
-		</div>
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
@@ -207,11 +221,11 @@
 				</div><!--
 			 --><div id="black-bar-wrapper" class="top-bar-item">
 			 		<div id="user-settings">
-						<span ng-show="hpUser.loggedIn">Welcome, <span class="textLink">{{ hpUser.firstName }}</span>
-							<span id="pref-btn" class="iconLink">
-								<a href="" class="fa fa-cog"></a>
+						<span ng-show="hpUser.loggedIn">Welcome, {{ hpUser.firstName }}
+							<span class="user-settings-btn" class="iconLink">
+								<a class="fa fa-cog" ng-click="settingsPanel = true"></a>
 							</span>
-							<span id="power-btn" class="iconLink">
+							<span class="user-settings-btn" class="iconLink">
 								<a class="fa fa-power-off" href="/php/controllers/logoutUser.php"></a>
 							</span>
 						</span>
@@ -227,7 +241,7 @@
 			<div id="bookmark-wrapper">
 				<div id="bookmarks">
 					<span id="add-more-bmarks" class="bookmark-category bookmark-list-item" ng-show="hpUser.loggedIn">
-						<span class="category-text">+</span>
+						<span class="category-text"><i class="fa fa-plus-square"></i></span>
 					</span>
 					<div id="bookmark-click-bg" ng-show="bookmarkToggle != -1" ng-click="bookmarkToggle = -1"></div>
 					<div class="bookmark-category bookmark-list-item" ng-repeat="bookmark in hpUser.bookmarks" ng-click="$parent.bookmarkToggle = $parent.bookmarkToggle == $index ? -1 : $index">
@@ -296,5 +310,7 @@
 		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
 		<script type="text/javascript" src="/js/quickbar/quickbar.js"></script>
         <script type="text/javascript" src="/todoList/todos.js"></script>
+        
+        <div class="clearAll"></div>
 	</body>
 </html>
