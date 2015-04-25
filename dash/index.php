@@ -236,6 +236,9 @@
 			<?php if ($alert == "widget-edit-fail"): ?><p class="bg-danger alertBox">Widget Slot Change Failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "widget-edit-success"): ?><p class="bg-success alertBox">Widget Slot Successfully Changed</p><?php endif; ?>
 			<?php if ($alert == "todo-duplicate"): ?><p class="bg-danger alertBox">Cannot Add Duplicates to To-Do List</p><?php endif; ?>
+			<?php if ($alert == "bookmark-add-success"): ?><p class="bg-success alertBox">Bookmark Added Successfully</p><?php endif; ?>
+			<?php if ($alert == "bookmark-delete-success"): ?><p class="bg-success alertBox">Bookmark Deleted Successfully</p><?php endif; ?>
+			<?php if ($alert == "bookmark-delete-fail"): ?><p class="bg-danger alertBox">Please Select a Bookmark to Delete</p><?php endif; ?>
 		</div>
 		
 		<!--END alert bar-->
