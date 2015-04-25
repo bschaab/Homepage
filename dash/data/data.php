@@ -12,7 +12,7 @@
 	$user->setQuickbarToDefault();
 	$user->setWidgetsToDefault();
 
-	$feedDisplayer = new FeedDisplayer();	// TODO move this
+	$feedDisplayer = new FeedDisplayer($userID);	// TODO move this
 ?>
 {
 	<?php
@@ -133,7 +133,7 @@
 		}
 	],
 	
-	"feed" : <?= $feedDisplayer->getFeedToDisplay($userID) ?>
+	"feed" : <?= $feedDisplayer->getFeedToDisplay() ?>
 }
 
 

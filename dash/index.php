@@ -187,6 +187,7 @@
 		
 		<div id="allow">
 			<a href="/twitter/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Twitter</a>
+			<a href="/php/controllers/instagram/requestAuthentication.php" ng-show="hpUser.loggedIn">Sign in with Instagram</a>
 		</div>
 
 		<div id="homepage-wrapper">
