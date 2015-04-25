@@ -242,7 +242,7 @@
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
-				<div id="logo" class="top-bar-item"><img src="../img/logo.png" alt="homepage" height="42"/></div>
+				<div id="logo" class="top-bar-item"><img src="../img/logo.png" alt="homepage" height="100%"/></div>
 				<div id="quickbar" class="top-bar-item">
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
