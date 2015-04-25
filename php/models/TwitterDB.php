@@ -90,16 +90,7 @@ class TwitterDB
         $oauthTokenSecret = $this->oauthTokenSecret;
         $username = $this->username;
 
-        $query = "SELECT * FROM twitter WHERE userID= $userID";
-        if (!$dbCom->runQuery($query)) {
-            return false;
-        }
-        if (!$result = $dbCom->getQueryResult()) {
-            $set = false;
-        }
-        else {
-            $set = true;
-        }
+        $set = $this->isTokenSet($dbCom, $userID);
 
         if ($set) {
             $query = "UPDATE twitter SET oauthToken='$oauthToken',oauthTokenSecret='$oauthTokenSecret', username='$username' WHERE userID= $userID";
@@ -112,6 +103,20 @@ class TwitterDB
             if (!$dbCom->runQuery($query)) {
                 return -2;
             }
+        }
+    }
+
+    // checks if token is already set for this user in database
+    function isTokenSet($dbCom, $userID) {
+        $query = "SELECT * FROM twitter WHERE userID= $userID";
+        if (!$dbCom->runQuery($query)) {
+            return false;
+        }
+        if (!$result = $dbCom->getQueryResult()) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
 }

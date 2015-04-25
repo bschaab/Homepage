@@ -5,10 +5,18 @@ function startTime() {
     var s=today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
-    document.getElementById('time').innerHTML = h%12+":"+m;
+    var hours = setHours(h);
+    document.getElementById('time').innerHTML = hours+":"+m;
     var t = setTimeout(function(){startTime()},500);
 }
 
+function setHours(h){
+    if(h==12){
+        return 12;
+    }
+    else
+        return h%12;
+}
 function checkTime(i) {
     if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;

@@ -314,6 +314,12 @@ body {
 
 	cursor: pointer;
 	position: relative;
+	color: rgba(200,200,200,1);
+	transition: .5s;
+}
+
+.bookmark-category:hover {
+	color: #FFF;
 }
 
 .bookmark-category ul {
@@ -327,6 +333,7 @@ body {
 	z-index: 100;
 }
 
+
 .bookmark-category ul > li {
 	margin-top: .2em;
 	display: block;
@@ -335,6 +342,7 @@ body {
 .bookmark-category ul > li a {
 	color: rgba(200,200,200,1);
 	text-decoration: none;
+	transition: .5s;
 }
 .bookmark-category ul > li a:hover {
 	color: rgba(255,255,255,1);

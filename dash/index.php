@@ -236,13 +236,16 @@
 			<?php if ($alert == "widget-edit-fail"): ?><p class="bg-danger alertBox">Widget Slot Change Failed. Please try again.</p><?php endif; ?>
 			<?php if ($alert == "widget-edit-success"): ?><p class="bg-success alertBox">Widget Slot Successfully Changed</p><?php endif; ?>
 			<?php if ($alert == "todo-duplicate"): ?><p class="bg-danger alertBox">Cannot Add Duplicates to To-Do List</p><?php endif; ?>
+			<?php if ($alert == "bookmark-add-success"): ?><p class="bg-success alertBox">Bookmark Added Successfully</p><?php endif; ?>
+			<?php if ($alert == "bookmark-delete-success"): ?><p class="bg-success alertBox">Bookmark Deleted Successfully</p><?php endif; ?>
+			<?php if ($alert == "bookmark-delete-fail"): ?><p class="bg-danger alertBox">Please Select a Bookmark to Delete</p><?php endif; ?>
 		</div>
 		
 		<!--END alert bar-->
 
 		<div id="homepage-wrapper">
 			<div id="top-bar">
-				<div id="logo" class="top-bar-item"><img src="../img/logo.png" alt="homepage" height="42"/></div>
+				<div id="logo" class="top-bar-item"><img src="../img/logo.png" alt="homepage" height="100%"/></div>
 				<div id="quickbar" class="top-bar-item">
 					<ul id="quickbar-list">
 						<li class="quickbar-item" ng-repeat="quickbarItem in hpUser.quickbarItems">
