@@ -47,7 +47,7 @@
 				forEach($twitter_objs as $feed_obj) {
 					$image_url = "";
 				
-					if(in_array("entities", $feed_obj)) {
+					if(array_key_exists("entities", $feed_obj)) {
 						$feed_entities = $feed_obj["entities"];
 						if(in_array("media", $feed_entities)) {
 							$image_url = $feed_entities["media"][0]["media_url"];
