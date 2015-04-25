@@ -12,7 +12,8 @@
 		function __construct($title, $link) {
 			$this->title = $title;
 			$this->link = $link;
-			$this->icon = "http://grabicon.com/icon?size=50&origin=" . rand() . ".com&domain=$link"; //TODO: copy this into our server so we don't request everytime
+			$this->icon = "http://grabicon.com/icon?size=50&domain=$link";
+			//if daily limit is reached, use key=46b9a2bd9dfa049d in the above url
 		}
 		
 		function getTitle() {
