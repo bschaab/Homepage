@@ -11,6 +11,7 @@
 <tr><td><a href="testDefaultCats.html">testDefaultCats</a></td></tr>
 <tr><td><a href="testAddCategory.html">testAddCategory</a></td></tr>
 <tr><td><a href="testBookmarkLink.html">testBookmarkLink</a></td></tr>
+<tr><td><a href="testRemoveCategory.html">testRemoveCategory</a></td></tr>
 </tbody></table>
 </body>
 </html>
