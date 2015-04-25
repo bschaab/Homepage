@@ -98,52 +98,35 @@
         		//console.log(resp);
         		var total = 5;
         		var j = 0;
-				while(size < 5 && j < (resp['messages'].length-2) ){
+				while(j < (resp['messages'].length) ){
 	        		 gapi.client.gmail.users.messages.get({
 	        	            'userId': 'me',
 	        	            'id' : resp['messages'][j]['id']
 	       			 }).execute(function(resp2){
+	       			 		console.log(resp2);
 		       			 	//console.log(resp['messages'][j]['id']); 
-		       			 	//console.log(resp2);
 		        			if(resp2['payload']['parts'] === undefined){
 		        			}
 		        			else{
-		        			var header = resp2['payload']['headers'];
-							var headerLength = header.length;
-								
-								if(headerLength >= 13){
+			        			var header = resp2['payload']['headers'];
+								var headerLength = header.length;
+			       			 	if(headerLength >= 13){
 									var tempObject = parseJsonType13(resp2);
-									/*
-									btn.onclick = function(){
-											 gapi.client.gmail.users.messages.delete({
-		        	            			'userId': 'me',
-		        	            			'id' : temp
-		       								 }).execute(function(resp){
-		       								 	location.reload();
-		       								 });
-	
-									};*/
-									/*
-									header.appendChild(snippet_html);
-									p.appendChild(content_html);
-									btn.appendChild(deleteZXC);
-									//btn.setAttribute("onclick", "deleteMessage(temp);");
-							
-									var d = document.getElementById("content");																
-									d.appendChild(header);
-									d.appendChild(p);
-									d.appendChild(btn);							
-									*/
-									//console.log(body);
-							        //console.log(snippet);
-				        			//console.log(from);
+
 
 									emailFeed.push(tempObject);
-									//console.log(emailFeed.length);
 									if(emailFeed.length >= 1){
 										processData(emailFeed);
 									}
 								} //endif header
+								else if(headerLength >= 9){
+									var tempObject = parseJsonType9(resp2);
+									emailFeed.push(tempObject);
+									if(emailFeed.length >= 1){
+										processData(emailFeed);
+									}									
+									
+								}
 								else{}
 								j = j+1;								
 							}			
@@ -178,9 +161,31 @@
 				'title' : title,									
 				'id' : temp
 			};
-			return tempObject;
-			
+			return tempObject;			
       }
+
+
+      function parseJsonType9(resp2){		        			
+      		var body = resp2['payload']['parts'][0]['body']['data'];
+		    body = decode64(body);
+		    var snippet = resp2['snippet'];
+      		var date = resp2['payload']['headers'][2]['value'];
+			var from = resp2['payload']['headers'][6]['value'];
+			var title = resp2['payload']['headers'][5]['value'];
+			var temp = resp2['id'];
+    		date = date.split(';')[1];
+			date = new Date(date);
+			var tempObject = {
+				'body' : body,
+				'from' : from,
+				'snippet' : snippet,
+				'date' : date,
+				'title' : title,									
+				'id' : temp
+			};
+			return tempObject;			
+      }
+
       
 		//process the email feeds array
       function processData(emailFeed){
@@ -214,7 +219,19 @@
 		      
       	//create a message
         function createMessage(emailFeed, emailNum) {
-        	if(emailFeed.length != 0){
+        	//alert(emailFeed.length);
+			/*
+			btn.onclick = function(){
+					 gapi.client.gmail.users.messages.delete({
+					'userId': 'me',
+					'id' : temp
+					 }).execute(function(resp){
+					 	location.reload();
+					 });
+		
+			};*/        	
+		    	
+        	if(emailFeed.length > 0){
 	        	document.getElementById("emailBody").innerHTML = emailFeed[emailNum]['body'];
 	        	var title = emailFeed[emailNum]['title'];
 	        	title = JSON.stringify(title);
@@ -230,6 +247,7 @@
 			}
 			else
 			{
+				alert("NO MESSAGES");
 				document.getElementById("emailBody").innerHTML = "you don't have any messages";
 			}
  			
@@ -238,7 +256,7 @@
 
   		function nextMessage(direction) {
   			if (direction == 'right') {
-  				if (emailNum < emailFeedGlobal.length) {
+  				if (emailNum < emailFeedGlobal.length-1) {
   					emailNum += 1; 
   				}
 
