@@ -24,23 +24,39 @@ calculatorWidget.factory("calcFactory", function() {
                 var lastChar = screenValue.innerHTML[tempLength - 1];
 
                 //erase everthing
-                if (buttonPressed == 'C') {
+                switch (buttonPressed){
+                case 'C':
                     screenValue.innerHTML = ''; //clear value
-                }
+                	break;
                 // If eval key is pressed, calculate and display the result
-                else if (buttonPressed == '=') {
+                case '=':
                     screenValue.innerHTML = evaluateString(screenValue.innerHTML);
-                }
-                else if (buttonPressed == '(') {
+                	break;
+                case '(':
                     countParanthesis += 1;
                     screenValue.innerHTML += buttonPressed;
-                }
-                else if (buttonPressed == 'sin' || buttonPressed == 'cos' || buttonPressed == 'tan' || buttonPressed == 'log') {
+                	break;
+                case 'sin':
                     countParanthesis += 1;
                     screenValue.innerHTML += buttonPressed;
                     screenValue.innerHTML += '(';
-                }
-                else if (buttonPressed == ')') {
+                	break;
+                case 'tan':
+                    countParanthesis += 1;
+                    screenValue.innerHTML += buttonPressed;
+                    screenValue.innerHTML += '(';
+                	break;
+                case 'cos':
+                    countParanthesis += 1;
+                    screenValue.innerHTML += buttonPressed;
+                    screenValue.innerHTML += '(';
+                	break;
+				case 'log':
+				    countParanthesis += 1;
+                    screenValue.innerHTML += buttonPressed;
+                    screenValue.innerHTML += '(';
+                	break;
+                case ')':
                     if (countParanthesis == 0) {
                         // alert("no matching paranthesis (");
                     }
@@ -48,16 +64,11 @@ calculatorWidget.factory("calcFactory", function() {
                         screenValue.innerHTML += buttonPressed;
                         countParanthesis -= 1;
                     }
-                }
-                //validate the operator operations(no two operators )
-                //else if(isOperator(buttonPressed)) {
-                //    screenValue.innerHTML = validateOperator(screenValue.innerHTML, buttonPressed);
-                //}
-                //validate decimal
-                else if (buttonPressed == '.') {
+                    break;             
+				case '.':
                     screenValue.innerHTML = inputDecimal(screenValue.innerHTML);
-                }
-                else if (buttonPressed == 'del') {
+                	break;
+                case 'del':
                     var tempLength = screenValue.innerHTML.length;
                     lastChar = screenValue.innerHTML[tempLength - 1];
                     if (isNumber(lastChar) || isOperator(lastChar) || lastChar == '.') {
@@ -79,11 +90,11 @@ calculatorWidget.factory("calcFactory", function() {
                             }
                         }
                     }
-                }
-                else {
+                    break;
+                default:
                     screenValue.innerHTML += buttonPressed;
-                }
-
+                
+				}
                 // prevent page jumps
                 e.preventDefault();
             }
