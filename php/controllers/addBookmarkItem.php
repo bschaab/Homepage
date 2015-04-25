@@ -26,7 +26,7 @@ if (strpos($link, "http://") === false) {
 }
 
 //add them to the bookmarks and save
-$user->addToBookmarks($name, $link, $category);
+$user->addToBookmarks($name, $link, $category, -1);
 $status = $user->saveUser();
 
 if ($status < 1) {

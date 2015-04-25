@@ -8,11 +8,13 @@ class BookmarkItem {
     protected $name;
     protected $link;
     protected $category;
+    protected $idx;
 
-    function __construct($name, $link, $category) {
+    function __construct($name, $link, $category, $idx) {
         $this->name = $name;
         $this->link = $link;
         $this->category = $category;
+        $this->idx = $idx;
     }
 
     function getName() {
@@ -25,6 +27,10 @@ class BookmarkItem {
 
     function getCategory() {
         return $this->category;
+    }
+
+    function getIdx() {
+        return $this->idx;
     }
 
 }

@@ -207,6 +207,28 @@ class DatabaseCommunicator {
 			return false;
 		}
 
+        //add the sample user's bookmarks
+        $query = "INSERT INTO bookmarks
+                  (userID, name, link, category) VALUES
+                  (1, 'Twitter', 'http://twitter.com', 'Social Media'),
+                  (1,'Facebook', 'http://facebook.com', 'Social Media'),
+                  (1,'Instagram', 'http://instagram.com', 'Social Media'),
+                  (1,'Twitter', 'http://twitter.com', 'Social Media'),
+                  (1,'Pinterest', 'http://pinterest.com', 'Social Media'),
+                  (1,'CNN', 'http://cnn.com', 'News'),
+                  (1,'Fox News', 'http://foxnews.com', 'News'),
+                  (1,'Huffington Post', 'http://huffingtonpost.com', 'News'),
+                  (1,'New York Times', 'http://nytimes.com', 'News'),
+                  (1,'National Public Radio', 'http://npr.com', 'News'),
+                  (1,'British Broadcasting Corporation', 'http://bbc.com', 'News'),
+                  (1,'The Wall Street Journal', 'http://wsj.com', 'News'),
+                  (1,'Reddit', 'http://reddit.com', 'Tech'),
+                  (1,'TechCrunch', 'http://techcrunch.com', 'Tech'),
+                  (1,'Hacker News', 'http://www.news.ycombinator.com', 'Tech');";
+        if (!$this->runQuery($query)) {
+            return false;
+        }
+
 		//add the sample user's twitter info
 		$query = "INSERT INTO twitter
                   (userID, oauthToken, oauthTokenSecret, username) VALUES

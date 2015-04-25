@@ -163,7 +163,7 @@
                 <br/>
                 <div ng-repeat="bookmark in hpUser.bookmarks" class="form-group">
                     <h1>{{bookmark.categoryName}}</h1>
-                    <li ng-repeat="site in bookmark.sites"><input name="deletedBmark" class='toggle' type='checkbox'><label data=''>&nbsp;&nbsp;{{site.bookmarkName}}</li>
+                    <li ng-repeat="site in bookmark.sites"><input name="deletedBmarkIdxs[]" class='toggle' type='checkbox' value={{site.bookmarkIdx}}><label data=''>&nbsp;&nbsp;{{site.bookmarkName}}</li>
                 </div>
                 <button type="submit" class="btn btn-primary">Delete</button>
                 <br/><br/>
