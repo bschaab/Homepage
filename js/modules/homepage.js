@@ -25,6 +25,14 @@ homepageApp.controller("homepageController", ["$scope", "userService",
 				event.preventDefault;
 			}
 			
+			$scope.buildDate = function(dateLong) {
+				var date = new Date(dateLong * 1000);
+				
+				var mins = date.getMinutes();
+				
+				return date.getHours() + ":" + (mins >= 10 ? mins : "0" + mins) + " " + (date.getMonth() + 1) + "/" + date.getDate();
+			}
+			
 			$scope.bookmarkToggle = -1;	// Initialize bookmark toggling
         }]
 );

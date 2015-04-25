@@ -58,14 +58,12 @@
 					$feed_objs[] = new FeedItem(
 						$feed_obj["text"],
 						$feed_obj["user"]["name"],
-						$feed_obj["created_at"],
+						strtotime($feed_obj["created_at"]),
 						"http://twitter.com/" . $feed_obj["user"]["screen_name"] . "/status/" . $feed_obj["id"],
 						"/img/icons/01_twitter.png",
 						$image_url,
 						1
 					);
-					
-					error_log($feed_obj["text"]);
 				}
 				
 				return $feed_objs;

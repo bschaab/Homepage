@@ -2,9 +2,21 @@
 	require_once 'TwitterFeed.php';
 	require_once 'InstagramFeed.php';
 	
+	function compare_feed_items($item1, $item2) {
+	
+		error_log("COMPARING");
+		error_log($item1["time"]);
+		error_log($item2["time"]);
+		error_log($item1["time"] > $item2["time"] ? 1 : -1);
+	
+		return $item1["time"] < $item2["time"] ? 1 : -1;
+	}
+	
 	class FeedDisplayer {
 		
 		private $feeds;
+		
+		private $priorities = array("feed-item-tiny", "feed-item-small", "feed-item-big", "feed-item-giant");
 		
 		public function __construct($userId) {
 			$this->feeds = array(new TwitterFeed($userId), new InstagramFeed($userId));
@@ -29,6 +41,10 @@
 					);
 				}
 			}
+			
+			usort($feed_array, "compare_feed_items");
+			
+			$feed_array = array_slice($feed_array, 0, 15);
 			
 			return json_encode($feed_array);
 		}

@@ -40,7 +40,7 @@
 					$feed_objs[] = new FeedItem(
 						$media->caption->text,
 						$media->user->full_name,
-						$media->created_time,
+						intval($media->created_time),
 						$media->link,
 						"/img/icons/10_instagram.png",
 						$media->images->low_resolution->url,

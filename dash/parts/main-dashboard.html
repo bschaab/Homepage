@@ -9,7 +9,7 @@
 					<span class="title-text" ng-if="!feedItem.author">Posted at:</span>
 					<span class="title-detail" ng-if="feedItem.author">{{feedItem.author}}</span>
 					<span class="title-text" ng-if="feedItem.author && feedItem.time">at</span>
-					<span class="title-detail" ng-if="feedItem.time">{{feedItem.time}}</span>
+					<span class="title-detail" ng-bind="buildDate(feedItem.time)" ng-if="feedItem.time"></span>
 				</div>
 				<div class="head-line">
 					{{feedItem.title}}
