@@ -3,12 +3,6 @@
 	require_once 'InstagramFeed.php';
 	
 	function compare_feed_items($item1, $item2) {
-	
-		error_log("COMPARING");
-		error_log($item1["time"]);
-		error_log($item2["time"]);
-		error_log($item1["time"] > $item2["time"] ? 1 : -1);
-	
 		return $item1["time"] < $item2["time"] ? 1 : -1;
 	}
 	

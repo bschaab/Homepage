@@ -54,16 +54,17 @@
 				for($i = 0; $i < min(10, count($popular->data)); $i++) {
 				
 					$media = $popular->data[$i];
-				
-					$feed_objs[] = new FeedItem(
-						$media->caption->text,
-						$media->user->full_name,
-						$media->created_time,
-						$media->link,
-						"/img/icons/10_instagram.png",
-						$media->images->low_resolution->url,
-						1
-					);
+					if($media !== null) {
+						$feed_objs[] = new FeedItem(
+							$media->caption !== null ? $media->caption->text : "No caption",
+							$media->user->full_name,
+							$media->created_time,
+							$media->link,
+							"/img/icons/10_instagram.png",
+							$media->images->low_resolution->url,
+							1
+						);
+					}
 				}
 			}
 			

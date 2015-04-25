@@ -38,8 +38,8 @@ class InstagramFeeds {
         }
         else {
         	$code = '';
-        	if (isset($_GET['code'])){
-				$code = $_GET['code'];				
+        	if (isset($_GET['code'])) {
+			$code = $_GET['code'];				
 	            $data = $this->myFeeds->getOAuthToken($code);
 	            if ($data->user->username == NULL) {
 	                echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
@@ -47,13 +47,14 @@ class InstagramFeeds {
 	            $this->user_token = $code;
 	            $this->myFeeds->setAccessToken($data);
         	}
-			else {
-				$code = '';
-				echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
-			}
+		else {
+			$code = '';
+			echo "<a href='{$this->myFeeds->getLoginUrl()}'>Login with Instagram</a>";
+		}
 
 
         }
+		 $test = $this->DBconnection->saveToken(1,$data->access_token,$data->user->username);
 		if(isset($data)){
 	        if($data->access_token != NULL){
 	            $test = $this->DBconnection->saveToken(1,$data->access_token,$data->user->username);
