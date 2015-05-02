@@ -52,7 +52,7 @@
 		<link href="/css/bootstrap.icon-large.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/css/calc.css">
         <link rel="stylesheet" type="text/css" href="/css/stocks.css">
-        <link rel="stylesheet" type="text/css" href="/todoList/todos.css">
+        <link rel="stylesheet" type="text/css" href="/css/todos.css">
 		<script type="text/javascript" src="/js/calculator/calculator.js"></script>
 		<script type="text/javascript" src="/Calculator/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="/js/calculator/math.min.js"></script>
@@ -351,7 +351,6 @@
 		<script type="text/javascript" src="/js/weather/simpleWeather.js"></script>
 		<script type="text/javascript" src="/js/weather/currentTime.js"></script>
 		<script type="text/javascript" src="/js/quickbar/quickbar.js"></script>
-        <script type="text/javascript" src="/todoList/todos.js"></script>
         
         <div class="clearAll"></div>
 	</body>
