@@ -1,15 +1,22 @@
 var calculatorWidget = angular.module("homepageApp");
 
+
+/**
+ * Angular Javascript for calculator widget
+ *
+ */
 calculatorWidget.factory("calcFactory", function() {
 
     var calcFac = {};
-
+    
+    /*
     calcFac.blahTest = function() {
         alert("hello");
         console.log("Hello");
-    }
+    }*/
 
-    calcFac.loadButtons = function() {
+
+		calcFac.loadButtons = function() {
 
         var keys = document.querySelectorAll('#calculator span');
 
@@ -100,14 +107,23 @@ calculatorWidget.factory("calcFactory", function() {
             }
 
 
-            /////////////////////////////*************************************/////////////////////////////////////
+
+			/**
+			 *
+			 * This function will empty the screen of the calculator 
+			 *
+			 */
             function clearScreen(){
                 var screenValue = document.querySelector('.screen');
                 screenValue.innerHTML = "";
             }
 
-
-            //evaluate the given string and return the value
+			/**
+			 * Evaluates the given string and returns the result
+			 *
+			 * @param {input}
+			 * @return {double}
+			 */
             function evaluateString(input) {
                 var equation = input;
                 var lastChar = equation[equation.length - 1];
@@ -120,6 +136,15 @@ calculatorWidget.factory("calcFactory", function() {
                 var result =  math.eval(equation);
                 return result;
             }
+            
+            /**
+			 * This function will check if the last operator of the screen is an operator or not
+			 * and will write another operator if it works or not
+			 * 
+			 * @param {input}
+			 * @param {operator}
+			 * @return {boolean}
+			 */
             function validateOperator(input,operator){
                 var lastChar = input[input.length - 1];
 
@@ -137,6 +162,13 @@ calculatorWidget.factory("calcFactory", function() {
                 return result;
             }
 
+
+			/**
+			 * Return the list of operators that the calculator uses
+			 *
+			 * @param{input}
+			 * @return {operatorList}
+			 */
             function inputDecimal(input){
                 result = input;
                 var lastChar = input[input.length - 1];
@@ -147,12 +179,21 @@ calculatorWidget.factory("calcFactory", function() {
                 return result;
             }
 
-
+			/**
+			 * Return the list of operators that the calculator uses
+			 *
+			 * @return {operatorList}
+			 */
             function getOperatorList(){
                 return ['+', '-', 'x', '/','^','÷','*','!'];
             }
 
-
+			/**
+			 * This function is used to check whether or not the input is a number
+			 *
+			 * @param {input}
+			 * @return {boolean}
+			 */
             function isNumber(input){
                 var numberList = ['0','1','2','3','4','5','6','7','8','9'];
                 for(var i = 0; i < numberList.length; i++)
@@ -163,6 +204,12 @@ calculatorWidget.factory("calcFactory", function() {
                 return false;
             }
 
+			/**
+			 * This function is used to check whether or not the input is an operator
+			 *
+			 * @param {input}
+			 * @return {boolean}
+			 */
             function isOperator(input){
                 if(input.length > 1)
                     return false;
@@ -181,6 +228,14 @@ calculatorWidget.factory("calcFactory", function() {
 });
 
 
+
+/**
+ * This function is used to set up the buttons in calc-html
+ * 
+ * @this {calculatorWidget}
+ * @param {input}
+ * @return {boolean}
+ */
 calculatorWidget.controller("calcController", ["$scope", "calcFactory",
     function($scope, calcFactory) {
 
