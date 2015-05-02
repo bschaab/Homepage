@@ -6,8 +6,8 @@
  * Time: 5:28 AM
  */
 
-require_once "../php/models/Todos.php";
-require_once "../php/models/Session.php";
+require_once "../models/Todos.php";
+require_once "../models/Session.php";
 
 header('Location: /index.php');
 
