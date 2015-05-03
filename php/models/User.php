@@ -5,7 +5,7 @@
     require_once "Bookmarks.php";
 	
 	/**
-	* Manages a User
+	*  This objects represent a user of the homepage service
 	*/
 	class User {
 		
@@ -32,6 +32,9 @@
 		function __construct() {
 			$widgets = array();
 		}
+		
+		
+		/* Getters & Setters */
 
 		function getTodos(){
 			return $this->todos;
@@ -87,8 +90,7 @@
         function getBookmarkIdxs($category) {
             return $this->bookmarks->getIdxs($category);
         }
-		
-		
+        
 		function setId($id) {
 			$this->id = $id;
 		}
@@ -117,43 +119,79 @@
 			$this->widgets[$index] = $widgetName;
 		}
 		
+		
+		
+		
+		
+		
+		
+		/**
+			* addToQuickbar adds an item to the quickbar
+			* @param $title title as a string of the item to be added
+			* @param $link link as a string of the item to be added
+     	*/
 		function addToQuickbar($title, $link) {
 			if (!$this->quickbar) { $this->quickbar = new Quickbar(); }
 			$this->quickbar->add($title, $link);
 		}
 		
+		/**
+			* setQuickbar replaces the whole quickbar
+			* @param $titles array of new titles as strings for the quickbar
+			* @param $links array of new links as strings for the quickbar
+			* 
+     	*/
 		function setQuickbar($titles, $links) {
 			if (!$this->quickbar) { $this->quickbar = new Quickbar(); }
 			$this->quickbar->set($titles, $links);
 		}
 		
+		/**
+			* setQuickbarToDefault initializes the quickbar to the default set of items
+     	*/
 		function setQuickbarToDefault() {
 			$this->quickbar = new Quickbar();
 			$this->quickbar->setToDefault();
 		}
 		
+		/**
+			* setWidgetsToDefault initializes the widget set to the default
+     	*/
 		function setWidgetsToDefault() {
 			$this->widgets[0] = 'spotifyMixedGenParty';
 	        $this->widgets[1] = 'calc';
 	        $this->widgets[2] = 'sudoku';
 		}
 
+		/**
+			* function
+     	*/
         function addToBookmarks($name, $link, $category, $idx) {
             if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
             $this->bookmarks->add($name, $link, $category, $idx);
         }
 
+		/**
+			* function
+     	*/
         function setBookmarks($names, $links, $categories, $idx) {
             if (!$this->bookmarks) { $this->bookmarks = new Bookmarks(); }
             $this->bookmarks->set($names, $links, $categories, $idx);
         }
 
+		/**
+			* function
+     	*/
         function setBookmarksToDefault() {
             $this->bookmarks = new Bookmarks();
             $this->bookmarks->setToDefault();
         }
 		
-		
+		/**
+			* loadUser loads in the values for the user from the database given the unique id
+			* @param $userID the unique id of the user
+			* @return true if success, false otherwise
+     	*/
 		function loadUser($userID) {
 			$dbCom = new DatabaseCommunicator();
 	
@@ -210,6 +248,10 @@
 	        return true;
 		}
 		
+		/**
+			* saveUser saves the user to the database
+			* @return the unique id of the user
+     	*/
 		function saveUser() {
 	        
 	        //manages updating or inserting the user into the database
@@ -227,9 +269,12 @@
 		}
 		
 		
-		// Helps the function saveUser().
-		// Manages updating or inserting the user into the database.
-		// Also will set the user id.
+		/**
+			* saveUserInsertUser helper function for saveUser() that handles
+			* 	updating/inserting the user into the database
+			* 	and setting the unique user id
+			* @return unique user id
+     	*/
 		function saveUserInsertUser() {
 			
 			$dbCom = new DatabaseCommunicator();
@@ -266,8 +311,12 @@
 			
 		}
 		
-		// Helps the function saveUser().
-		// Manages updating or inserting the quickbar for the user into the database.
+		
+		
+		/**
+			* saveUserInsertQuickbar helper function for saveUser() that handles
+			* 	inserting or updating the quickbar for the user
+     	*/
 		function saveUserInsertQuickbar() {
 			
 			$dbCom = new DatabaseCommunicator();
@@ -303,6 +352,9 @@
 
         // Helps the function saveUser().
         // Manages updating or inserting the bookmarks for the user into the database.
+        /**
+			* function
+     	*/
         function saveUserInsertBookmark() {
 
             $dbCom = new DatabaseCommunicator();
@@ -332,8 +384,10 @@
         }
 		
 		
-		// verifies a user by their email and password
-		// returns their id or false
+		/**
+			* verifyUser verifies a user by their email and password
+			* @return unique user id if verification succeeded, false otherwise
+     	*/
 		function verifyUser($rawPassword) {
 			
 			$dbCom = new DatabaseCommunicator();
@@ -369,6 +423,9 @@
 		}
 
         // removes a bookmark for the user given an index of the bookmark
+        /**
+			* function
+     	*/
         function removeBookmark($idx) {
             $dbCom = new DatabaseCommunicator();
 

@@ -3,7 +3,9 @@
 require_once "Session.php";
 
 /**
- * This class allows for communication with the database
+ *
+ * This object acts as a controller between the models and the database
+ *
  */
 class DatabaseCommunicator {
 
@@ -11,12 +13,16 @@ class DatabaseCommunicator {
 	protected $user = 'root';
 	protected $password = 'root';
 	protected $name = 'homepageDB';
-	//protected $host = "127.0.0.1:8889"; //for use on Nick's ridiculous computer only
-	protected $host = "127.0.0.1"; //for use on everyone else's computer
+	//protected $host = "127.0.0.1:8889";   // use for some configurations instead of the host below
+	protected $host = "127.0.0.1";          // use for normal configurations
 	protected $connection = null;
 
 	protected $result = null; //query result holder
 
+
+	/**
+		* creates, opens, and selects the database
+ 	*/
 	function __construct() {
 
 		//open database connection
@@ -31,29 +37,41 @@ class DatabaseCommunicator {
 
 	}
 
-
+	/**
+		* closes the database conection
+ 	*/
 	function __destruct() {
 		$this->close(); //close database connection
 	}
 
 
-	//open database connection
+	/**
+		* open opens the database connection and will die if connection fails
+		* 	This should only be called by the constructor.
+ 	*/
 	protected function open() {
-		//$this->connection = mysql_connect($this->host, $this->user, $this->password); //for use on Nick's ridiculous computer only
-		$this->connection = mysql_connect($this->host, $this->user); //for use on everyone else's computer
+		//$this->connection = mysql_connect($this->host, $this->user, $this->password);    // use for some configurations instead of the connection below
+		$this->connection = mysql_connect($this->host, $this->user);                       // use for normal configurations
 		if (!$this->connection) {
 			die("Database connection failed:" . mysql_error());
 		}
 	}
 
 
-	//close database connection
+	/**
+		* close closes the database connection
+		* 	This should only be called by the destructor.
+ 	*/
 	protected function close() {
 		//mysql_close($this->connection);
 	}
 
 
-	//select the database
+	/**
+		* select selects the database connection.
+		* 	This should only be called by the constructor.
+		* @return true upon success, false otherwise
+ 	*/
 	protected function select() {
 		if (!mysql_select_db($this->name, $this->connection)) {
 			return false;
@@ -62,7 +80,10 @@ class DatabaseCommunicator {
 	}
 
 
-	//setup the database
+	/**
+		* setup performs an initial setup of the database through SQL queries
+		* @return true upon success, false otherwise
+ 	*/
 	protected function setup() {
 		
 		//clear current session
@@ -97,8 +118,10 @@ class DatabaseCommunicator {
 	
 	
 	
-	//setup the tables
-	//called by setup()
+	/**
+		* setupTables helper function for setup() that sets up the tables in the database
+		* @return true upon success, false otherwise
+ 	*/
 	public function setupTables() {
 		
 		//create the users table
@@ -184,8 +207,10 @@ class DatabaseCommunicator {
 	
 	
 	
-	//setup the sample user
-	//called by setup() 
+	/**
+		* setupSampleUser helper function for setup() that sets up the sample user in the database
+		* @return true upon success, false otherwise
+ 	*/
 	public function setupSampleUser() {
 		
 		//create a sample user
@@ -244,7 +269,12 @@ class DatabaseCommunicator {
 
 
 
-	//query the database
+	/**
+		* runQuery performs a query on the database.
+			In order to get the query result, call getQueryResult() afterwards.
+		* @param $query the SQL query to be run
+		* @return true upon success, false otherwise
+ 	*/
 	public function runQuery($query) {
 		if (!($this->result = mysql_query($query, $this->connection))) {
 			return false;
@@ -252,18 +282,31 @@ class DatabaseCommunicator {
 		return true;
 	}
 
+
+	/**
+		* getQueryResult should be called after runQuery()
+		* @return the result from database from the last call to runQuery() 
+ 	*/
 	public function getQueryResult() {
 		if (!$this->result) { return null; }
 		return mysql_fetch_array($this->result);
 	}
 
+
+	/**
+		* getNumOfQueryResults should be called after runQuery()
+		* @return the number of rows of the result from database from the last call to runQuery() 
+ 	*/
 	public function getNumOfQueryResults() {
 		if (!$this->result) { return null; }
 		return mysql_num_rows($this->result);
 	}
 
 
-	//clean the database
+	/**
+		* clean performs a clean up on the database through setup() and select()
+		* @return true upon success, false otherwise
+ 	*/
 	public function clean() {
 		if (!$this->setup()) {
 			return false;
