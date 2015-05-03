@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dion
- * Date: 3/19/2015
- * Time: 6:51 AM
- */
-
 
 require_once('Instagram.php');
 require_once('InstagramTokenDB.php');
@@ -20,6 +13,15 @@ class InstagramFeeds {
     private $DBconnection;
 	private $authenticated;
 
+
+    /*
+        Constructor.  Establishes Database connection and 
+        authenticates user. 
+
+        @param {none}
+        @returns {none}
+
+    */
     public function __construct() {
         $this->DBconnection = new InstagramTokenDB();
 
@@ -67,43 +69,52 @@ class InstagramFeeds {
         echo "<a href= 'https://instagram.com/accounts/logout'> logout </a>";
     }
 
+
+    /*
+        Retreives the login URL of the current feed. 
+        @return {loginURL} the login URL of the current feed. 
+    */
     public function getLoginUrl(){
         return $this->myFeeds->getLoginUrl();
     }
 
 
+    /*
+        Checks to see if the user is logged in.
+        @return {true}  The user is logged in.
+        @return {false} The user is not logged in.
+    */
     public function userLoginCheck(){
-    	/*
-	        $code = $_GET['code'];
-	        $data = $this->myFeeds->getOAuthToken($code);
-	        echo 'Your username is: ' . $data->user->username;
-	        if($data->user->username == NULL){
-				return false;
-	        }
-	        //$this->myFeeds->setAccessToken($data);
-    		return true;		
-		*/
 		if(isset($_GET['code'])){
 			return true;
 		}	
-		else{
+		else {
 	        return false;					
 		}
     }
 
+    /*
+        Sets the Instagram token for authentication. 
+        @param  {none}
+        @return {none}
+    */
     public function setToken(){
         if ($_SESSION['InstagramAccessToken'] == ''){
             $accessToken = $this->myFeeds->getAccessToken();
             $_SESSION['InstagramAccessToken'] = $accessToken;
             echo "TOKEN NOT SET";
-        }else{
+        } else {
             $accessToken = $_SESSION['InstagramAccessToken'];
             $this->myFeeds->setAccessToken($_SESSION['InstagramAccessToken']);
             echo "TOKEN SET";
         }
     }
 
-
+    /*
+        Retreives the most popular feeds for set user.
+        @param {limit} The number of feeds 
+        @return {none}
+    */
     public function getPopularFeeds($limit){
         $feedsList = array();
         if($limit < 0) {
@@ -145,9 +156,6 @@ class InstagramFeeds {
             // create meta section
             $avatar = $media->user->profile_picture;
             $username = $media->user->username;
-            //var_dump($media);
-            //echo "TIME";
-            //echo $media->user->created_time;
             $comment = (!empty($media->caption->text)) ? $media->caption->text : '';
             $content .= "<div class=\"content\">
                            <div class=\"avatar\" style=\"background-image: url({$avatar})\"></div>
@@ -162,7 +170,11 @@ class InstagramFeeds {
         return $feedsList;
     }
 
-
+    /*
+        Retreives the feeds for set user.
+        @param {limit} The number of feeds 
+        @return {none}
+    */
     public function getUserFeeds($limit){
         $feedsList = array();
         if($limit < 0) {
