@@ -4,6 +4,10 @@
 	require_once __DIR__.'/../TwitterDB.php';
 	require_once __DIR__.'/../../../twitter/TwitterAPIExchange.php';
 	
+	/**
+	 * This object represents the Twitter implementation of a feed. Authentication to Twitter occurs upon instantiation.
+	 * If the user has not signed into Twitter, the user will not receive any FeedItems from Twitter
+	 */
 	class TwitterFeed implements ExternalFeed {
 	
 		private $twitter_obj;	
@@ -36,6 +40,9 @@
 			
 		}
 		
+		/**
+		 * implements getFeedItems() of ExternalFeed. If the user is not authenticated, this method will return an empty array
+		 */
 		public function getFeedItems() {
 			if($this->twitter_obj !== null) {
 				$result_str = $this->twitter_obj->setGetfield('?count=10')->buildOauth("https://api.twitter.com/1.1/statuses/home_timeline.json", "GET")->performRequest();

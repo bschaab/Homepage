@@ -1,4 +1,7 @@
 <?php
+    /**
+     * This object represents one item to display in the feed
+     */
 	class FeedItem {
 		protected $title;
 		protected $author;

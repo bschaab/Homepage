@@ -4,6 +4,9 @@
 	require_once __DIR__.'/../../../instagram/Instagram.php';
 	require_once __DIR__.'/../InstagramTokenDB.php';
 	
+	/**
+	 * This object represents the Instagram feed. It authenticates to Instagram upon instantiation
+	 */
 	class InstagramFeed implements ExternalFeed {
 	
 		private $instagramObj;
@@ -30,6 +33,10 @@
 			}
 		}
 		
+		/**
+		 * Implements the getFeedItems() method of external feed. If the user is not authenticated to Instagram, the popular
+		 * feed is shown instead
+		 */
 		public function getFeedItems() {
 			$feed_objs = array();
 		
