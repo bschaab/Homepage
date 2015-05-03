@@ -13,7 +13,11 @@ class Bookmarks {
 
     }
 
-
+    /**
+     * getNames a function that takes a category and returns the list of all bookmark names for that category
+     * @param $category a category you would like to get the bookmarks' names from
+     * @return array an array with the list of bookmarks' names matching that category
+     */
     function getNames($category) {
         $items = [];
         for ($i=0; $i<sizeof($this->bookmarks); $i++) {
@@ -24,6 +28,11 @@ class Bookmarks {
         return $items;
     }
 
+    /**
+     * getLinks a function that takes a category and returns the links of all bookmarks for that category
+     * @param $category a category you would like to get the bookmarks' links from
+     * @return array an array with the list of bookmarks' links matching that category
+     */
     function getLinks($category) {
         $items = [];
         for ($i=0; $i<sizeof($this->bookmarks); $i++) {
@@ -34,6 +43,10 @@ class Bookmarks {
         return $items;
     }
 
+    /**
+     * getCategories a function that returns a list containing all the categories for a user
+     * @return array an array that holds all the categories stored for a user
+     */
     function getCategories() {
         $items = [];
         $idx = -1;
@@ -52,6 +65,11 @@ class Bookmarks {
         return $items;
     }
 
+    /**
+     * getIdxs a function that returns a list of all the indexes for the bookmarks in the category for a user
+     * @param $category a category to get the indexes from
+     * @return array a list of all the indexes for a category
+     */
     function getIdxs($category) {
         $items = [];
         for ($i=0; $i<sizeof($this->bookmarks); $i++) {
@@ -62,12 +80,18 @@ class Bookmarks {
         return $items;
     }
 
+    /**
+     * getSize a function that returns the number of bookmarks for a user
+     * @return int an int containing the number of bookmarks for a user
+     */
     function getSize() {
         return sizeof($this->bookmarks);
     }
 
 
-    //set the bookmarks to have the default items
+    /**
+     * setToDefault a function that sets the default bookmarks for a user to the list below
+     */
     public function setToDefault() {
         $this->bookmarks = [
             new BookmarkItem("Facebook", "http://facebook.com", 'Social Media', 1),
@@ -87,28 +111,39 @@ class Bookmarks {
         ];
     }
 
-    //adds a new BookmarkItem to the Bookmarks
+
+    /**
+     * add a function that adds a new BookmarkItem to the Bookmarks
+     * @param $name the name of the bookmark to add
+     * @param $link the link of the bookmark to add
+     * @param $category the category of the bookmark to add
+     * @param $idx the index of the bookmark to add
+     */
     public function add($name, $link, $category, $idx) {
         array_push($this->bookmarks, new BookmarkItem($name, $link, $category, $idx));
     }
 
-    //remove all items in the Bookmarks
+
+    /**
+     * clear a function that removes all the items in the Bookmarks
+     */
     public function clear() {
         $this->bookmarks = array();
     }
 
-    //set the Bookmarks to contain the given titles, links, and categories
+    /**
+     * set a function that sets the Bookmarks to contain the given titles, links, and categories
+     * @param $names a name to set the bookmark to
+     * @param $links a link to set the bookmark to
+     * @param $categories a category to set the bookmark to
+     * @param $idxs a index to set the bookmark to
+     */
     public function set($names, $links, $categories, $idxs) {
         $this->clear();
         for ($i=0; $i<sizeof($names); $i++) {
             $this->add($names[$i], $links[$i], $categories[$i], $idxs[$i]);
         }
     }
-
-    public function remove($name, $link, $category, $idx) {
-
-    }
-
 }
 
 ?>
