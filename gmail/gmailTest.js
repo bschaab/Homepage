@@ -121,37 +121,6 @@ QUnit.test( "DirectionTest", function( assert ) {
 
 });
 
-QUnit.test( "testRedirectURL", function( assert ) {
-	var emailFeed = [];
-	var emailObject = {
-		'body' : "body",
-		'from' : "from",
-		'snippet' : "snippet",
-		'date' : new Date("Fri, 24 Apr 2015 15:39:05 -0700 (PDT)"),
-		'title' : "title",									
-		'id' : "temp"
-	};
-	
-	var emailObject2 = {
-		'body' : "body2",
-		'from' : "from2",
-		'snippet' : "snippet2",
-		'date' : new Date("Fri, 25 Apr 2015 15:39:05 -0700 (PDT)"),
-		'title' : "title2",									
-		'id' : "temp2"
-	};
-
-	emailFeed.push(emailObject);
-	emailFeed.push(emailObject2);
-	processData(emailFeed);
-	var string = redirectUser();
-	assert.ok(string == "https://mail.google.com/mail/u/0/#inbox/temp2","generate redirect url ok");
-
-});
-
-
-
-
 
 
 
