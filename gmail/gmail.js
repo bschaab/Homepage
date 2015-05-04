@@ -322,14 +322,7 @@
 		* @return {emailNum} the number of emails to display. 
 	*/  
 	function createMessage(emailFeed, emailNum) {
-			
-		btn.onclick = function() { 
-			gapi.client.gmail.users.messages.delete({
-			'userId': 'me',
-			'id' : temp
-			}).execute(function(resp) { location.reload(); }); 
-		};        	
-		    	
+			    	
 		$(window).trigger('resize');
 
         if(emailFeed.length > 0) {
