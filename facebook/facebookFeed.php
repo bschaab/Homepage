@@ -51,12 +51,9 @@ use Facebook\FacebookServerException;
 
 session_start();
 
-
 FacebookSession::setDefaultApplication('1377605292563276', 'decb071577e08925990eabb4b3c9d5a5');
 
-
 $helper = new FacebookRedirectLoginHelper( 'http://localhost:80/facebook/facebookFeed.php/' );
-
 
 if ( isset( $_SESSION ) && isset( $_SESSION['fb_token'] ) ) {
   // create new session from saved access_token
@@ -100,8 +97,6 @@ if ( isset( $session ) ) {
   // create a session using saved token or the new one we generated at login
   $session = new FacebookSession( $session->getToken() );
   
-
-
   $request = new FacebookRequest(
     $session,
     'GET',
@@ -109,12 +104,6 @@ if ( isset( $session ) ) {
 
   $response = $request->execute();
   $graphObject = $response->getGraphObject()->asArray();
-
-//  print_r(array_values($graphObject));
-
-
-  //echo $graphObject['data'][0]->from->name;
-
 
   $i = 0;
   while($graphObject['data'][$i])
@@ -130,57 +119,6 @@ if ( isset( $session ) ) {
       $i++;
   }
 
-
-
-
-
-
-
-    //  $data = (new FacebookRequest(
-    //     $session, 'GET', '/me/posts'
-    // ))->execute()->getGraphObject()->getPropertyAsArray("data");
-
-    //  echo sizeof($data);
-
-    // foreach ($data as $post){
-
-    //     $postId = $post->getProperty('id');
-    //     $postMessage = $post->getProperty('message');
-    //     print "$postId - $postMessage <br />";
-    // }
-
-  // get response
-  //$graphObject = $response->getGraphObject()->asArray();
-  //$feed = json_decode(file_get_contents($request));
-  
-
-
-
-  // $token_url = "https://graph.facebook.com/oauth/access_token?"
-  //       . "client_id=".$config['1377605292563276']."&redirect_uri=" . urlencode($config['callback_url'])
-  //       . "&client_secret=".$config['decb071577e08925990eabb4b3c9d5a5']."&code=" . $_GET['code'];
- 
-  //   $response2 = file_get_contents($token_url);
-  //   $params = null;
-  //   parse_str($response2, $params);
- 
-  //   $graph_url = "https://graph.facebook.com/me/feed?access_token=".$params[$session->getToken()];
-  //   $feed = json_decode(file_get_contents($graph_url));
-
-    // Get stuff and display it. 
-
-    
-
-
-
-    ///
-
-
-  
-  // print profile data
-  //echo '<pre>' . print_r( $graphObject, 1 ) . '</pre>';
-  
-  // print logout url using session and redirect_uri (logout.php page should destroy the session)
   echo '<a href="' . $helper->getLogoutUrl( $session, 'http://yourwebsite.com/app/logout.php' ) . '">Logout</a>';
   
 } else {
@@ -199,22 +137,10 @@ if ( isset( $session ) ) {
 
 
 <html lang="en">
-
-
-
 <head>
-
-
-
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
   <title>Title Goes Here</title>
-
-
-
 </head>
-
-
 
 <body>
 
@@ -231,8 +157,4 @@ if ( isset( $session ) ) {
 
 
 </body>
-
-
-
 </html>
-
