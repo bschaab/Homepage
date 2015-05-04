@@ -14,6 +14,7 @@ header('Location: /index.php');
 
 $session = new Session();
 
+//setUserID and then save the task
 $todos = new Todos();
 $todos->setUserID($session->getSessionVariable('userID'));
 $todos->setTask($_POST['task']);

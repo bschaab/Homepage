@@ -29,12 +29,14 @@ if (strpos($link, "http://") === false) {
 $user->addToBookmarks($name, $link, $category, -1);
 $status = $user->saveUser();
 
+//display error
 if ($status < 1) {
     $redirect_url = "/dash/?alert=bookmark-add-fail";
     header('Location: ' .  $redirect_url);
     exit;
 }
 
+//redirect on success
 $redirect_url = "/dash/?alert=bookmark-add-success";
 header('Location: ' .  $redirect_url);
 exit;

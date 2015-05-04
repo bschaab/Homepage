@@ -14,6 +14,7 @@ header('Location: /index.php');
 
 $session = new Session();
 
+//Set UserID then delete the task
 $todos = new Todos();
 $todos->setUserID($session->getSessionVariable('userID'));
 $todos->setTask($_POST['hiddenTask']);
