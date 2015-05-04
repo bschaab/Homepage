@@ -43,6 +43,11 @@
 			if($this->instagramObj->getAccessToken() !== null && $this->instagramObj->getAccessToken() !== "") {
 			
 				$feeds = $this->instagramObj->getUserFeed(10);
+				
+				if($feeds === null) {
+					return array();
+				}
+				
 				foreach ($feeds->data as $media) {
 					$feed_objs[] = new FeedItem(
 						$media->caption->text,

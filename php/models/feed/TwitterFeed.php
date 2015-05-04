@@ -51,6 +51,10 @@
 				
 				$feed_objs = array();
 				
+				if($twitter_objs === null) {
+					return array();
+				}
+				
 				forEach($twitter_objs as $feed_obj) {
 					$image_url = "";
 				
