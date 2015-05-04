@@ -14,6 +14,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 header('Location: /');
 $session = new Session();
 
+//Define Keys
 define("CONSUMER_SECRET","2OSfTohYKDc338orDKT7KzwmuRbctpP65riLFgURLwl9xAn2x5");
 define("CONSUMER_KEY", "lv9iiNeCkmBOX523sOqy5BvLI");
 define("OAUTH_CALLBACK", "http://localhost/twitter/requestAuthentication.php");
@@ -30,6 +31,7 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $request_token['oa
 
 $access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
 
+//Set tokens and save the tokens to db
 $twitterDB = new TwitterDB();
 $twitterDB->setUserID($session->getSessionVariable('userID'));
 $twitterDB->setOauthToken($access_token["oauth_token"]);
