@@ -59,9 +59,16 @@
 						if(in_array("media", $feed_entities)) {
 							$image_url = $feed_entities["media"][0]["media_url"];
 						}
-						else {
+						elseif(in_array("profile_image_url", $feed_obj["user"])) {
+							$image_url = $feed_obj["user"]["profile_image_url"];
+						}
+						elseif(in_array("profile_banner_url", $feed_obj["user"])) {
 							$image_url = $feed_obj["user"]["profile_banner_url"];
 						}
+						else {
+							$image_url = "";
+						}
+						
 					
 						$feed_objs[] = new FeedItem(
 							$feed_obj["text"],
